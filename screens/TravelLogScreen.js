@@ -25,7 +25,7 @@ import { SwipeListView } from "react-native-swipe-list-view";
 var travelHistory = {
   "26 May 2021": ["VivoCity", "Suntec City", "Somerset Shopping Centre"],
   "25 May 2021": ["Parkway Parade", "NEX Mall"],
-  "24 May 2021": ["J-Cube", "Westgate Mall"],
+  "24 May 2021": ["J-Cube"],
 };
 
 var travelDates = Object.keys(travelHistory);
