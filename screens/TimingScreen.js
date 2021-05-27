@@ -19,10 +19,16 @@ const TimingScreen = ({ navigation }) => {
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
-  const onChange = (event, selectedDate) => {
+  const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
+  };
+
+  const onChangeTime = (event, selectedTime) => {
+    const currentTime = selectedTime || date;
+    setShow(Platform.OS === "ios");
+    setTime(currentTime);
   };
 
   return (
@@ -44,7 +50,7 @@ const TimingScreen = ({ navigation }) => {
           mode={"date"}
           is24Hour={true}
           display="default"
-          onChange={onChange}
+          onChange={onChangeDate}
           style={{ width: 130, alignSelf: "center", paddingTop: 50 }}
         />
         <DateTimePicker
@@ -53,7 +59,7 @@ const TimingScreen = ({ navigation }) => {
           mode={"time"}
           is24Hour={true}
           display="default"
-          onChange={onChange}
+          onChange={onChangeTime}
           style={{
             width: 85,
             alignSelf: "center",

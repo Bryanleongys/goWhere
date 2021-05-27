@@ -14,7 +14,9 @@ import {
   Icon,
   Title,
 } from "native-base";
+import { Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { SwipeListView } from "react-native-swipe-list-view";
 
 const AddTravelScreen = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
@@ -26,6 +28,16 @@ const AddTravelScreen = ({ navigation }) => {
     setShow(Platform.OS === "ios");
     setDate(currentDate);
   };
+
+  const handlePress = () => {
+    return Alert.alert("Location Added!", "", [
+      {
+        text: "OK",
+        onPress: () => navigation.goBack(),
+      },
+    ]);
+  };
+
   return (
     <Container>
       <Header style={{ backgroundColor: "#bff6eb" }}>
@@ -56,6 +68,19 @@ const AddTravelScreen = ({ navigation }) => {
             style={{ width: 130, alignSelf: "center", paddingTop: 50 }}
           />
         </Item>
+        <Content style={{ paddingTop: 20 }}>
+          <Button
+            block
+            style={{
+              backgroundColor: "#bff6eb",
+              width: 300,
+              alignSelf: "center",
+            }}
+            onPress={handlePress}
+          >
+            <Text style={{ color: "#000000" }}>Update Travel Log</Text>
+          </Button>
+        </Content>
       </Content>
     </Container>
   );

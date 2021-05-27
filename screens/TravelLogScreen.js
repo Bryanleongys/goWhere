@@ -18,14 +18,18 @@ import {
   FooterTab,
   Separator,
   Item,
+  List,
 } from "native-base";
 import { SwipeListView } from "react-native-swipe-list-view";
+import SwipeListElement from "./SwipeListElement";
 
 // Object containing key: date and value: array of locations pair
 var travelHistory = {
   "26 May 2021": ["VivoCity", "Suntec City", "Somerset Shopping Centre"],
   "25 May 2021": ["Parkway Parade", "NEX Mall"],
-  "24 May 2021": ["J-Cube"],
+  "24 May 2021": ["J-Cube", "Westgate Mall"],
+  "23 May 2021": ["Bedok Mall", "Bedok Point"],
+  "22 May 2021": ["Tampines Mall", "White Sands"],
 };
 
 var travelDates = Object.keys(travelHistory);
@@ -57,16 +61,12 @@ class TravelLogScreen extends Component {
           {travelDates.map((date, index) => {
             return (
               <Content>
-                <Separator bordered>
+                <Separator bordered style={{ height: 35 }}>
                   <Text>{date}</Text>
                 </Separator>
-                {travelLocations[index].map((location, j) => {
-                  return (
-                    <ListItem>
-                      <Text>{location}</Text>
-                    </ListItem>
-                  );
-                })}
+                <List>
+                  <SwipeListElement inputArray={travelLocations[index]} />
+                </List>
               </Content>
             );
           })}
