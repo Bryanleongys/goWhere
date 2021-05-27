@@ -1,3 +1,4 @@
+// Navigates here after clicking Choose Location button on JomeScreen
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import {

@@ -1,3 +1,4 @@
+// Navigates here after selecting "Time" on PreferencesScreen
 import React, { useState } from "react";
 import { View, Platform, StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";

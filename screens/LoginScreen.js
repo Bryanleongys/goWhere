@@ -1,3 +1,4 @@
+// Navigates here when Log In button is clicked on WelcomeScreen
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import {

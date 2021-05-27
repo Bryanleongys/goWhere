@@ -1,3 +1,4 @@
+// Navigates here when Update Clique button is clicked on HomeScreen
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import {
