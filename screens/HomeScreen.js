@@ -1,3 +1,4 @@
+// Navigates here after Logging In
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import {

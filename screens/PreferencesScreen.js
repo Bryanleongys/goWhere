@@ -1,3 +1,4 @@
+// Navigates here when clicking next button on InputLocationScreen
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import {

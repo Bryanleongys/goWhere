@@ -1,3 +1,4 @@
+// Location Element for InputLocationScreen
 import React, { Component } from "react";
 import {
   Container,

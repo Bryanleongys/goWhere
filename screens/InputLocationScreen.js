@@ -1,3 +1,4 @@
+// Navigates here after clicking next button on SelectPersonScreen
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import {

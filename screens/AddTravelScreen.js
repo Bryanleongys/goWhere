@@ -1,3 +1,4 @@
+// Navigates here when plus button is pressed from Travel Log Screen
 import React, { Component, useState } from "react";
 import {
   Container,
