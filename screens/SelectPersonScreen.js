@@ -36,6 +36,7 @@ class SelectPersonScreen extends Component {
       checkbox3: false,
       checkbox4: false,
     };
+    attendingArray = [];
   }
   toggleSwitch1() {
     this.setState({
@@ -44,8 +45,10 @@ class SelectPersonScreen extends Component {
     if (!Object.values(this.state)[0]) {
       attendingArray[0] = peopleArray[0];
     } else {
-      attendingArray[0] = null;
+      const id = attendingArray.indexOf(peopleArray[0]);
+      attendingArray.splice(id, 1);
     }
+    console.log(attendingArray);
   }
 
   toggleSwitch2() {
@@ -55,8 +58,10 @@ class SelectPersonScreen extends Component {
     if (!Object.values(this.state)[1]) {
       attendingArray[1] = peopleArray[1];
     } else {
-      attendingArray[1] = null;
+      const id = attendingArray.indexOf(peopleArray[1]);
+      attendingArray.splice(id, 1);
     }
+    console.log(attendingArray);
   }
 
   toggleSwitch3() {
@@ -66,8 +71,10 @@ class SelectPersonScreen extends Component {
     if (!Object.values(this.state)[2]) {
       attendingArray[2] = peopleArray[2];
     } else {
-      attendingArray[2] = null;
+      const id = attendingArray.indexOf(peopleArray[2]);
+      attendingArray.splice(id, 1);
     }
+    console.log(attendingArray);
   }
 
   toggleSwitch4() {
@@ -77,8 +84,10 @@ class SelectPersonScreen extends Component {
     if (!Object.values(this.state)[3]) {
       attendingArray[3] = peopleArray[3];
     } else {
-      attendingArray[3] = null;
+      const id = attendingArray.indexOf(peopleArray[3]);
+      attendingArray.splice(id, 1);
     }
+    console.log(attendingArray);
   }
   render() {
     return (
@@ -92,7 +101,7 @@ class SelectPersonScreen extends Component {
             justifyContent: "center",
           }}
         >
-          <Text style={styles.question}>Who do you wanna hang with?</Text>
+          <Text style={styles.question}>Whose coming for this outing?</Text>
           <ListItem
             button
             onPress={() => this.toggleSwitch1()}
@@ -159,7 +168,11 @@ class SelectPersonScreen extends Component {
               <Icon name="caret-back-sharp" />
             </Button>
             <Button
-              onPress={() => this.props.navigation.push("LocationScreen2")}
+              onPress={() =>
+                this.props.navigation.navigate("LocationScreen2", {
+                  people: attendingArray,
+                })
+              }
             >
               <Icon name="caret-forward-sharp" />
             </Button>

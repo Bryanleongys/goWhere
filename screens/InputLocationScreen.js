@@ -21,33 +21,32 @@ import LocationElement from "./LocationElement";
 
 const people = ["Miss Minutes", "Loki", "Thor", "Drag Queen"];
 
-class InputLocationScreen extends Component {
-  render() {
-    return (
-      <Container style={styles.container}>
-        <Content contentContainerStyle={styles.content}>
-          <Text style={{ alignSelf: "center", paddingBottom: 20 }}>
-            {" "}
-            Where will you be before the outing?{" "}
-          </Text>
-          {people.map((person, i) => (
-            <LocationElement key={person} name={person} />
-          ))}
-        </Content>
-        <Footer style={styles.container}>
-          <FooterTab>
-            <Button onPress={() => this.props.navigation.goBack()}>
-              <Icon name="caret-back-sharp" />
-            </Button>
-            <Button onPress={() => this.props.navigation.push("Preferences")}>
-              <Icon name="caret-forward-sharp" />
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
-    );
-  }
-}
+const InputLocationScreen = ({ navigation, route }) => {
+  const { people } = route.params;
+  return (
+    <Container style={styles.container}>
+      <Content contentContainerStyle={styles.content}>
+        <Text style={{ alignSelf: "center", paddingBottom: 20 }}>
+          {" "}
+          Where will y'all be before the outing?{" "}
+        </Text>
+        {people.map((person, i) => (
+          <LocationElement key={person} name={person} />
+        ))}
+      </Content>
+      <Footer style={styles.container}>
+        <FooterTab>
+          <Button onPress={() => navigation.goBack()}>
+            <Icon name="caret-back-sharp" />
+          </Button>
+          <Button onPress={() => navigation.push("Preferences")}>
+            <Icon name="caret-forward-sharp" />
+          </Button>
+        </FooterTab>
+      </Footer>
+    </Container>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

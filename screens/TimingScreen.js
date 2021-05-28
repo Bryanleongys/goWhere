@@ -72,7 +72,7 @@ const TimingScreen = ({ navigation }) => {
           <Button onPress={() => navigation.goBack()}>
             <Icon name="caret-back-outline" />
           </Button>
-          <Button onPress={() => console.log("Button Pressed")}>
+          <Button onPress={() => navigation.push("GoogleMap")}>
             <Icon name="caret-forward-outline" />
           </Button>
         </FooterTab>

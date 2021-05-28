@@ -118,7 +118,13 @@ class SelectPersonScreen extends Component {
             <Button onPress={() => this.props.navigation.goBack()}>
               <Icon name="caret-back-outline" />
             </Button>
-            <Button onPress={() => this.props.navigation.push("Timing")}>
+            <Button
+              onPress={
+                this.state.checkbox1
+                  ? () => this.props.navigation.push("Timing")
+                  : () => this.props.navigation.push("GoogleMap")
+              }
+            >
               <Icon name="caret-forward-outline" />
             </Button>
           </FooterTab>

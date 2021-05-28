@@ -24,7 +24,10 @@ const HomeScreen = ({ navigation }) => {
     <Container style={styles.container}>
       <Header transparent>
         <Left>
-          <Button transparent onPress={() => navigation.toggleDrawer()}>
+          <Button
+            transparent
+            onPress={() => console.log("Menu Button Pressed")}
+          >
             <Icon name="menu-sharp" style={{ color: "#323232" }} />
           </Button>
         </Left>

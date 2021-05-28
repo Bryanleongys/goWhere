@@ -15,6 +15,7 @@ import Timing from "./screens/TimingScreen";
 import UpdateClique from "./screens/UpdateCliqueScreen";
 import TravelLog from "./screens/TravelLogScreen";
 import AddTravel from "./screens/AddTravelScreen";
+import GoogleMap from "./screens/GoogleMapScreen";
 
 const AuthStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -55,6 +56,7 @@ const LocationStackScreen = () => {
       <LocationStack.Screen name="LocationScreen2" component={InputLocation} />
       <LocationStack.Screen name="Preferences" component={Preferences} />
       <LocationStack.Screen name="Timing" component={Timing} />
+      <LocationStack.Screen name="GoogleMap" component={GoogleMap} />
     </LocationStack.Navigator>
   );
 };
