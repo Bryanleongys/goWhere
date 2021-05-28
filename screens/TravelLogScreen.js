@@ -20,7 +20,6 @@ import {
   Item,
   List,
 } from "native-base";
-import { SwipeListView } from "react-native-swipe-list-view";
 import SwipeListElement from "./SwipeListElement";
 
 // Object containing key: date and value: array of locations pair
@@ -35,46 +34,53 @@ var travelHistory = {
 var travelDates = Object.keys(travelHistory);
 var travelLocations = Object.values(travelHistory); // array of arrays
 
-class TravelLogScreen extends Component {
-  render() {
-    return (
-      <Container style={styles.container}>
-        <Header style={{ backgroundColor: "#bff6eb" }}>
-          <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Travel Log</Title>
-          </Body>
-          <Right>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.push("TravelScreen2")}
-            >
-              <Icon name="ios-add" />
-            </Button>
-          </Right>
-        </Header>
-        <Content>
-          {travelDates.map((date, index) => {
-            return (
-              <Content>
-                <Separator bordered style={{ height: 35 }}>
-                  <Text>{date}</Text>
-                </Separator>
-                <List>
-                  <SwipeListElement inputArray={travelLocations[index]} />
-                </List>
-              </Content>
-            );
-          })}
-        </Content>
-      </Container>
-    );
-  }
-}
+const TravelLogScreen = ({ navigation, route }) => {
+  React.useEffect(() => {
+    if (route.params?.location && route.params?.date) {
+      if (route.params?.date in travelHistory) {
+        travelHistory[route.params?.date].push(route.params?.location);
+      } else {
+        travelHistory[route.params?.date] = [route.params?.location];
+        console.log("Bleh");
+      }
+    }
+  });
+  return (
+    <Container style={styles.container}>
+      <Header style={{ backgroundColor: "#bff6eb" }}>
+        <Left>
+          <Button transparent onPress={() => navigation.goBack()}>
+            <Icon name="arrow-back" />
+          </Button>
+        </Left>
+        <Body>
+          <Title>Travel Log</Title>
+        </Body>
+        <Right>
+          <Button transparent onPress={() => navigation.push("TravelScreen2")}>
+            <Icon name="ios-add" />
+          </Button>
+        </Right>
+      </Header>
+      <Content>
+        {Object.keys(travelHistory).map((date, index) => {
+          return (
+            <Content>
+              <Separator bordered style={{ height: 35 }}>
+                <Text>{date}</Text>
+              </Separator>
+              <List>
+                <SwipeListElement
+                  inputArray={Object.values(travelHistory)[index]}
+                />
+              </List>
+            </Content>
+          );
+        })}
+      </Content>
+    </Container>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

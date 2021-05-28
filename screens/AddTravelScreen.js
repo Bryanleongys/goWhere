@@ -18,10 +18,33 @@ import { Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { SwipeListView } from "react-native-swipe-list-view";
 
-const AddTravelScreen = ({ navigation }) => {
+const AddTravelScreen = ({ navigation, route }) => {
+  const [location, setLocation] = useState("");
+
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  var dd = date.getDate();
+  var mm = monthNames[date.getMonth()];
+  var yyyy = date.getFullYear();
+
+  var dateString = dd + " " + mm + " " + yyyy;
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -33,7 +56,15 @@ const AddTravelScreen = ({ navigation }) => {
     return Alert.alert("Location Added!", "", [
       {
         text: "OK",
-        onPress: () => navigation.goBack(),
+        onPress: () =>
+          navigation.navigate({
+            name: "TravelScreen1",
+            params: {
+              date: dateString,
+              location: location,
+            },
+            merge: true,
+          }),
       },
     ]);
   };
@@ -54,7 +85,7 @@ const AddTravelScreen = ({ navigation }) => {
       <Content>
         <Item regular>
           <Text> Name of Location: </Text>
-          <Input />
+          <Input value={location} onChangeText={setLocation} />
         </Item>
         <Item>
           <Text> Date of Outing: </Text>
