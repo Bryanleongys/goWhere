@@ -16,16 +16,15 @@ import {
   FooterTab,
 } from "native-base";
 import { useNavigation } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 const HomeScreen = ({ navigation }) => {
   return (
     <Container style={styles.container}>
       <Header transparent>
         <Left>
-          <Button
-            transparent
-            onPress={() => console.log("Menu Button Pressed")}
-          >
+          <Button transparent onPress={() => navigation.toggleDrawer()}>
             <Icon name="menu-sharp" style={{ color: "#323232" }} />
           </Button>
         </Left>

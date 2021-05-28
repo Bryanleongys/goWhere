@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { DrawerRouter, NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Welcome from "./screens/WelcomeScreen";
@@ -21,7 +21,6 @@ const HomeStack = createStackNavigator();
 const LocationStack = createStackNavigator();
 const CliqueStack = createStackNavigator();
 const TravelStack = createStackNavigator();
-const Drawer = createDrawerNavigator();
 
 const TravelStackScreen = () => {
   return (

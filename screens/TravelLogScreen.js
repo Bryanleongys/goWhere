@@ -70,7 +70,6 @@ class TravelLogScreen extends Component {
               </Content>
             );
           })}
-          <SwipeListView></SwipeListView>
         </Content>
       </Container>
     );
