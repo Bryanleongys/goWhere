@@ -19,8 +19,6 @@ import {
 } from "native-base";
 import LocationElement from "./LocationElement";
 
-const people = ["Miss Minutes", "Loki", "Thor", "Drag Queen"];
-
 const InputLocationScreen = ({ navigation, route }) => {
   const { people } = route.params;
   return (
@@ -30,9 +28,9 @@ const InputLocationScreen = ({ navigation, route }) => {
           {" "}
           Where will y'all be before the outing?{" "}
         </Text>
-        {people.map((person, i) => (
-          <LocationElement key={person} name={person} />
-        ))}
+        {people.map((person, i) =>
+          person != 0 ? <LocationElement key={person} name={person} /> : null
+        )}
       </Content>
       <Footer style={styles.container}>
         <FooterTab>

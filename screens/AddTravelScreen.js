@@ -53,7 +53,7 @@ const AddTravelScreen = ({ navigation }) => {
       </Header>
       <Content>
         <Item regular>
-          <Text> Postal Code: </Text>
+          <Text> Name of Location: </Text>
           <Input />
         </Item>
         <Item>

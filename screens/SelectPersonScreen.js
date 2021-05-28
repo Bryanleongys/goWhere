@@ -1,6 +1,6 @@
 // Navigates here after clicking Choose Location button on JomeScreen
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import {
   Container,
   Header,
@@ -26,6 +26,9 @@ function GoToButton() {
 
 const peopleArray = ["Miss Minutes", "Loki", "Thor", "Drag Queen"];
 var attendingArray = [];
+var length;
+// const id = attendingArray.indexOf(peopleArray[0]);
+// attendingArray.splice(id, 1);
 
 class SelectPersonScreen extends Component {
   constructor(props) {
@@ -36,19 +39,22 @@ class SelectPersonScreen extends Component {
       checkbox3: false,
       checkbox4: false,
     };
-    attendingArray = [];
+    attendingArray = [0, 0, 0, 0]; //initialize as 0 values
+    length = 0;
   }
+
   toggleSwitch1() {
     this.setState({
       checkbox1: !this.state.checkbox1,
     });
     if (!Object.values(this.state)[0]) {
       attendingArray[0] = peopleArray[0];
+      length += 1;
     } else {
-      const id = attendingArray.indexOf(peopleArray[0]);
-      attendingArray.splice(id, 1);
+      attendingArray[0] = 0;
+      length -= 1;
     }
-    console.log(attendingArray);
+    console.log(attendingArray, length);
   }
 
   toggleSwitch2() {
@@ -57,9 +63,10 @@ class SelectPersonScreen extends Component {
     });
     if (!Object.values(this.state)[1]) {
       attendingArray[1] = peopleArray[1];
+      length += 1;
     } else {
-      const id = attendingArray.indexOf(peopleArray[1]);
-      attendingArray.splice(id, 1);
+      attendingArray[1] = 0;
+      length -= 1;
     }
     console.log(attendingArray);
   }
@@ -70,9 +77,10 @@ class SelectPersonScreen extends Component {
     });
     if (!Object.values(this.state)[2]) {
       attendingArray[2] = peopleArray[2];
+      length += 1;
     } else {
-      const id = attendingArray.indexOf(peopleArray[2]);
-      attendingArray.splice(id, 1);
+      attendingArray[2] = 0;
+      length -= 1;
     }
     console.log(attendingArray);
   }
@@ -83,9 +91,10 @@ class SelectPersonScreen extends Component {
     });
     if (!Object.values(this.state)[3]) {
       attendingArray[3] = peopleArray[3];
+      length += 1;
     } else {
-      const id = attendingArray.indexOf(peopleArray[3]);
-      attendingArray.splice(id, 1);
+      attendingArray[3] = 0;
+      length -= 1;
     }
     console.log(attendingArray);
   }
@@ -168,10 +177,13 @@ class SelectPersonScreen extends Component {
               <Icon name="caret-back-sharp" />
             </Button>
             <Button
-              onPress={() =>
-                this.props.navigation.navigate("LocationScreen2", {
-                  people: attendingArray,
-                })
+              onPress={
+                length >= 2
+                  ? () =>
+                      this.props.navigation.navigate("LocationScreen2", {
+                        people: attendingArray,
+                      })
+                  : () => Alert.alert("How lonely! Select more people.")
               }
             >
               <Icon name="caret-forward-sharp" />
