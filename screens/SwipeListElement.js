@@ -8,9 +8,12 @@ import {
   View,
 } from "react-native";
 
+import { Content, Separator } from "native-base";
+
 import { SwipeListView } from "react-native-swipe-list-view";
 
-const SwipeListElement = ({ inputArray }) => {
+const SwipeListElement = ({ inputArray, date }) => {
+  GLOBAL = require("./global");
   var length = inputArray.length;
   const [listData, setListData] = useState(
     Array(length)
@@ -29,6 +32,10 @@ const SwipeListElement = ({ inputArray }) => {
     const newData = [...listData];
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
     newData.splice(prevIndex, 1);
+    GLOBAL.TRAVELHISTORY[date].splice(prevIndex, 1);
+    if (GLOBAL.TRAVELHISTORY[date].length == 0) {
+      delete GLOBAL.TRAVELHISTORY[date];
+    }
     setListData(newData);
   };
 
@@ -67,17 +74,22 @@ const SwipeListElement = ({ inputArray }) => {
   );
 
   return (
-    <SwipeListView
-      data={listData}
-      renderItem={renderItem}
-      renderHiddenItem={renderHiddenItem}
-      leftOpenValue={75}
-      rightOpenValue={-150}
-      previewRowKey={"0"}
-      previewOpenValue={-40}
-      previewOpenDelay={3000}
-      onRowDidOpen={onRowDidOpen}
-    />
+    <Content>
+      <Separator bordered style={{ height: 35 }}>
+        <Text style={{ color: "#646464", fontSize: 12 }}>{date}</Text>
+      </Separator>
+      <SwipeListView
+        data={listData}
+        renderItem={renderItem}
+        renderHiddenItem={renderHiddenItem}
+        leftOpenValue={75}
+        rightOpenValue={-150}
+        previewRowKey={"0"}
+        previewOpenValue={-40}
+        previewOpenDelay={3000}
+        onRowDidOpen={onRowDidOpen}
+      />
+    </Content>
   );
 };
 

@@ -19,6 +19,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { SwipeListView } from "react-native-swipe-list-view";
 
 const AddTravelScreen = ({ navigation, route }) => {
+  GLOBAL = require("./global");
   const [location, setLocation] = useState("");
 
   const [date, setDate] = useState(new Date());
@@ -52,19 +53,29 @@ const AddTravelScreen = ({ navigation, route }) => {
     setDate(currentDate);
   };
 
+  const alertPress = () => {
+    if (dateString in GLOBAL.TRAVELHISTORY) {
+      GLOBAL.TRAVELHISTORY[dateString].push(location);
+    } else {
+      GLOBAL.TRAVELHISTORY[dateString] = [location];
+      console.log(location);
+    }
+    navigation.navigate("Home");
+  };
+
   const handlePress = () => {
     return Alert.alert("Location Added!", "", [
       {
         text: "OK",
-        onPress: () =>
-          navigation.navigate({
-            name: "TravelScreen1",
-            params: {
-              date: dateString,
-              location: location,
-            },
-            merge: true,
-          }),
+        onPress: alertPress,
+        // navigation.navigate({
+        //   name: "TravelScreen1",
+        //   params: {
+        //     date: dateString,
+        //     location: location,
+        //   },
+        //   merge: true,
+        // }),
       },
     ]);
   };

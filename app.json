@@ -13,11 +13,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.orbital.goWhere",
+      "config": {
+        "googleMapsApiKey": "AIzaSyD_ykbqznxZRvzQyefdJjCoNkYf7t5d1e0"
+      }
     },
     "android": {
       "adaptiveIcon": {

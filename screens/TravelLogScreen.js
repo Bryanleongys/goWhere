@@ -21,30 +21,32 @@ import {
   List,
 } from "native-base";
 import SwipeListElement from "./SwipeListElement";
+import "./global.js";
 
 // Object containing key: date and value: array of locations pair
-var travelHistory = {
-  "26 May 2021": ["VivoCity", "Suntec City", "Somerset Shopping Centre"],
-  "25 May 2021": ["Parkway Parade", "NEX Mall"],
-  "24 May 2021": ["J-Cube", "Westgate Mall"],
-  "23 May 2021": ["Bedok Mall", "Bedok Point"],
-  "22 May 2021": ["Tampines Mall", "White Sands"],
-};
+// var travelHistory = {
+//   "26 May 2021": ["VivoCity", "Suntec City", "Somerset Shopping Centre"],
+//   "25 May 2021": ["Parkway Parade", "NEX Mall"],
+//   "24 May 2021": ["J-Cube", "Westgate Mall"],
+//   "23 May 2021": ["Bedok Mall", "Bedok Point"],
+//   "22 May 2021": ["Tampines Mall", "White Sands"],
+// };
 
-var travelDates = Object.keys(travelHistory);
-var travelLocations = Object.values(travelHistory); // array of arrays
+// var travelDates = Object.keys(travelHistory);
+// var travelLocations = Object.values(travelHistory); // array of arrays
 
 const TravelLogScreen = ({ navigation, route }) => {
-  React.useEffect(() => {
-    if (route.params?.location && route.params?.date) {
-      if (route.params?.date in travelHistory) {
-        travelHistory[route.params?.date].push(route.params?.location);
-      } else {
-        travelHistory[route.params?.date] = [route.params?.location];
-        console.log("Bleh");
-      }
-    }
-  });
+  GLOBAL = require("./global");
+  // React.useEffect(() => {
+  //   if (route.params?.location && route.params?.date) {
+  //     if (route.params?.date in travelHistory) {
+  //       travelHistory[route.params?.date].push(route.params?.location);
+  //     } else {
+  //       travelHistory[route.params?.date] = [route.params?.location];
+  //       console.log("Bleh");
+  //     }
+  //   }
+  // });
   return (
     <Container style={styles.container}>
       <Header style={{ backgroundColor: "#bff6eb" }}>
@@ -63,15 +65,13 @@ const TravelLogScreen = ({ navigation, route }) => {
         </Right>
       </Header>
       <Content>
-        {Object.keys(travelHistory).map((date, index) => {
+        {Object.keys(GLOBAL.TRAVELHISTORY).map((date, index) => {
           return (
             <Content>
-              <Separator bordered style={{ height: 35 }}>
-                <Text>{date}</Text>
-              </Separator>
               <List>
                 <SwipeListElement
-                  inputArray={Object.values(travelHistory)[index]}
+                  inputArray={Object.values(GLOBAL.TRAVELHISTORY)[index]}
+                  date={date}
                 />
               </List>
             </Content>

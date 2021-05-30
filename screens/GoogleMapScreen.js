@@ -55,6 +55,20 @@ const GoogleMapScreen = ({ navigation }) => {
     ],
   };
 
+  // Calculating midpoint
+  var total_longitude = 0;
+  var total_latitude = 0;
+  for (var i = 0; i < 4; i++) {
+    total_longitude += state.coordinates[i].longitude;
+    total_latitude += state.coordinates[i].latitude;
+  }
+
+  const central_coordinate = {
+    name: "Central",
+    latitude: total_latitude / 4,
+    longitude: total_longitude / 4,
+  };
+
   return (
     <Container>
       <Container style={styles.container}>
@@ -78,9 +92,18 @@ const GoogleMapScreen = ({ navigation }) => {
               title={marker.name}
             ></Marker>
           ))}
+          {/* Midpoint Marker */}
+          <Marker
+            key={central_coordinate.name}
+            coordinate={{
+              latitude: central_coordinate.latitude,
+              longitude: central_coordinate.longitude,
+            }}
+            title={central_coordinate.name}
+          ></Marker>
           <Polygon
             coordinates={state.coordinates}
-            fillColor={"rgba(100, 100, 200, 0.3)"}
+            fillColor={"rgba(100, 100, 200, 0.2)"}
           />
         </MapView>
       </Container>
