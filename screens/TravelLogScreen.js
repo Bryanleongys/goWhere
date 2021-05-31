@@ -21,7 +21,6 @@ import {
   List,
 } from "native-base";
 import SwipeListElement from "./SwipeListElement";
-import "./global.js";
 
 // Object containing key: date and value: array of locations pair
 // var travelHistory = {
