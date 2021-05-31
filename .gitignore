@@ -1,3 +1,7 @@
+# big files
 node_modules
-goWhere
+
+# api keys
+goWhere.file
 goWhere.pub
+.env
