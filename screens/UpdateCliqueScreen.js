@@ -22,19 +22,11 @@ import {
 } from "native-base";
 import { SwipeListView } from "react-native-swipe-list-view";
 import SwipeMemberElement from "./SwipeMemberElement";
-
-var memberArray = {
-  1: ["Miss Minutes"],
-  2: ["Loki"],
-  3: ["Thor"],
-  4: ["Drag Queen"],
-};
-
-var memberId = Object.keys(memberArray);
-var memberName = Object.values(memberArray);
+import "./global.js";
 
 class UpdateCliqueScreen extends Component {
   render() {
+    GLOBAL = require("./global");
     return (
       <Container style={styles.container}>
         <Header style={{ backgroundColor: "#bff6eb" }}>
@@ -56,11 +48,13 @@ class UpdateCliqueScreen extends Component {
           </Right>
         </Header>
         <Content>
-          {memberId.map((date, index) => {
+          {Object.keys(GLOBAL.MEMBERSARRAY).map((date, index) => {
             return (
               <Content>
                 <List>
-                  <SwipeMemberElement inputArray={memberName[index]} />
+                  <SwipeMemberElement
+                    inputArray={Object.values(GLOBAL.MEMBERSARRAY)[index]}
+                  />
                 </List>
               </Content>
             );

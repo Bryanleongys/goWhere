@@ -6,7 +6,7 @@ Apollo
 
 ## Project Scope
 
-Mobile Application Development using React Native and Firebase
+Mobile Application Development using React Native and Firebase.
 
 goWhere decides on preferred location for an outing within a clique. Preferred location can be based on distance from members of the clique, crowd and rating levels, as well as the travel log of the clique. Users can create accounts for their cliques and personalise them by adding home or work locations of each member, as well as their travel log as a clique.
 

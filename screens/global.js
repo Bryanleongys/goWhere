@@ -8,4 +8,11 @@ module.exports = {
     "22 May 2021": ["Tampines Mall", "White Sands"],
   },
   FAVOURITEPLACES: [],
+  MEMBERSARRAY: {
+      1: ["Bryan"],
+      2: ["Mukund"],
+      3: ["Sheryl"],
+      4: ["Zhi Ling"],
+      5: ["Ben"]
+  },
 };

@@ -17,6 +17,7 @@ import {
   Form,
   Text,
 } from "native-base";
+import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 // import {
 //   InputText,
@@ -25,42 +26,30 @@ import { useNavigation } from "@react-navigation/native";
 // } from "react-native-input-list";
 
 const AddMemberScreen = ({ navigation }) => {
-  handlePress = () => {
-    if (true) {
-      console.log(works);
-    }
+  GLOBAL = require("./global");
+  const [member, setMember] = useState("");
+
+  const alertPress = () => {
+    GLOBAL.MEMBERSARRAY[Object.keys(GLOBAL.MEMBERSARRAY).length] = [member];
+    console.log(member);
+    navigation.navigate("Home");
   };
 
-  showValues = () => {
-    const firstValue = `First input: ${this.refs.firstInput.value()}\n`;
-    const secondValue = `Second input: ${this.refs.secondInput.value()}\n`;
-    const thirdValue = `Third input: ${this.refs.thirdInput.value()}\n`;
-
-    const text = firstValue + secondValue + thirdValue;
-
-    Alert.alert("Values", text);
-  };
-
-  areValid = () => {
-    const firstValid = `First input: ${!!this.refs.firstInput.valid()}\n`;
-    const secondValid = `Second input: ${!!this.refs.secondInput.valid()}\n`;
-    const thirdValid = `Third input: ${!!this.refs.thirdInput.valid()}\n`;
-
-    const text = firstValid + secondValid + thirdValid;
-
-    Alert.alert("Valid?", text);
-  };
-
-  showErrors = () => {
-    this.refs.firstInput.showError();
-    this.refs.secondInput.showError();
-    this.refs.thirdInput.showError();
-    this.refs.fourthInput.showError();
-    this.refs.fifthInput.showError();
-  };
-
-  switchChanged = (value) => {
-    alert(value);
+  const handlePress = () => {
+    return Alert.alert("Member Added!", "", [
+      {
+        text: "OK",
+        onPress: alertPress,
+        // navigation.navigate({
+        //   name: "TravelScreen1",
+        //   params: {
+        //     date: dateString,
+        //     location: location,
+        //   },
+        //   merge: true,
+        // }),
+      },
+    ]);
   };
 
   return (
@@ -85,7 +74,7 @@ const AddMemberScreen = ({ navigation }) => {
         <Form>
           <Item floatingLabel>
             <Label>Members Name</Label>
-            <Input />
+            <Input value={member} onChangeText={setMember} />
           </Item>
         </Form>
         <Button
