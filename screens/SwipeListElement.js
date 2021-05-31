@@ -25,6 +25,10 @@ const SwipeListElement = ({ inputArray, date }) => {
     if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
     }
+  };
+
+  const addFavourite = (rowMap, rowKey) => {
+    closeRow(rowMap, rowKey);
     GLOBAL.FAVOURITEPLACES.push(GLOBAL.TRAVELHISTORY[date][rowKey]);
   };
 
@@ -60,7 +64,7 @@ const SwipeListElement = ({ inputArray, date }) => {
     <View style={styles.rowBack}>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnLeft]}
-        onPress={() => closeRow(rowMap, data.item.key)}
+        onPress={() => addFavourite(rowMap, data.item.key)}
       >
         <Icon style={{ fontSize: 18 }} name="ios-star" />
       </TouchableOpacity>

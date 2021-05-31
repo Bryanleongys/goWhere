@@ -7,5 +7,5 @@ module.exports = {
     "23 May 2021": ["Bedok Mall", "Bedok Point"],
     "22 May 2021": ["Tampines Mall", "White Sands"],
   },
-  FAVOURITEPLACES: ["VivoCity", "Suntec City", "Bedok Mall"],
+  FAVOURITEPLACES: [],
 };
