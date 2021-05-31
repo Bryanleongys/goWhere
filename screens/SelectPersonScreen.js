@@ -24,7 +24,7 @@ function GoToButton() {
   return navigation.navigate.goBack();
 }
 
-const peopleArray = ["Miss Minutes", "Loki", "Thor", "Drag Queen"];
+const peopleArray = ["Bryan", "Mukund", "Sheryl", "Zhi Ling", "Ben"];
 var attendingArray = [];
 var length;
 // const id = attendingArray.indexOf(peopleArray[0]);
@@ -38,8 +38,9 @@ class SelectPersonScreen extends Component {
       checkbox2: false,
       checkbox3: false,
       checkbox4: false,
+      checkbox5: false,
     };
-    attendingArray = [0, 0, 0, 0]; //initialize as 0 values
+    attendingArray = [0, 0, 0, 0, 0]; //initialize as 0 values
     length = 0;
   }
 
@@ -98,6 +99,19 @@ class SelectPersonScreen extends Component {
     }
     console.log(attendingArray);
   }
+  toggleSwitch5() {
+    this.setState({
+      checkbox5: !this.state.checkbox5,
+    });
+    if (!Object.values(this.state)[4]) {
+      attendingArray[4] = peopleArray[4];
+      length += 1;
+    } else {
+      attendingArray[4] = 0;
+      length -= 1;
+    }
+    console.log(attendingArray);
+  }
   render() {
     return (
       <Container style={styles.container}>
@@ -122,7 +136,7 @@ class SelectPersonScreen extends Component {
               style={styles.button}
             />
             <Body>
-              <Text style={styles.text}>Miss Minutes</Text>
+              <Text style={styles.text}>Bryan</Text>
             </Body>
           </ListItem>
           <ListItem
@@ -137,7 +151,7 @@ class SelectPersonScreen extends Component {
               style={styles.button}
             />
             <Body>
-              <Text style={styles.text}>Loki</Text>
+              <Text style={styles.text}>Mukund</Text>
             </Body>
           </ListItem>
           <ListItem
@@ -152,7 +166,7 @@ class SelectPersonScreen extends Component {
               style={styles.button}
             />
             <Body>
-              <Text style={styles.text}>Thor</Text>
+              <Text style={styles.text}>Sheryl</Text>
             </Body>
           </ListItem>
           <ListItem
@@ -167,7 +181,22 @@ class SelectPersonScreen extends Component {
               style={styles.button}
             />
             <Body>
-              <Text style={styles.text}>Drag Queen</Text>
+              <Text style={styles.text}>Zhi Ling</Text>
+            </Body>
+          </ListItem>
+          <ListItem
+            button
+            onPress={() => this.toggleSwitch5()}
+            style={styles.button}
+          >
+            <CheckBox
+              color="#000"
+              checked={this.state.checkbox5}
+              onPress={() => this.toggleSwitch5()}
+              style={styles.button}
+            />
+            <Body>
+              <Text style={styles.text}>Ben</Text>
             </Body>
           </ListItem>
         </Content>

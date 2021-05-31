@@ -59,6 +59,9 @@ const TravelLogScreen = ({ navigation, route }) => {
           <Title>Travel Log</Title>
         </Body>
         <Right>
+          <Button transparent onPress={() => navigation.push("Favourite")}>
+            <Icon style={{ fontSize: "22" }} name="ios-star" />
+          </Button>
           <Button transparent onPress={() => navigation.push("TravelScreen2")}>
             <Icon name="ios-add" />
           </Button>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useRef } from "react";
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
@@ -6,7 +6,14 @@ import MapView, {
   Polygon,
   Circle,
 } from "react-native-maps";
-import { StyleSheet, Dimensions, View, useState } from "react-native";
+import {
+  StyleSheet,
+  Dimensions,
+  View,
+  useState,
+  Top,
+  Alert,
+} from "react-native";
 import {
   Container,
   Header,
@@ -23,8 +30,28 @@ import {
   Footer,
   FooterTab,
 } from "native-base";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+
+const GOOGLE_PLACES_API_KEY = "AIzaSyD_ykbqznxZRvzQyefdJjCoNkYf7t5d1e0";
 
 const GoogleMapScreen = ({ navigation }) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.setAddressText("Some Text");
+  }, []);
+
+  const handlePress = () => {
+    return Alert.alert(
+      "Far East Plaza Selected!",
+      "Would you like to send reminders to your friends?",
+      [
+        { text: "Yes", onPress: () => navigation.push("Notification") },
+        { text: "No", onPress: () => navigation.push("Home") },
+      ]
+    );
+  };
+
   const state = {
     coordinates: [
       // {
@@ -71,6 +98,18 @@ const GoogleMapScreen = ({ navigation }) => {
 
   return (
     <Container>
+      <Header style={styles.container}>
+        <GooglePlacesAutocomplete
+          placeholder="Search Location"
+          onPress={(data, details = null) => {
+            console.log(data, details);
+          }}
+          query={{
+            key: GOOGLE_PLACES_API_KEY,
+            language: "en",
+          }}
+        />
+      </Header>
       <Container style={styles.container}>
         <MapView
           provider={PROVIDER_GOOGLE}
@@ -115,6 +154,9 @@ const GoogleMapScreen = ({ navigation }) => {
           <Button onPress={() => console.log("Refresh Button Pressed")}>
             <Icon name="ios-refresh-outline" />
           </Button>
+          <Button onPress={handlePress}>
+            <Icon name="checkmark-outline" />
+          </Button>
         </FooterTab>
       </Footer>
     </Container>
@@ -124,6 +166,7 @@ const GoogleMapScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#bff6eb",
+    paddingTop: 10,
   },
   content: {
     flex: 1,

@@ -16,6 +16,9 @@ import UpdateClique from "./screens/UpdateCliqueScreen";
 import TravelLog from "./screens/TravelLogScreen";
 import AddTravel from "./screens/AddTravelScreen";
 import GoogleMap from "./screens/GoogleMapScreen";
+import OneTime from "./screens/OneTimeScreen";
+import Notification from "./screens/NotificationScreen";
+import Favourite from "./screens/FavouriteScreen";
 
 const AuthStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -31,6 +34,7 @@ const TravelStackScreen = () => {
     >
       <TravelStack.Screen name="TravelScreen1" component={TravelLog} />
       <TravelStack.Screen name="TravelScreen2" component={AddTravel} />
+      <TravelStack.Screen name="Favourite" component={Favourite} />
     </TravelStack.Navigator>
   );
 };
@@ -57,6 +61,7 @@ const LocationStackScreen = () => {
       <LocationStack.Screen name="Preferences" component={Preferences} />
       <LocationStack.Screen name="Timing" component={Timing} />
       <LocationStack.Screen name="GoogleMap" component={GoogleMap} />
+      <LocationStack.Screen name="Notification" component={Notification} />
     </LocationStack.Navigator>
   );
 };
@@ -70,6 +75,7 @@ export default function App() {
       >
         <AuthStack.Screen name="Welcome" component={Welcome} />
         <AuthStack.Screen name="CreateAccount" component={CreateAccount} />
+        <AuthStack.Screen name="OneTime" component={OneTime} />
         <AuthStack.Screen name="Login" component={Login} />
         <AuthStack.Screen name="Home" component={Home} />
         <AuthStack.Screen name="Location" component={LocationStackScreen} />

@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 
-import { Content, Separator } from "native-base";
+import { Content, Separator, Icon } from "native-base";
 
 import { SwipeListView } from "react-native-swipe-list-view";
 
@@ -25,6 +25,7 @@ const SwipeListElement = ({ inputArray, date }) => {
     if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
     }
+    GLOBAL.FAVOURITEPLACES.push(GLOBAL.TRAVELHISTORY[date][rowKey]);
   };
 
   const deleteRow = (rowMap, rowKey) => {
@@ -57,12 +58,11 @@ const SwipeListElement = ({ inputArray, date }) => {
 
   const renderHiddenItem = (data, rowMap) => (
     <View style={styles.rowBack}>
-      <Text>Juked</Text>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnLeft]}
         onPress={() => closeRow(rowMap, data.item.key)}
       >
-        <Text style={styles.backTextWhite}>Close</Text>
+        <Icon style={{ fontSize: 18 }} name="ios-star" />
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnRight]}

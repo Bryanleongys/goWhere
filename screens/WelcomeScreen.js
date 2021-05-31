@@ -44,7 +44,7 @@ const WelcomeScreen = ({ navigation }) => {
           <Button
             full
             style={styles.oneButton}
-            onPress={() => console.log("One-Time Use Account Pressed")}
+            onPress={() => navigation.push("OneTime")}
           >
             <Text style={{ color: "#000000" }}>One-Time Use Account</Text>
           </Button>
