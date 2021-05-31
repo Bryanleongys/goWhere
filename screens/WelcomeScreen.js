@@ -28,6 +28,7 @@ const WelcomeScreen = ({ navigation }) => {
         }}
       >
         <Image style={styles.logo} source={require("../assets/pacman.png")} />
+        <Text style={styles.text}> goWhere </Text>
         <Container style={styles.bottomView}>
           <Button
             full
@@ -58,10 +59,23 @@ const WelcomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   logo: {
-    width: 300,
-    height: 300,
-    position: "absolute",
+    width: 200,
+    height: 200,
     top: 150,
+    flex: 1,
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+  text: {
+    fontSize: 40,
+    fontFamily: "Courier New",
+    width: 200,
+    height: 200,
+    top: 100,
+    left: 5,
+    flex: 1,
+    justifyContent: "center",
+    alignSelf: "center",
   },
   mainContainer: {
     flex: 1,
