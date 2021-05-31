@@ -1,12 +1,14 @@
-#goWhere Mobile Application
+# goWhere Mobile Application
 
-##Level of Achievement
+## Level of Achievement
+
 Apollo
 
-##Motivation
+## Motivation
+
 You’re about to have an outing with your usual group of friends, but even after hours of discussion, nobody seems to come to a conclusion on where to meet up. Some of them preferred going to new and uncommon places, while others wanted to meet up at convenient locations near them. Does this scenario sound familiar to you?
 
-##User Stories
+## User Stories
 
 1. As someone who has a picky group of friends who can never decide on a location to have an outing at.
 
