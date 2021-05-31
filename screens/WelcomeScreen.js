@@ -1,6 +1,6 @@
 // First Screen on Mobile App
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import {
   Container,
   Header,
@@ -19,6 +19,9 @@ import {
 const WelcomeScreen = ({ navigation }) => {
   return (
     <Container style={styles.mainContainer}>
+      <Content contentContainerStyle={{ alignItems: "center" }}>
+        <Image style={styles.logo} source={require("../assets/pacman.png")} />
+      </Content>
       <Content
         contentContainerStyle={{
           backgroundColor: "#bff6eb",
@@ -55,6 +58,12 @@ const WelcomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  logo: {
+    width: 300,
+    height: 300,
+    position: "absolute",
+    top: 150,
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: "#bff6eb",

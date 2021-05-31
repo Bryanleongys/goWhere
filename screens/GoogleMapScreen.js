@@ -13,6 +13,7 @@ import {
   useState,
   Top,
   Alert,
+  Image,
 } from "react-native";
 import {
   Container,
@@ -139,7 +140,12 @@ const GoogleMapScreen = ({ navigation }) => {
               longitude: central_coordinate.longitude,
             }}
             title={central_coordinate.name}
-          ></Marker>
+          >
+            <Image
+              style={{ height: 60, width: 60 }}
+              source={require("../assets/pacman.png")}
+            />
+          </Marker>
           <Polygon
             coordinates={state.coordinates}
             fillColor={"rgba(100, 100, 200, 0.2)"}
