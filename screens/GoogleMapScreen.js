@@ -32,6 +32,7 @@ import {
   FooterTab,
 } from "native-base";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { CommonActions } from "@react-navigation/native";
 
 const GOOGLE_PLACES_API_KEY = "AIzaSyD_ykbqznxZRvzQyefdJjCoNkYf7t5d1e0";
 
@@ -48,7 +49,16 @@ const GoogleMapScreen = ({ navigation }) => {
       "Would you like to send reminders to your friends?",
       [
         { text: "Yes", onPress: () => navigation.push("Notification") },
-        { text: "No", onPress: () => navigation.push("Home") },
+        {
+          text: "No",
+          onPress: () =>
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 1,
+                routes: [{ name: "Home" }],
+              })
+            ),
+        },
       ]
     );
   };
