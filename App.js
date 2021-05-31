@@ -19,6 +19,8 @@ import GoogleMap from "./screens/GoogleMapScreen";
 import OneTime from "./screens/OneTimeScreen";
 import Notification from "./screens/NotificationScreen";
 import Favourite from "./screens/FavouriteScreen";
+import AddMember from "./screens/AddMemberScreen";
+import EditMember from "./screens/EditMemberScreen";
 
 const AuthStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -46,6 +48,8 @@ const CliqueStackScreen = () => {
       screenOptions={{ headerShown: false }}
     >
       <CliqueStack.Screen name="CliqueScreen1" component={UpdateClique} />
+      <CliqueStack.Screen name="CliqueScreen2" component={AddMember} />
+      <CliqueStack.Screen name="CliqueScreen3" component={EditMember} />
     </CliqueStack.Navigator>
   );
 };

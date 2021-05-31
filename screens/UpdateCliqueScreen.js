@@ -16,22 +16,57 @@ import {
   Body,
   Footer,
   FooterTab,
+  Separator,
+  Item,
+  List,
 } from "native-base";
-import { useNavigation } from "@react-navigation/native";
+import { SwipeListView } from "react-native-swipe-list-view";
+import SwipeMemberElement from "./SwipeMemberElement";
+
+var memberArray = {
+  1: ["Miss Minutes"],
+  2: ["Loki"],
+  3: ["Thor"],
+  4: ["Drag Queen"],
+};
+
+var memberId = Object.keys(memberArray);
+var memberName = Object.values(memberArray);
 
 class UpdateCliqueScreen extends Component {
   render() {
     return (
       <Container style={styles.container}>
-        <Content></Content>
-        <Footer style={styles.container}>
-          <FooterTab>
-            <Button onPress={() => this.props.navigation.goBack()}>
-              <Icon name="caret-back-sharp" />
+        <Header style={{ backgroundColor: "#bff6eb" }}>
+          <Left>
+            <Button transparent onPress={() => this.props.navigation.goBack()}>
+              <Icon name="arrow-back" />
             </Button>
-            <Button></Button>
-          </FooterTab>
-        </Footer>
+          </Left>
+          <Body>
+            <Title>Members</Title>
+          </Body>
+          <Right>
+            <Button
+              transparent
+              onPress={() => this.props.navigation.push("CliqueScreen2")}
+            >
+              <Icon name="ios-add" />
+            </Button>
+          </Right>
+        </Header>
+        <Content>
+          {memberId.map((date, index) => {
+            return (
+              <Content>
+                <List>
+                  <SwipeMemberElement inputArray={memberName[index]} />
+                </List>
+              </Content>
+            );
+          })}
+          <SwipeListView></SwipeListView>
+        </Content>
       </Container>
     );
   }

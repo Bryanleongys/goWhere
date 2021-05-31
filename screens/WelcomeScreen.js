@@ -14,14 +14,12 @@ import {
   Text,
   Grid,
   Col,
+  Item,
 } from "native-base";
 
 const WelcomeScreen = ({ navigation }) => {
   return (
     <Container style={styles.mainContainer}>
-      <Content contentContainerStyle={{ alignItems: "center" }}>
-        <Image style={styles.logo} source={require("../assets/pacman.png")} />
-      </Content>
       <Content
         contentContainerStyle={{
           backgroundColor: "#bff6eb",
@@ -29,6 +27,7 @@ const WelcomeScreen = ({ navigation }) => {
           justifyContent: "flex-end",
         }}
       >
+        <Image style={styles.logo} source={require("../assets/pacman.png")} />
         <Container style={styles.bottomView}>
           <Button
             full
