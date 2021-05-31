@@ -24,7 +24,7 @@ const HomeScreen = ({ navigation }) => {
     <Container style={styles.container}>
       <Header transparent>
         <Left>
-          <Button transparent onPress={() => navigation.goBack()}>
+          <Button transparent onPress={() => navigation.push("Welcome")}>
             <Icon name="menu-sharp" style={{ color: "#323232" }} />
           </Button>
         </Left>

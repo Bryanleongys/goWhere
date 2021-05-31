@@ -11,6 +11,7 @@ import {
   Item,
   Input,
 } from "native-base";
+import { CommonActions } from "@react-navigation/native";
 
 const NotificationScreen = ({ navigation }) => {
   const MESSAGE = "Meet at Far East Plaza on 28 May, 7pm.";
@@ -51,7 +52,16 @@ const NotificationScreen = ({ navigation }) => {
           <Button onPress={() => navigation.goBack()}>
             <Icon name="caret-back-sharp" />
           </Button>
-          <Button onPress={() => navigation.push("Home")}>
+          <Button
+            onPress={() =>
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 1,
+                  routes: [{ name: "Home" }],
+                })
+              )
+            }
+          >
             <Icon name="home" />
           </Button>
         </FooterTab>
