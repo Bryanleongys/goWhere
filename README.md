@@ -33,7 +33,9 @@ Only supported in iOS for Milestone #1.
 Ensure nodeJS and Expo has been downloaded.
 Run the following code in terminal.
 
+```bash
 expo start
+```
 
 Run on iOS simulator in Expo.
 
