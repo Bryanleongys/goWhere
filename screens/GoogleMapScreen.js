@@ -33,8 +33,10 @@ import {
 } from "native-base";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { CommonActions } from "@react-navigation/native";
+import config from "../config";
 
-const GOOGLE_PLACES_API_KEY = "AIzaSyD_ykbqznxZRvzQyefdJjCoNkYf7t5d1e0";
+const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
+console.log(GOOGLE_PLACES_API_KEY);
 
 const GoogleMapScreen = ({ navigation }) => {
   const ref = useRef();

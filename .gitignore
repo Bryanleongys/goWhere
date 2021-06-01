@@ -5,3 +5,4 @@ node_modules
 goWhere.file
 goWhere.pub
 .env
+app.json
