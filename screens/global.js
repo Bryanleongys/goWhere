@@ -9,10 +9,10 @@ module.exports = {
   },
   FAVOURITEPLACES: [],
   MEMBERSARRAY: {
-      1: ["Bryan"],
-      2: ["Mukund"],
-      3: ["Sheryl"],
-      4: ["Zhi Ling"],
-      5: ["Ben"]
+    1: ["Bryan"],
+    2: ["Mukund"],
+    3: ["Sheryl"],
+    4: ["Zhi Ling"],
+    5: ["Ben"],
   },
 };

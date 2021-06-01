@@ -19,11 +19,13 @@ import {
   Item,
   List,
 } from "native-base";
-import SwipeListElement from "./SwipeListElement";
-import "./global.js";
+import SwipeDeleteElement from "./SwipeDeleteElement";
 
 const FavouriteScreen = ({ navigation }) => {
   GLOBAL = require("./global");
+  {
+    console.log(GLOBAL.FAVOURITEPLACES);
+  }
   return (
     <Container style={styles.container}>
       <Header style={{ backgroundColor: "#bff6eb" }}>
@@ -38,15 +40,9 @@ const FavouriteScreen = ({ navigation }) => {
         <Right />
       </Header>
       <Content>
-        {GLOBAL.FAVOURITEPLACES.map((place, index) => {
-          return (
-            <List>
-              <ListItem>
-                <Text>{place}</Text>
-              </ListItem>
-            </List>
-          );
-        })}
+        <SwipeDeleteElement
+          inputArray={Object.values(GLOBAL.FAVOURITEPLACES)}
+        />
       </Content>
     </Container>
   );
@@ -54,7 +50,7 @@ const FavouriteScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: "#bff6eb",
   },
   button: {
     marginBottom: 5,
