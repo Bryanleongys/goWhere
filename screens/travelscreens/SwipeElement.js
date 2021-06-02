@@ -8,12 +8,10 @@ import {
   View,
 } from "react-native";
 
-import { Content, Separator, Icon } from "native-base";
-
 import { SwipeListView } from "react-native-swipe-list-view";
 
-const SwipeListElement = ({ inputArray, date }) => {
-  GLOBAL = require("./global");
+const SwipeMemberElement = ({ inputArray }) => {
+  GLOBAL = require("../global");
   var length = inputArray.length;
   const [listData, setListData] = useState(
     Array(length)
@@ -27,23 +25,12 @@ const SwipeListElement = ({ inputArray, date }) => {
     }
   };
 
-  const addFavourite = (rowMap, rowKey) => {
-    closeRow(rowMap, rowKey);
-    if (!GLOBAL.FAVOURITEPLACES.includes(GLOBAL.TRAVELHISTORY[date][rowKey])) {
-      GLOBAL.FAVOURITEPLACES.push(GLOBAL.TRAVELHISTORY[date][rowKey]);
-    }
-    console.log(GLOBAL.FAVOURITEPLACES);
-  };
-
   const deleteRow = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
     const newData = [...listData];
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
     newData.splice(prevIndex, 1);
-    GLOBAL.TRAVELHISTORY[date].splice(prevIndex, 1);
-    if (GLOBAL.TRAVELHISTORY[date].length == 0) {
-      delete GLOBAL.TRAVELHISTORY[date];
-    }
+    GLOBAL.FAVOURITEPLACES.splice(prevIndex, 1);
     setListData(newData);
   };
 
@@ -66,12 +53,6 @@ const SwipeListElement = ({ inputArray, date }) => {
   const renderHiddenItem = (data, rowMap) => (
     <View style={styles.rowBack}>
       <TouchableOpacity
-        style={[styles.backRightBtn, styles.backRightBtnLeft]}
-        onPress={() => addFavourite(rowMap, data.item.key)}
-      >
-        <Icon style={{ fontSize: 18 }} name="ios-star" />
-      </TouchableOpacity>
-      <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnRight]}
         onPress={() => deleteRow(rowMap, data.item.key)}
       >
@@ -81,22 +62,17 @@ const SwipeListElement = ({ inputArray, date }) => {
   );
 
   return (
-    <Content>
-      <Separator bordered style={{ height: 35 }}>
-        <Text style={{ color: "#646464", fontSize: 12 }}>{date}</Text>
-      </Separator>
-      <SwipeListView
-        data={listData}
-        renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
-        leftOpenValue={75}
-        rightOpenValue={-150}
-        previewRowKey={"0"}
-        previewOpenValue={-40}
-        previewOpenDelay={3000}
-        onRowDidOpen={onRowDidOpen}
-      />
-    </Content>
+    <SwipeListView
+      data={listData}
+      renderItem={renderItem}
+      renderHiddenItem={renderHiddenItem}
+      leftOpenValue={75}
+      rightOpenValue={-150}
+      previewRowKey={"0"}
+      previewOpenValue={-40}
+      previewOpenDelay={3000}
+      onRowDidOpen={onRowDidOpen}
+    />
   );
 };
 
@@ -126,7 +102,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     position: "absolute",
     top: 0,
-    width: 75,
+    width: 150,
   },
   backRightBtnLeft: {
     backgroundColor: "#00c6bb",
@@ -138,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SwipeListElement;
+export default SwipeMemberElement;

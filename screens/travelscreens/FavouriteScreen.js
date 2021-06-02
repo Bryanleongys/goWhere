@@ -19,10 +19,10 @@ import {
   Item,
   List,
 } from "native-base";
-import SwipeDeleteElement from "./SwipeDeleteElement";
+import SwipeDeleteElement from "./SwipeElement";
 
 const FavouriteScreen = ({ navigation }) => {
-  GLOBAL = require("./global");
+  GLOBAL = require("../global");
   {
     console.log(GLOBAL.FAVOURITEPLACES);
   }

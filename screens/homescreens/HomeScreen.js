@@ -32,17 +32,7 @@ const HomeScreen = ({ navigation }) => {
           <Title></Title>
         </Body>
       </Header>
-      <Content
-        padder
-        contentContainerStyle={{
-          backgroundColor: "#bff6eb",
-          padding: 20,
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          alignSelf: "center",
-        }}
-      >
+      <Content padder contentContainerStyle={styles.contentContainer}>
         <Text style={{ marginBottom: 20, alignSelf: "center" }}>
           What would you like to do today?
         </Text>
@@ -77,6 +67,14 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#bff6eb",
+  },
+  contentContainer: {
+    backgroundColor: "#bff6eb",
+    padding: 20,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
   },
   startButton: {
     backgroundColor: "#47d702",

@@ -26,7 +26,7 @@ import { useNavigation } from "@react-navigation/native";
 // } from "react-native-input-list";
 
 const AddMemberScreen = ({ navigation }) => {
-  GLOBAL = require("./global");
+  GLOBAL = require("../global");
   const [member, setMember] = useState("");
 
   const alertPress = () => {

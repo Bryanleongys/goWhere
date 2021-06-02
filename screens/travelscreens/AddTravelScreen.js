@@ -19,7 +19,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { SwipeListView } from "react-native-swipe-list-view";
 
 const AddTravelScreen = ({ navigation, route }) => {
-  GLOBAL = require("./global");
+  GLOBAL = require("../global");
   const [location, setLocation] = useState("");
 
   const [date, setDate] = useState(new Date());

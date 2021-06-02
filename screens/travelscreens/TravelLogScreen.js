@@ -20,7 +20,7 @@ import {
   Item,
   List,
 } from "native-base";
-import SwipeListElement from "./SwipeListElement";
+import SwipeListElement from "./SwipeBorderElement";
 
 // Object containing key: date and value: array of locations pair
 // var travelHistory = {
@@ -35,7 +35,7 @@ import SwipeListElement from "./SwipeListElement";
 // var travelLocations = Object.values(travelHistory); // array of arrays
 
 const TravelLogScreen = ({ navigation, route }) => {
-  GLOBAL = require("./global");
+  GLOBAL = require("../global");
   // React.useEffect(() => {
   //   if (route.params?.location && route.params?.date) {
   //     if (route.params?.date in travelHistory) {

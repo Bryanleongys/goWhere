@@ -33,7 +33,7 @@ import {
 } from "native-base";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { CommonActions } from "@react-navigation/native";
-import config from "../config";
+import config from "../../config";
 
 const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 console.log(GOOGLE_PLACES_API_KEY);
@@ -42,7 +42,7 @@ const GoogleMapScreen = ({ navigation }) => {
   const ref = useRef();
 
   useEffect(() => {
-    ref.current?.setAddressText("Some Text");
+    ref.current?.setAddressText("");
   }, []);
 
   const handlePress = () => {
@@ -111,10 +111,12 @@ const GoogleMapScreen = ({ navigation }) => {
 
   return (
     <Container>
-      <Header style={styles.container}>
+      <Header style={{ backgroundColor: "#bff6eb" }}>
         <GooglePlacesAutocomplete
-          placeholder="Search Location"
+          ref={ref}
+          placeholder="Search"
           onPress={(data, details = null) => {
+            // 'details' is provided when fetchDetails = true
             console.log(data, details);
           }}
           query={{
@@ -123,7 +125,7 @@ const GoogleMapScreen = ({ navigation }) => {
           }}
         />
       </Header>
-      <Container style={styles.container}>
+      <Container>
         <MapView
           provider={PROVIDER_GOOGLE}
           style={styles.map}

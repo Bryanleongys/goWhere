@@ -20,13 +20,7 @@ import {
 const WelcomeScreen = ({ navigation }) => {
   return (
     <Container style={styles.mainContainer}>
-      <Content
-        contentContainerStyle={{
-          backgroundColor: "#bff6eb",
-          flex: 1,
-          justifyContent: "flex-end",
-        }}
-      >
+      <Content contentContainerStyle={styles.contentContainer}>
         <Image style={styles.logo} source={require("../assets/pacman.png")} />
         <Text style={styles.text}> goWhere </Text>
         <Container style={styles.bottomView}>
@@ -81,15 +75,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#bff6eb",
   },
+  contentContainer: {
+    backgroundColor: "#bff6eb",
+    flex: 1,
+    justifyContent: "flex-end",
+  },
   bottomView: {
     flex: 1,
     justifyContent: "flex-end",
     backgroundColor: "#bff6eb",
   },
-  // container: {
-  //   backgroundColor: "#bff6eb",
-  //   flex: 1,
-  // },
   loginButton: {
     backgroundColor: "#47d702",
   },

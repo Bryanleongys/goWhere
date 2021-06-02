@@ -54,15 +54,7 @@ class SelectPersonScreen extends Component {
   render() {
     return (
       <Container style={styles.container}>
-        <Content
-          padder
-          contentContainerStyle={{
-            backgroundColor: "#bff6eb",
-            padding: 20,
-            flex: 1,
-            justifyContent: "center",
-          }}
-        >
+        <Content padder contentContainerStyle={styles.contentContainer}>
           <Text style={styles.question}>
             Pick your preferred type of location:
           </Text>
@@ -131,6 +123,12 @@ class SelectPersonScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#bff6eb",
+  },
+  contentContainer: {
+    backgroundColor: "#bff6eb",
+    padding: 20,
+    flex: 1,
+    justifyContent: "center",
   },
   question: {
     marginBottom: 15,

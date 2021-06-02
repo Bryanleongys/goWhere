@@ -22,11 +22,11 @@ import {
 } from "native-base";
 import { SwipeListView } from "react-native-swipe-list-view";
 import SwipeMemberElement from "./SwipeMemberElement";
-import "./global.js";
+import "../global.js";
 
 class UpdateCliqueScreen extends Component {
   render() {
-    GLOBAL = require("./global");
+    GLOBAL = require("../global");
     return (
       <Container style={styles.container}>
         <Header style={{ backgroundColor: "#bff6eb" }}>
