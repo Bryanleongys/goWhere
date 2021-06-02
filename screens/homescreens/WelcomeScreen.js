@@ -21,7 +21,10 @@ const WelcomeScreen = ({ navigation }) => {
   return (
     <Container style={styles.mainContainer}>
       <Content contentContainerStyle={styles.contentContainer}>
-        <Image style={styles.logo} source={require("../assets/pacman.png")} />
+        <Image
+          style={styles.logo}
+          source={require("../../assets/pacman.png")}
+        />
         <Text style={styles.text}> goWhere </Text>
         <Container style={styles.bottomView}>
           <Button

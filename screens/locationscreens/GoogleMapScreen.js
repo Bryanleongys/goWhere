@@ -157,7 +157,7 @@ const GoogleMapScreen = ({ navigation }) => {
           >
             <Image
               style={{ height: 60, width: 60 }}
-              source={require("../assets/pacman.png")}
+              source={require("../../assets/pacman.png")}
             />
           </Marker>
           <Polygon
