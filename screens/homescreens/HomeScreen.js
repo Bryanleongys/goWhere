@@ -29,8 +29,9 @@ const HomeScreen = ({ navigation }) => {
           </Button>
         </Left>
         <Body>
-          <Title></Title>
+          <Title style={{ fontSize: 20 }}>Hotpot Fats</Title>
         </Body>
+        <Right />
       </Header>
       <Content padder contentContainerStyle={styles.contentContainer}>
         <Text style={{ marginBottom: 20, alignSelf: "center" }}>

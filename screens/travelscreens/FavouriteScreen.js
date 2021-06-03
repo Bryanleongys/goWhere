@@ -50,7 +50,7 @@ const FavouriteScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#bff6eb",
+    backgroundColor: "#fff",
   },
   button: {
     marginBottom: 5,

@@ -42,7 +42,7 @@ const SwipeMemberElement = ({ inputArray }) => {
     <TouchableHighlight
       onPress={() => console.log("You touched me")}
       style={styles.rowFront}
-      underlayColor={"#00c6bb"}
+      underlayColor={"#fff"}
     >
       <View>
         <Text>{data.item.text}</Text>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   rowFront: {
     paddingLeft: 20,
-    backgroundColor: "#bff6eb",
+    backgroundColor: "#fff",
     borderBottomColor: "#CCC",
     borderBottomWidth: 1,
     justifyContent: "center",
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   rowBack: {
     alignItems: "center",
-    backgroundColor: "#00c6bb",
+    backgroundColor: "#c8c8c8",
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     width: 150,
   },
   backRightBtnLeft: {
-    backgroundColor: "#00c6bb",
+    backgroundColor: "#c8c8c8",
     right: 75,
   },
   backRightBtnRight: {
