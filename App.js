@@ -21,12 +21,16 @@ import Notification from "./screens/locationscreens/NotificationScreen";
 import Favourite from "./screens/travelscreens/FavouriteScreen";
 import AddMember from "./screens/cliquescreens/AddMemberScreen";
 import EditMember from "./screens/cliquescreens/EditMemberScreen";
+import HomeScreen from "./screens/homescreens/HomeScreen";
+import WelcomeScreen from "./screens/homescreens/WelcomeScreen";
+import SettingScreen from "./screens/homescreens/SettingScreen";
 
 const AuthStack = createStackNavigator();
 const HomeStack = createStackNavigator();
 const LocationStack = createStackNavigator();
 const CliqueStack = createStackNavigator();
 const TravelStack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const TravelStackScreen = () => {
   return (
@@ -70,6 +74,20 @@ const LocationStackScreen = () => {
   );
 };
 
+const HomeStackScreen = () => {
+  return (
+    <Drawer.Navigator
+      initialRouteName="Home"
+      edgeWidth="0"
+      drawerStyle={{ backgroundColor: "#d1f6eb", width: 200 }}
+    >
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Settings" component={SettingScreen} />
+      <Drawer.Screen name="Logout" component={WelcomeScreen} />
+    </Drawer.Navigator>
+  );
+};
+
 export default function App() {
   return (
     <NavigationContainer>
@@ -81,14 +99,11 @@ export default function App() {
         <AuthStack.Screen name="CreateAccount" component={CreateAccount} />
         <AuthStack.Screen name="OneTime" component={OneTime} />
         <AuthStack.Screen name="Login" component={Login} />
-        <AuthStack.Screen name="Home" component={Home} />
+        <AuthStack.Screen name="Home" component={HomeStackScreen} />
         <AuthStack.Screen name="Location" component={LocationStackScreen} />
         <AuthStack.Screen name="Clique" component={CliqueStackScreen} />
         <AuthStack.Screen name="Travel" component={TravelStackScreen} />
       </AuthStack.Navigator>
-      {/* <Drawer.Navigator>
-        <Drawer.Screen name="Logout" component={Welcome} />
-      </Drawer.Navigator> */}
     </NavigationContainer>
   );
 }
