@@ -19,13 +19,25 @@ import {
 } from "native-base";
 import { Alert } from "react-native";
 import { NavigationHelpersContext } from "@react-navigation/core";
+import { CommonActions } from "@react-navigation/native";
 
 const ResetPasswordScreen = ({ navigation }) => {
   handlePress = () => {
     Alert.alert(
       "Password has been reset!",
       "Please check your inbox to verify.",
-      [{ text: "OK", onPress: () => navigation.navigate("Welcome") }]
+      [
+        {
+          text: "OK",
+          onPress: () =>
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 1,
+                routes: [{ name: "Welcome" }],
+              })
+            ),
+        },
+      ]
     );
   };
 
