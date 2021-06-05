@@ -24,6 +24,7 @@ import EditMember from "./screens/cliquescreens/EditMemberScreen";
 import HomeScreen from "./screens/homescreens/HomeScreen";
 import WelcomeScreen from "./screens/homescreens/WelcomeScreen";
 import SettingScreen from "./screens/homescreens/SettingScreen";
+import ResetPasswordScreen from "./screens/homescreens/ResetPasswordScreen";
 
 const AuthStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -103,6 +104,10 @@ export default function App() {
         <AuthStack.Screen name="Location" component={LocationStackScreen} />
         <AuthStack.Screen name="Clique" component={CliqueStackScreen} />
         <AuthStack.Screen name="Travel" component={TravelStackScreen} />
+        <AuthStack.Screen
+          name="ResetPassword"
+          component={ResetPasswordScreen}
+        />
       </AuthStack.Navigator>
     </NavigationContainer>
   );

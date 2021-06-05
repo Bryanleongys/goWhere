@@ -17,12 +17,16 @@ import {
   Form,
   Text,
 } from "native-base";
+import { Alert } from "react-native";
+import { NavigationHelpersContext } from "@react-navigation/core";
 
-const LoginScreen = ({ navigation }) => {
+const ResetPasswordScreen = ({ navigation }) => {
   handlePress = () => {
-    if (true) {
-      navigation.push("Home");
-    }
+    Alert.alert(
+      "Password has been reset!",
+      "Please check your inbox to verify.",
+      [{ text: "OK", onPress: () => navigation.navigate("Welcome") }]
+    );
   };
 
   return (
@@ -34,7 +38,7 @@ const LoginScreen = ({ navigation }) => {
           </Button>
         </Left>
         <Body>
-          <Title style={{ fontSize: 17 }}>Log In</Title>
+          <Title style={{ fontSize: 17 }}>Reset Password</Title>
         </Body>
         <Right />
       </Header>
@@ -42,12 +46,8 @@ const LoginScreen = ({ navigation }) => {
       <Content>
         <Form>
           <Item floatingLabel>
-            <Label>Clique's Username</Label>
+            <Label>Email address</Label>
             <Input />
-          </Item>
-          <Item floatingLabel last>
-            <Label>Password</Label>
-            <Input secureTextEntry />
           </Item>
         </Form>
         <Button
@@ -55,14 +55,7 @@ const LoginScreen = ({ navigation }) => {
           style={{ margin: 15, marginTop: 50 }}
           onPress={handlePress}
         >
-          <Text>Sign In</Text>
-        </Button>
-        <Button
-          onPress={() => navigation.navigate("ResetPassword")}
-          style={{ alignSelf: "center", paddingBottom: 20 }}
-          transparent
-        >
-          <Text> Forgot Password? </Text>
+          <Text>Reset Password</Text>
         </Button>
       </Content>
     </Container>
@@ -75,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default ResetPasswordScreen;

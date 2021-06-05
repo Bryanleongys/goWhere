@@ -25,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
             <Icon name="menu-sharp" style={{ color: "#323232" }} />
           </Button>
         </Left>
-        <Body>
+        <Body style={{ flex: 3 }}>
           <Title style={{ fontSize: 20 }}>LEO House!!!</Title>
         </Body>
         <Right />
