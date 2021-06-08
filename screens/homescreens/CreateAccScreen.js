@@ -26,6 +26,7 @@ const CreateAccount = ({ navigation }) => {
   const [username, onChangeUsername] = React.useState(null);
   const [password1, onChangePassword1] = React.useState(null);
   const [password2, onChangePassword2] = React.useState(null);
+  const [email, onChangeEmail] = React.useState(null);
 
   // Alert if account created successfully
   handlePress = () => {
@@ -51,7 +52,7 @@ const CreateAccount = ({ navigation }) => {
             <Icon name="arrow-back" />
           </Button>
         </Left>
-        <Body>
+        <Body style={{ flex: 3 }}>
           <Title style={{ fontSize: 17 }}>Create Account</Title>
         </Body>
         <Right />
@@ -59,6 +60,10 @@ const CreateAccount = ({ navigation }) => {
 
       <Content>
         <Form>
+          <Item floatingLabel>
+            <Label>Email Address</Label>
+            <Input onChangeText={onChangeEmail} value={email} />
+          </Item>
           <Item floatingLabel>
             <Label>Clique's Username</Label>
             <Input onChangeText={onChangeUsername} value={username} />

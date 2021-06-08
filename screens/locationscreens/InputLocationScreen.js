@@ -37,7 +37,7 @@ const InputLocationScreen = ({ navigation, route }) => {
           <Button onPress={() => navigation.goBack()}>
             <Icon name="caret-back-sharp" />
           </Button>
-          <Button onPress={() => navigation.push("Preferences")}>
+          <Button onPress={() => navigation.navigate("Preferences")}>
             <Icon name="caret-forward-sharp" />
           </Button>
         </FooterTab>

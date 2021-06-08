@@ -33,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
             <Icon name="arrow-back" />
           </Button>
         </Left>
-        <Body>
+        <Body style={{ flex: 3 }}>
           <Title style={{ fontSize: 17 }}>Log In</Title>
         </Body>
         <Right />

@@ -14,36 +14,37 @@ import {
   Footer,
   FooterTab,
 } from "native-base";
-import { useNavigation } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 
-const OneTimeScreen = ({ navigation }) => {
+const AccountScreen = ({ navigation }) => {
   return (
     <Container style={styles.container}>
-      <Header transparent style={{ backgroundColor: "#bff6eb" }}>
+      <Header transparent>
         <Left>
           <Button transparent onPress={() => navigation.openDrawer()}>
             <Icon name="menu-sharp" style={{ color: "#323232" }} />
           </Button>
         </Left>
-        <Body></Body>
+        <Body style={{ flex: 3 }}>
+          <Title style={{ fontSize: 20 }}>Account Settings</Title>
+        </Body>
         <Right />
       </Header>
-      <Content
-        padder
-        contentContainerStyle={{
-          backgroundColor: "#bff6eb",
-          padding: 20,
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          alignSelf: "center",
-        }}
-      >
-        <Text style={{ marginBottom: 20, alignSelf: "center" }}>
-          Coming Soon!
-        </Text>
+      <Content padder contentContainerStyle={styles.contentContainer}>
+        <Button
+          rounded
+          style={styles.startButton}
+          onPress={() => console.log("Password button pressed")}
+        >
+          <Text style={{ color: "#000000" }}>Change Password</Text>
+        </Button>
+        <Button
+          rounded
+          info
+          style={styles.cliqueButton}
+          onPress={() => console.log("Email button pressed")}
+        >
+          <Text style={{ color: "#000000" }}>Change Email Address</Text>
+        </Button>
       </Content>
     </Container>
   );
@@ -52,6 +53,14 @@ const OneTimeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#bff6eb",
+  },
+  contentContainer: {
+    backgroundColor: "#bff6eb",
+    padding: 20,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
   },
   startButton: {
     backgroundColor: "#47d702",
@@ -70,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OneTimeScreen;
+export default AccountScreen;
