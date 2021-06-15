@@ -1,6 +1,6 @@
 // Navigates here when Log In button is clicked on WelcomeScreen
-import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import React, { Component, useState } from "react";
+import { StyleSheet, ActivityIndicator, Alert } from "react-native";
 import {
   Container,
   Header,
@@ -18,12 +18,42 @@ import {
   Text,
 } from "native-base";
 
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
+
 const LoginScreen = ({ navigation }) => {
-  handlePress = () => {
-    if (true) {
-      navigation.push("Home");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = () => {
+    if (email === "" || password === "") {
+      Alert.alert("Please fill in missing fields.");
     }
+
+    let user = {
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post(`${baseURL}users/login`, user)
+      .then((res) => {
+        if (res.status == 200) {
+          console.log("Successful login!");
+          navigation.push("Home");
+        }
+        // else if (res.status == 400)
+      })
+      .catch((error) => {
+        console.log(error);
+        Alert.alert("Incorrect password."); // bug, should be above where res.status == 400
+      });
   };
+  // else {
+  //   console.log("Successful login!");
+  //   navigation.push("Home");
+  //   }
+  // };
 
   return (
     <Container style={styles.container}>
@@ -42,18 +72,29 @@ const LoginScreen = ({ navigation }) => {
       <Content>
         <Form>
           <Item floatingLabel>
-            <Label>Clique's Username</Label>
-            <Input />
+            <Label>Email Address</Label>
+            <Input
+              name={"email"}
+              id={"email"}
+              value={email}
+              onChangeText={(text) => setEmail(text.toLowerCase())}
+            />
           </Item>
           <Item floatingLabel last>
             <Label>Password</Label>
-            <Input secureTextEntry />
+            <Input
+              name={"password"}
+              id={"password"}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              secureTextEntry={true}
+            />
           </Item>
         </Form>
         <Button
           block
           style={{ margin: 15, marginTop: 50 }}
-          onPress={handlePress}
+          onPress={handleSubmit}
         >
           <Text>Sign In</Text>
         </Button>

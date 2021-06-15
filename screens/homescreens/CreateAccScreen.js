@@ -21,6 +21,9 @@ import {
   NativeBaseProvider,
 } from "native-base";
 
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
+
 const CreateAccount = ({ navigation }) => {
   // Read user input
   const [username, onChangeUsername] = React.useState(null);
@@ -34,15 +37,33 @@ const CreateAccount = ({ navigation }) => {
       return Alert.alert("Please fill in missing fields.");
     } else if (password1 != password2) {
       return Alert.alert("Passwords mismatched. Please retype passwords.");
-    } else {
-      return Alert.alert("Account successfully created!", null, [
-        {
-          text: "OK",
-          onPress: () => navigation.goBack(),
-        },
-      ]);
     }
+    let user = {
+      name: username,
+      email: email,
+      password: password1,
+      isAdmin: false,
+    };
+
+    axios
+      .post(`${baseURL}users/register`, user)
+      .then((res) => {
+        if (res.status == 200) {
+          Alert.alert("Account successfully created!", null, [
+            {
+              text: "OK",
+              onPress: navigation.goBack(),
+            },
+          ]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        Alert.alert("Something went wrong");
+      });
   };
+
+  // for server
 
   return (
     <Container style={styles.container}>
@@ -62,7 +83,10 @@ const CreateAccount = ({ navigation }) => {
         <Form>
           <Item floatingLabel>
             <Label>Email Address</Label>
-            <Input onChangeText={onChangeEmail} value={email} />
+            <Input
+              onChangeText={(text) => onChangeEmail(text.toLowerCase())}
+              value={email}
+            />
           </Item>
           <Item floatingLabel>
             <Label>Clique's Username</Label>

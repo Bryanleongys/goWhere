@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { StyleSheet } from "react-native";
 import {
   Container,
@@ -21,6 +21,16 @@ import {
 import LocationElement from "./LocationElement";
 
 const PaxScreen = ({ navigation }) => {
+  // const [text, setText] = useState();
+  // const [list, setList] = useState(["Hello World"]);
+
+  // const addItem = () => {
+  //   const updatedList = list;
+  //   updatedList.push(text);
+  //   setList(updatedList);
+  //   setText("");
+  // };
+
   var [pax, onChangePax] = React.useState(null);
 
   var inputs = [];
