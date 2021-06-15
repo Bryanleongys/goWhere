@@ -27,7 +27,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleSubmit = () => {
     if (email === "" || password === "") {
-      Alert.alert("Please fill in missing fields.");
+      return Alert.alert("Please fill in missing fields.");
     }
 
     let user = {
@@ -45,8 +45,11 @@ const LoginScreen = ({ navigation }) => {
         // else if (res.status == 400)
       })
       .catch((error) => {
-        console.log(error);
-        Alert.alert("Incorrect password."); // bug, should be above where res.status == 400
+        if (error.message == "Request failed with status code 400") {
+          Alert.alert("Incorrect password.");
+        } else if (error.message == "Request failed with status code 500") {
+          Alert.alert("Account does not exist. Please create an account.");
+        }
       });
   };
   // else {

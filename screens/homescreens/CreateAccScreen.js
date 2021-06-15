@@ -35,6 +35,10 @@ const CreateAccount = ({ navigation }) => {
   handlePress = () => {
     if (username == null || password1 == null || password2 == null) {
       return Alert.alert("Please fill in missing fields.");
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      return Alert.alert("Please enter a valid email.");
+    } else if (password1.length < 8) {
+      return Alert.alert("Password too short!");
     } else if (password1 != password2) {
       return Alert.alert("Passwords mismatched. Please retype passwords.");
     }
@@ -58,12 +62,13 @@ const CreateAccount = ({ navigation }) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        if (error.message == "Request failed with status code 400") {
+          // try to find better code?
+          return Alert.alert("Account already exists!");
+        }
         Alert.alert("Something went wrong");
       });
   };
-
-  // for server
 
   return (
     <Container style={styles.container}>
