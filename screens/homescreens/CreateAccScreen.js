@@ -26,14 +26,14 @@ import baseURL from "../../assets/common/baseUrl";
 
 const CreateAccount = ({ navigation }) => {
   // Read user input
-  const [username, onChangeUsername] = React.useState(null);
-  const [password1, onChangePassword1] = React.useState(null);
-  const [password2, onChangePassword2] = React.useState(null);
-  const [email, onChangeEmail] = React.useState(null);
+  const [username, onChangeUsername] = React.useState("");
+  const [password1, onChangePassword1] = React.useState("");
+  const [password2, onChangePassword2] = React.useState("");
+  const [email, onChangeEmail] = React.useState("");
 
   // Alert if account created successfully
   handlePress = () => {
-    if (username == null || password1 == null || password2 == null) {
+    if (email == "" || username == "" || password1 == "" || password2 == "") {
       return Alert.alert("Please fill in missing fields.");
     } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       return Alert.alert("Please enter a valid email.");
@@ -95,13 +95,16 @@ const CreateAccount = ({ navigation }) => {
           </Item>
           <Item floatingLabel>
             <Label>Clique's Username</Label>
-            <Input onChangeText={onChangeUsername} value={username} />
+            <Input
+              onChangeText={(text) => onChangeUsername(text)}
+              value={username}
+            />
           </Item>
           <Item floatingLabel last>
             <Label>Password</Label>
             <Input
               secureTextEntry
-              onChangeText={onChangePassword1}
+              onChangeText={(text) => onChangePassword1(text)}
               value={password1}
             />
           </Item>
@@ -109,7 +112,7 @@ const CreateAccount = ({ navigation }) => {
             <Label>Confirm Password</Label>
             <Input
               secureTextEntry
-              onChangeText={onChangePassword2}
+              onChangeText={(text) => onChangePassword2(text)}
               value={password2}
             />
           </Item>
