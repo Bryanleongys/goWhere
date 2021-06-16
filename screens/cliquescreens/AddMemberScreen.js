@@ -28,10 +28,13 @@ import { useNavigation } from "@react-navigation/native";
 const AddMemberScreen = ({ navigation }) => {
   GLOBAL = require("../global");
   const [member, setMember] = useState("");
+  const [location, setLocation] = useState("");
+  const [postalCode, setPostalCode] = useState("");
 
   const alertPress = () => {
-    GLOBAL.MEMBERSARRAY[Object.keys(GLOBAL.MEMBERSARRAY).length] = [member];
-    console.log(member);
+    console.log(Object.keys(GLOBAL.MEMBERSARRAY1).length)
+    GLOBAL.MEMBERSARRAY1[Object.keys(GLOBAL.MEMBERSARRAY1).length] = member;
+    console.log(Object.keys(GLOBAL.MEMBERSARRAY1)[Object.keys(GLOBAL.MEMBERSARRAY1).length - 1]);
     navigation.navigate("Home");
   };
 
@@ -63,11 +66,6 @@ const AddMemberScreen = ({ navigation }) => {
         <Body>
           <Title style={{ fontSize: 17 }}>Member details</Title>
         </Body>
-        <Right>
-          <Button transparent onPress={() => console.log("Add location")}>
-            <Icon name="ios-add" />
-          </Button>
-        </Right>
       </Header>
 
       <Content>
@@ -77,6 +75,13 @@ const AddMemberScreen = ({ navigation }) => {
             <Input value={member} onChangeText={setMember} />
           </Item>
         </Form>
+        <Button
+          block
+          style={{ margin: 15, marginTop: 50 }}
+          onPress={() => navigation.navigate("CliqueScreen4")}
+        >
+          <Text>Add Location</Text>
+        </Button>
         <Button
           block
           style={{ margin: 15, marginTop: 50 }}

@@ -9,13 +9,14 @@ import {
 } from "react-native";
 
 import { SwipeListView } from "react-native-swipe-list-view";
+import { useNavigation } from "@react-navigation/native";
 
-const SwipeMemberElement = ({ inputArray }) => {
+const SwipeMemberElement = ({ inputArray, navi }) => {
   var length = inputArray.length;
   const [listData, setListData] = useState(
-    Array(length)
+    Array(1)
       .fill("")
-      .map((_, i) => ({ key: `${i}`, text: inputArray[i] }))
+      .map((_, i) => ({ key: `${i}`, text: inputArray }))
   );
 
   const closeRow = (rowMap, rowKey) => {
@@ -31,6 +32,11 @@ const SwipeMemberElement = ({ inputArray }) => {
     newData.splice(prevIndex, 1);
     setListData(newData);
   };
+
+  const editRow = (rowMap, rowKey) => {
+    closeRow(rowMap, rowKey);
+    navi.navigate("CliqueScreen3");
+  }
 
   const onRowDidOpen = (rowKey) => {
     console.log("This row opened", rowKey);
@@ -53,9 +59,9 @@ const SwipeMemberElement = ({ inputArray }) => {
       <Text>Juked</Text>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnLeft]}
-        onPress={() => closeRow(rowMap, data.item.key)}
+        onPress={() => editRow(rowMap, data.item.key)}
       >
-        <Text style={styles.backTextWhite}>Close</Text>
+        <Text style={styles.backTextWhite}>Edit</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnRight]}

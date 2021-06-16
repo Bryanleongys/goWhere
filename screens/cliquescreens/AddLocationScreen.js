@@ -19,8 +19,8 @@ import {
 } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
-const EditMemberScreen = ({ navigation }) => {
-  const handlePress = () => {
+const AddLocationScreen = ({ navigation }) => {
+  handlePress = () => {
     if (true) {
       console.log(works);
     }
@@ -43,17 +43,20 @@ const EditMemberScreen = ({ navigation }) => {
       <Content>
         <Form>
           <Item floatingLabel>
-            <Label>Members Name</Label>
+            <Label>Location Name</Label>
             <Input />
           </Item>
-          
+          <Item floatingLabel>
+            <Label>Postal Code</Label>
+            <Input />
+          </Item>
         </Form>
         <Button
           block
           style={{ margin: 15, marginTop: 50 }}
           onPress={handlePress}
         >
-          <Text>Done</Text>
+          <Text>Add</Text>
         </Button>
       </Content>
     </Container>
@@ -66,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditMemberScreen;
+export default AddLocationScreen;

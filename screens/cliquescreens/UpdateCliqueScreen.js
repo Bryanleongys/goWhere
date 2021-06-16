@@ -24,14 +24,13 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import SwipeMemberElement from "./SwipeMemberElement";
 import "../global.js";
 
-class UpdateCliqueScreen extends Component {
-  render() {
+const UpdateCliqueScreen =({ navigation }) => {
     GLOBAL = require("../global");
     return (
       <Container style={styles.container}>
         <Header style={{ backgroundColor: "#bff6eb" }}>
           <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
+            <Button transparent onPress={() => navigation.goBack()}>
               <Icon name="arrow-back" />
             </Button>
           </Left>
@@ -41,19 +40,19 @@ class UpdateCliqueScreen extends Component {
           <Right>
             <Button
               transparent
-              onPress={() => this.props.navigation.push("CliqueScreen2")}
+              onPress={() => navigation.navigate("CliqueScreen2")}
             >
               <Icon name="ios-add" />
             </Button>
           </Right>
         </Header>
         <Content>
-          {Object.keys(GLOBAL.MEMBERSARRAY).map((date, index) => {
+          {Object.keys(GLOBAL.MEMBERSARRAY1).map((name, index) => {
             return (
               <Content>
                 <List>
                   <SwipeMemberElement
-                    inputArray={Object.values(GLOBAL.MEMBERSARRAY)[index]}
+                    inputArray={Object.keys(GLOBAL.MEMBERSARRAY1)[index] } navi={navigation}
                   />
                 </List>
               </Content>
@@ -63,7 +62,6 @@ class UpdateCliqueScreen extends Component {
         </Content>
       </Container>
     );
-  }
 }
 
 const styles = StyleSheet.create({
