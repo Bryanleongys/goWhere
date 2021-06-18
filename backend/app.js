@@ -17,17 +17,19 @@ app.use(authJwt());
 app.use(errorHandler); // do not understand the difference between authJwt() and errorHandler
 
 //Routes
-const categoriesRoutes = require("./routes/categories");
-const productsRoutes = require("./routes/products");
 const usersRoutes = require("./routes/users");
-const ordersRoutes = require("./routes/orders");
+const cliquesRoutes = require("./routes/cliques");
+// const categoriesRoutes = require("./routes/categories");
+// const productsRoutes = require("./routes/products");
+// const ordersRoutes = require("./routes/orders");
 
 const api = process.env.API_URL;
 
-app.use(`${api}/categories`, categoriesRoutes);
-app.use(`${api}/products`, productsRoutes);
 app.use(`${api}/users`, usersRoutes);
-app.use(`${api}/orders`, ordersRoutes);
+app.use(`${api}/cliques`, cliquesRoutes);
+// app.use(`${api}/categories`, categoriesRoutes);
+// app.use(`${api}/products`, productsRoutes);
+// app.use(`${api}/orders`, ordersRoutes);
 
 //Database
 mongoose

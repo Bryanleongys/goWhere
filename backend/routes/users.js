@@ -1,4 +1,6 @@
 const { User } = require("../models/user");
+const { Clique } = require("../models/clique");
+const cliqueInit = require("../common/cliqueinit");
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
@@ -29,17 +31,18 @@ router.get("/:id", async (req, res) => {
 
 // Post new user
 router.post("/", async (req, res) => {
+  let clique = cliqueInit();
+  clique = await clique.save();
+  if (!clique) {
+    return res.status(404).send("clique cannot be created!");
+  }
+
   let user = new User({
     name: req.body.name,
     email: req.body.email,
     passwordHash: bcrypt.hashSync(req.body.password, 10),
-    phone: req.body.phone,
     isAdmin: req.body.isAdmin,
-    street: req.body.street,
-    apartment: req.body.apartment,
-    zip: req.body.zip,
-    city: req.body.city,
-    country: req.body.country,
+    cliqueID: clique._id,
   });
   user = await user.save();
 
@@ -50,17 +53,32 @@ router.post("/", async (req, res) => {
   res.send(user);
 });
 
+// Register new user
 router.post("/register", async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
   if (user) {
     return res.status(400).send("The user already exists!");
   } else {
+    // Creating new clique
+    // let clique = cliqueInit();
+    // clique = await clique.save();
+    // if (!clique) {
+    //   return res.status(404).send("clique cannot be created!");
+    // }
+    let clique = new Clique();
+    clique = await clique.save();
+    if (!clique) {
+      return res.status(404).send("clique cannot be created");
+    }
+
     user = new User({
       name: req.body.name,
       email: req.body.email,
       passwordHash: bcrypt.hashSync(req.body.password, 10),
       isAdmin: req.body.isAdmin,
+      cliqueID: clique.id,
     });
+
     user = await user.save();
     if (!user) {
       return res.status(404).send("the user cannot be created!");
@@ -70,6 +88,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// Login user
 router.post("/login", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   const secret = process.env.secret;
@@ -88,7 +107,7 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1d" } // user cannot use API when token is expired
     );
 
-    res.status(200).send({ user: user.email, token: token });
+    res.status(200).send({ user: user, token: token });
   } // compare two passwords with Hash
   else {
     res.status(400).send("password is wrong!");

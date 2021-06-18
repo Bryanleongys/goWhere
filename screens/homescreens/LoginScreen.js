@@ -48,7 +48,7 @@ const LoginScreen = ({ navigation }) => {
         if (error.message == "Request failed with status code 400") {
           Alert.alert("Incorrect password.");
         } else if (error.message == "Request failed with status code 500") {
-          Alert.alert("Account does not exist. Please create an account.");
+          Alert.alert("Account does not exist.");
         }
       });
   };

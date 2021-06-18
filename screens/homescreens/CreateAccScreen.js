@@ -64,7 +64,7 @@ const CreateAccount = ({ navigation }) => {
       .catch((error) => {
         if (error.message == "Request failed with status code 400") {
           // try to find better code?
-          return Alert.alert("Account already exists!");
+          return Alert.alert("Email is already in use.");
         }
         Alert.alert("Something went wrong");
       });
