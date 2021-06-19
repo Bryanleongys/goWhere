@@ -18,6 +18,9 @@ import { Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { SwipeListView } from "react-native-swipe-list-view";
 
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
+
 const AddTravelScreen = ({ navigation, route }) => {
   GLOBAL = require("../global");
   const [location, setLocation] = useState("");
@@ -60,6 +63,27 @@ const AddTravelScreen = ({ navigation, route }) => {
       GLOBAL.TRAVELHISTORY[dateString] = [location];
       console.log(location);
     }
+    let locationDetails = {
+      date: dateString,
+      locationName: location,
+      postalCode: "439947", // figure out how to get from google api
+    };
+    axios
+      .patch(
+        `${baseURL}cliques/addlog/60cba472c5923607e63bacd7`,
+        locationDetails
+      )
+      .then((res) => {
+        if (res.status == 200) {
+          console.log("Location successfully added!");
+        }
+      })
+      .catch((error) => {
+        if (error.message == "Request failed with status code 400") {
+          return console.log("Error message");
+        }
+        console.log("Something went wrong");
+      });
     navigation.navigate("Home");
   };
 
@@ -68,14 +92,6 @@ const AddTravelScreen = ({ navigation, route }) => {
       {
         text: "OK",
         onPress: alertPress,
-        // navigation.navigate({
-        //   name: "TravelScreen1",
-        //   params: {
-        //     date: dateString,
-        //     location: location,
-        //   },
-        //   merge: true,
-        // }),
       },
     ]);
   };
