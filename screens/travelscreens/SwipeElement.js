@@ -11,12 +11,13 @@ import {
 import { SwipeListView } from "react-native-swipe-list-view";
 
 const SwipeMemberElement = ({ inputArray }) => {
-  GLOBAL = require("../global");
+  console.log("favourites");
+  console.log(inputArray);
   var length = inputArray.length;
   const [listData, setListData] = useState(
     Array(length)
       .fill("")
-      .map((_, i) => ({ key: `${i}`, text: inputArray[i] }))
+      .map((_, i) => ({ key: `${i}`, text: inputArray[i].locationName }))
   );
 
   const closeRow = (rowMap, rowKey) => {
@@ -30,7 +31,7 @@ const SwipeMemberElement = ({ inputArray }) => {
     const newData = [...listData];
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
     newData.splice(prevIndex, 1);
-    GLOBAL.FAVOURITEPLACES.splice(prevIndex, 1);
+    // GLOBAL.FAVOURITEPLACES.splice(prevIndex, 1);
     setListData(newData);
   };
 

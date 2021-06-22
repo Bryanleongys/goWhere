@@ -45,10 +45,19 @@ const AddTravelScreen = ({ navigation, route }) => {
   ];
 
   var dd = date.getDate();
+  var mmnumber = date.getMonth();
   var mm = monthNames[date.getMonth()];
   var yyyy = date.getFullYear();
 
+  // Adds 0 in front of all months less than 10
+  if (mmnumber < 10) {
+    mmnumber = "0" + String(mmnumber);
+  } else {
+    mmnumber = String(mmnumber);
+  }
+
   var dateString = dd + " " + mm + " " + yyyy;
+  var dateNum = String(yyyy) + mmnumber + String(dd);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -65,6 +74,7 @@ const AddTravelScreen = ({ navigation, route }) => {
     }
     let locationDetails = {
       date: dateString,
+      dateNum: dateNum,
       locationName: location,
       postalCode: "439947", // figure out how to get from google api
     };

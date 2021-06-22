@@ -1,5 +1,5 @@
 // Navigates here when Update Travel Log button is clicked on HomeScreen
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import {
   Container,
@@ -21,6 +21,10 @@ import {
   List,
 } from "native-base";
 import SwipeListElement from "./SwipeBorderElement";
+import "react-native-gesture-handler";
+
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
 
 // Object containing key: date and value: array of locations pair
 // var travelHistory = {
@@ -33,19 +37,36 @@ import SwipeListElement from "./SwipeBorderElement";
 
 // var travelDates = Object.keys(travelHistory);
 // var travelLocations = Object.values(travelHistory); // array of arrays
-
+// React.useEffect(() => {
+//   if (route.params?.location && route.params?.date) {
+//     if (route.params?.date in travelHistory) {
+//       travelHistory[route.params?.date].push(route.params?.location);
+//     } else {
+//       travelHistory[route.params?.date] = [route.params?.location];
+//       console.log("Bleh");
+//     }
+//   }
+// });
 const TravelLogScreen = ({ navigation, route }) => {
   GLOBAL = require("../global");
-  // React.useEffect(() => {
-  //   if (route.params?.location && route.params?.date) {
-  //     if (route.params?.date in travelHistory) {
-  //       travelHistory[route.params?.date].push(route.params?.location);
-  //     } else {
-  //       travelHistory[route.params?.date] = [route.params?.location];
-  //       console.log("Bleh");
-  //     }
-  //   }
-  // });
+  const [currData, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      console.log("Refreshed");
+      axios
+        .get(`${baseURL}cliques/getlogs/60cba472c5923607e63bacd7`)
+        .then((res) => {
+          console.log("Successfully GET request");
+          setData(res.data[0].logs);
+        })
+        .catch((error) => {
+          console.log("GET request failed");
+        });
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   return (
     <Container style={styles.container}>
       <Header style={{ backgroundColor: "#bff6eb" }}>
@@ -67,14 +88,11 @@ const TravelLogScreen = ({ navigation, route }) => {
         </Right>
       </Header>
       <Content>
-        {Object.keys(GLOBAL.TRAVELHISTORY).map((date, index) => {
+        {currData.map((log, index) => {
           return (
             <Content>
               <List>
-                <SwipeListElement
-                  inputArray={Object.values(GLOBAL.TRAVELHISTORY)[index]}
-                  date={date}
-                />
+                <SwipeListElement inputArray={log.locations} date={log.date} />
               </List>
             </Content>
           );

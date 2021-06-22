@@ -11,14 +11,17 @@ import {
 import { Content, Separator, Icon } from "native-base";
 
 import { SwipeListView } from "react-native-swipe-list-view";
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
 
 const SwipeListElement = ({ inputArray, date }) => {
+  console.log(inputArray);
   GLOBAL = require("../global");
   var length = inputArray.length;
   const [listData, setListData] = useState(
     Array(length)
       .fill("")
-      .map((_, i) => ({ key: `${i}`, text: inputArray[i] }))
+      .map((_, i) => ({ key: `${i}`, text: inputArray[i].locationName }))
   );
 
   const closeRow = (rowMap, rowKey) => {
@@ -29,21 +32,62 @@ const SwipeListElement = ({ inputArray, date }) => {
 
   const addFavourite = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
-    if (!GLOBAL.FAVOURITEPLACES.includes(GLOBAL.TRAVELHISTORY[date][rowKey])) {
-      GLOBAL.FAVOURITEPLACES.push(GLOBAL.TRAVELHISTORY[date][rowKey]);
-    }
-    console.log(GLOBAL.FAVOURITEPLACES);
+    // if (!GLOBAL.FAVOURITEPLACES.includes(GLOBAL.TRAVELHISTORY[date][rowKey])) {
+    //   GLOBAL.FAVOURITEPLACES.push(GLOBAL.TRAVELHISTORY[date][rowKey]);
+    // }
+    // console.log(GLOBAL.FAVOURITEPLACES);
+    console.log(inputArray[rowKey].locationName);
+    let inputFavourite = {
+      locationName: inputArray[rowKey].locationName,
+      postalCode: "439947",
+    };
+
+    axios
+      .patch(
+        `${baseURL}cliques/addfavourite/60cba472c5923607e63bacd7`,
+        inputFavourite
+      )
+      .then((res) => {
+        if (res.status == 200) {
+          console.log("Successful addition!");
+        }
+      })
+      .catch((error) => {
+        console.log("Failed");
+      });
   };
 
   const deleteRow = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
     const newData = [...listData];
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
+    console.log(inputArray[rowKey].locationName);
     newData.splice(prevIndex, 1);
-    GLOBAL.TRAVELHISTORY[date].splice(prevIndex, 1);
-    if (GLOBAL.TRAVELHISTORY[date].length == 0) {
-      delete GLOBAL.TRAVELHISTORY[date];
-    }
+
+    let inputDelete = {
+      date: date,
+      locationName: inputArray[rowKey].locationName,
+    };
+
+    axios
+      .patch(
+        `${baseURL}cliques/removelog/60cba472c5923607e63bacd7`,
+        inputDelete
+      )
+      .then((res) => {
+        if (res.status == 200) {
+          console.log("Successful login!");
+        }
+        // else if (res.status == 400)
+      })
+      .catch((error) => {
+        console.log("Failed");
+      });
+
+    // GLOBAL.TRAVELHISTORY[date].splice(prevIndex, 1);
+    // if (GLOBAL.TRAVELHISTORY[date].length == 0) {
+    //   delete GLOBAL.TRAVELHISTORY[date];
+    // }
     setListData(newData);
   };
 

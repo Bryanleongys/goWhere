@@ -20,12 +20,31 @@ import {
   List,
 } from "native-base";
 import SwipeDeleteElement from "./SwipeElement";
+import "react-native-gesture-handler";
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
 
 const FavouriteScreen = ({ navigation }) => {
   GLOBAL = require("../global");
-  {
-    console.log(GLOBAL.FAVOURITEPLACES);
-  }
+  const [currData, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      console.log("Refreshed");
+      axios
+        .get(`${baseURL}cliques/getfavourites/60cba472c5923607e63bacd7`)
+        .then((res) => {
+          console.log("Successfully GET request");
+          setData(res.data[0].favourites);
+        })
+        .catch((error) => {
+          console.log("GET request failed");
+        });
+    });
+    return unsubscribe;
+  }, [navigation]);
+  console.log(currData);
+
   return (
     <Container style={styles.container}>
       <Header style={{ backgroundColor: "#bff6eb" }}>
@@ -40,9 +59,7 @@ const FavouriteScreen = ({ navigation }) => {
         <Right />
       </Header>
       <Content>
-        <SwipeDeleteElement
-          inputArray={Object.values(GLOBAL.FAVOURITEPLACES)}
-        />
+        <SwipeDeleteElement inputArray={currData} />
       </Content>
     </Container>
   );

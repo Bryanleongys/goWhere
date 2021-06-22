@@ -48,6 +48,9 @@ const cliqueSchema = new mongoose.Schema({
           // required: true,
           type: String,
         },
+        dateNum: {
+          type: String,
+        },
         locations: {
           // required: true,
           type: [

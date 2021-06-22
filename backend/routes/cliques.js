@@ -26,8 +26,6 @@ router.post("/", async (req, res) => {
   res.send(clique);
 });
 
-module.exports = router;
-
 // Clique Settings \\
 // Add members (must find a way to ensure no two names are the same)
 router.patch("/addmember/:id", async (req, res) => {
@@ -97,7 +95,7 @@ router.patch("/removelocation/:id", async (req, res) => {
   res.send(clique);
 });
 
-// Edit postal code ???
+// Edit postal code ??? - still uncompleted
 // Requires: name, locationName, postalCode
 router.patch("/edit-postalcode/:id", async (req, res) => {
   mongoose.set("useFindAndModify", false);
@@ -108,6 +106,7 @@ router.patch("/edit-postalcode/:id", async (req, res) => {
     },
     {
       $set: {
+        // IDK HOW TO SET THIS SPECIFICCCC
         "friends.$.locations.0": {
           locationName: req.body.locationName,
           postalCode: req.body.postalCode,
@@ -122,6 +121,16 @@ router.patch("/edit-postalcode/:id", async (req, res) => {
 });
 
 // Logs \\
+// Get request
+router.get(`/getlogs/:id`, async (req, res) => {
+  const clique = await Clique.find({ _id: req.params.id }, ["logs"]);
+
+  if (!clique) {
+    res.status(500).json({ success: false, message: "clique cannot be found" });
+  }
+  res.status(200).send(clique);
+});
+
 // Add log
 // Requires: date, locationName, postalCode
 router.patch("/addlog/:id", async (req, res) => {
@@ -157,6 +166,7 @@ router.patch("/addlog/:id", async (req, res) => {
         $push: {
           logs: {
             date: req.body.date,
+            dateNum: req.body.dateNum,
             locations: {
               locationName: req.body.locationName,
               postalCode: req.body.postalCode,
@@ -165,6 +175,7 @@ router.patch("/addlog/:id", async (req, res) => {
         },
       }
     );
+    // clique = await Clique.aggregate();
     if (!clique) {
       return res.status(400).send("the clique cannot be updated!");
     }
@@ -213,6 +224,16 @@ router.patch("/removelog/:id", async (req, res) => {
 });
 
 // Favourites \\
+// Get request
+router.get(`/getfavourites/:id`, async (req, res) => {
+  const clique = await Clique.find({ _id: req.params.id }, ["favourites"]);
+
+  if (!clique) {
+    res.status(500).json({ success: false, message: "clique cannot be found" });
+  }
+  res.status(200).send(clique);
+});
+
 // Add favourite
 // Requires: locationName, postalCode
 router.patch("/addfavourite/:id", async (req, res) => {
@@ -245,3 +266,5 @@ router.patch("/removefavourite/:id", async (req, res) => {
   }
   res.send(clique);
 });
+
+module.exports = router;
