@@ -50,14 +50,15 @@ const AddTravelScreen = ({ navigation, route }) => {
   var yyyy = date.getFullYear();
 
   // Adds 0 in front of all months less than 10
-  if (mmnumber < 10) {
-    mmnumber = "0" + String(mmnumber);
+  var mmstring = mmnumber + 1;
+  if (mmstring < 10) {
+    mmstring = "0" + String(mmstring);
   } else {
-    mmnumber = String(mmnumber);
+    mmstring = String(mmstring);
   }
 
   var dateString = dd + " " + mm + " " + yyyy;
-  var dateNum = String(yyyy) + mmnumber + String(dd);
+  var dateNum = String(yyyy) + mmstring + String(dd);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -65,12 +66,15 @@ const AddTravelScreen = ({ navigation, route }) => {
     setDate(currentDate);
   };
 
-  const alertPress = () => {
-    if (dateString in GLOBAL.TRAVELHISTORY) {
-      GLOBAL.TRAVELHISTORY[dateString].push(location);
-    } else {
-      GLOBAL.TRAVELHISTORY[dateString] = [location];
-      console.log(location);
+  const handlePress = () => {
+    // if (dateString in GLOBAL.TRAVELHISTORY) {
+    //   GLOBAL.TRAVELHISTORY[dateString].push(location);
+    // } else {
+    //   GLOBAL.TRAVELHISTORY[dateString] = [location];
+    //   console.log(location);
+    // }
+    if (location == "") {
+      return Alert.alert("Please fill in missing fields!");
     }
     let locationDetails = {
       date: dateString,
@@ -86,24 +90,20 @@ const AddTravelScreen = ({ navigation, route }) => {
       .then((res) => {
         if (res.status == 200) {
           console.log("Location successfully added!");
+          Alert.alert("Location Added!", "", [
+            {
+              text: "OK",
+              onPress: () => navigation.navigate("Home"),
+            },
+          ]);
         }
       })
       .catch((error) => {
-        if (error.message == "Request failed with status code 400") {
-          return console.log("Error message");
+        if (error.message == "Request failed with status code 404") {
+          return Alert.alert("Location already exists!");
         }
         console.log("Something went wrong");
       });
-    navigation.navigate("Home");
-  };
-
-  const handlePress = () => {
-    return Alert.alert("Location Added!", "", [
-      {
-        text: "OK",
-        onPress: alertPress,
-      },
-    ]);
   };
 
   return (

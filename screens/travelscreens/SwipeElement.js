@@ -9,10 +9,10 @@ import {
 } from "react-native";
 
 import { SwipeListView } from "react-native-swipe-list-view";
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
 
 const SwipeMemberElement = ({ inputArray }) => {
-  console.log("favourites");
-  console.log(inputArray);
   var length = inputArray.length;
   const [listData, setListData] = useState(
     Array(length)
@@ -31,7 +31,24 @@ const SwipeMemberElement = ({ inputArray }) => {
     const newData = [...listData];
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
     newData.splice(prevIndex, 1);
-    // GLOBAL.FAVOURITEPLACES.splice(prevIndex, 1);
+    let inputDelete = {
+      locationName: inputArray[rowKey].locationName,
+    };
+
+    axios
+      .patch(
+        `${baseURL}cliques/removefavourite/60cba472c5923607e63bacd7`,
+        inputDelete
+      )
+      .then((res) => {
+        if (res.status == 200) {
+          console.log("Successful deletion!");
+        }
+        // else if (res.status == 400)
+      })
+      .catch((error) => {
+        console.log("Failed");
+      });
     setListData(newData);
   };
 

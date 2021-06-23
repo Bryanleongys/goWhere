@@ -26,7 +26,9 @@ import baseURL from "../../assets/common/baseUrl";
 
 const FavouriteScreen = ({ navigation }) => {
   GLOBAL = require("../global");
+
   const [currData, setData] = React.useState([]);
+  const [init, setInit] = React.useState(0);
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -36,6 +38,7 @@ const FavouriteScreen = ({ navigation }) => {
         .then((res) => {
           console.log("Successfully GET request");
           setData(res.data[0].favourites);
+          setInit({ init: 1 });
         })
         .catch((error) => {
           console.log("GET request failed");
@@ -43,9 +46,8 @@ const FavouriteScreen = ({ navigation }) => {
     });
     return unsubscribe;
   }, [navigation]);
-  console.log(currData);
 
-  return (
+  return init ? (
     <Container style={styles.container}>
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
@@ -62,6 +64,8 @@ const FavouriteScreen = ({ navigation }) => {
         <SwipeDeleteElement inputArray={currData} />
       </Content>
     </Container>
+  ) : (
+    <Text> "Loading..." </Text>
   );
 };
 

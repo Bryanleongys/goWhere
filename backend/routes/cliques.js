@@ -145,6 +145,19 @@ router.patch("/addlog/:id", async (req, res) => {
       _id: req.params.id,
       "logs.date": req.body.date,
     };
+
+    // Ensure no duplicate location exists
+    const locationExist = await Clique.exists({
+      _id: req.params.id,
+      "logs.date": req.body.date,
+      "logs.locations.locationName": req.body.locationName,
+    });
+
+    if (locationExist) {
+      return res.status(404).send("Location already exists!");
+    }
+
+    // Create new clique
     const clique = await Clique.findOneAndUpdate(filter, {
       $push: {
         "logs.$.locations": {
@@ -237,6 +250,12 @@ router.get(`/getfavourites/:id`, async (req, res) => {
 // Add favourite
 // Requires: locationName, postalCode
 router.patch("/addfavourite/:id", async (req, res) => {
+  const locationExist = await Clique.exists({
+    "favourites.locationName": req.body.locationName,
+  });
+  if (locationExist) {
+    return res.status(404).send("Location already exists!");
+  }
   const clique = await Clique.findByIdAndUpdate(req.params.id, {
     $push: {
       favourites: {

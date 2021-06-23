@@ -80,7 +80,7 @@ const TravelLogScreen = ({ navigation, route }) => {
         </Body>
         <Right>
           <Button transparent onPress={() => navigation.push("Favourite")}>
-            <Icon style={{ fontSize: "22" }} name="ios-star" />
+            <Icon style={{ fontSize: 22 }} name="ios-star" />
           </Button>
           <Button transparent onPress={() => navigation.push("TravelScreen2")}>
             <Icon name="ios-add" />
@@ -88,11 +88,16 @@ const TravelLogScreen = ({ navigation, route }) => {
         </Right>
       </Header>
       <Content>
-        {currData.map((log, index) => {
+        {/* {console.log(currData)} */}
+        {currData.map((log) => {
           return (
             <Content>
               <List>
-                <SwipeListElement inputArray={log.locations} date={log.date} />
+                <SwipeListElement
+                  inputArray={log.locations}
+                  date={log.date}
+                  key="{log}"
+                />
               </List>
             </Content>
           );

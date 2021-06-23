@@ -15,7 +15,7 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
 const SwipeListElement = ({ inputArray, date }) => {
-  console.log(inputArray);
+  // console.log(inputArray);
   GLOBAL = require("../global");
   var length = inputArray.length;
   const [listData, setListData] = useState(
@@ -36,7 +36,6 @@ const SwipeListElement = ({ inputArray, date }) => {
     //   GLOBAL.FAVOURITEPLACES.push(GLOBAL.TRAVELHISTORY[date][rowKey]);
     // }
     // console.log(GLOBAL.FAVOURITEPLACES);
-    console.log(inputArray[rowKey].locationName);
     let inputFavourite = {
       locationName: inputArray[rowKey].locationName,
       postalCode: "439947",
@@ -53,6 +52,9 @@ const SwipeListElement = ({ inputArray, date }) => {
         }
       })
       .catch((error) => {
+        if (error.message == "Request failed with status code 404") {
+          return console.log("Location has been favourited before");
+        }
         console.log("Failed");
       });
   };
@@ -61,7 +63,6 @@ const SwipeListElement = ({ inputArray, date }) => {
     closeRow(rowMap, rowKey);
     const newData = [...listData];
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
-    console.log(inputArray[rowKey].locationName);
     newData.splice(prevIndex, 1);
 
     let inputDelete = {
