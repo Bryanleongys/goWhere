@@ -27,6 +27,44 @@ router.post("/", async (req, res) => {
 });
 
 // Clique Settings \\
+// Get Friend's Locations
+router.get(`/getfriendlocation/:id`, async (req, res) => {
+  let clique = await Clique.find({ _id: req.params.id }, ["friends"]);
+  clique = clique[0].friends;
+
+  if (!clique) {
+    res.status(500).json({ success: false, message: "clique cannot be found" });
+  }
+
+  let indexFound = null;
+
+  for (var i = 0; i < clique.length; i++) {
+    if (clique[i].name == req.body.name) {
+      indexFound = i;
+      break;
+    }
+  }
+
+  res.status(200).send(clique[indexFound].locations);
+});
+
+// Get Friends (Array of Friends)
+router.get(`/getfriends/:id`, async (req, res) => {
+  let clique = await Clique.find({ _id: req.params.id }, ["friends"]);
+  clique = clique[0].friends;
+
+  if (!clique) {
+    res.status(500).json({ success: false, message: "clique cannot be found" });
+  }
+
+  let friends = [];
+  for (var i = 0; i < clique.length; i++) {
+    friends.push(clique[i].name);
+  }
+
+  res.status(200).send(friends);
+});
+
 // Add members (must find a way to ensure no two names are the same)
 router.patch("/addmember/:id", async (req, res) => {
   const clique = await Clique.findByIdAndUpdate(req.params.id, {
@@ -59,17 +97,18 @@ router.patch("/removemember/:id", async (req, res) => {
 
 // Add location (per friend)
 router.patch("/addlocation/:id", async (req, res) => {
-  const clique = await Clique.findByIdAndUpdate(
-    { _id: req.params.id, "friends.name": req.body.name },
-    {
-      $push: {
-        "friends.$[].locations": {
-          locationName: req.body.locationName,
-          postalCode: req.body.postalCode,
-        },
+  const filter = {
+    _id: req.params.id,
+    "friends.name": req.body.name,
+  };
+  const clique = await Clique.findOneAndUpdate(filter, {
+    $push: {
+      "friends.$.locations": {
+        locationName: req.body.locationName,
+        postalCode: req.body.postalCode,
       },
-    }
-  );
+    },
+  });
   if (!clique) {
     return res.status(400).send("the clique cannot be updated!");
   }
@@ -78,17 +117,18 @@ router.patch("/addlocation/:id", async (req, res) => {
 
 // Remove location (per friend)
 router.patch("/removelocation/:id", async (req, res) => {
-  const clique = await Clique.findByIdAndUpdate(
-    { _id: req.params.id, "friends.name": req.body.name },
-    {
-      $pull: {
-        "friends.$[].locations": {
-          // can use postal code as well
-          locationName: req.body.locationName,
-        },
+  const filter = {
+    _id: req.params.id,
+    "friends.name": req.body.name,
+  };
+  const clique = await Clique.findOneAndUpdate(filter, {
+    $pull: {
+      "friends.$.locations": {
+        // can use postal code as well
+        locationName: req.body.locationName,
       },
-    }
-  );
+    },
+  });
   if (!clique) {
     return res.status(400).send("the clique cannot be updated!");
   }
@@ -98,32 +138,37 @@ router.patch("/removelocation/:id", async (req, res) => {
 // Edit postal code ??? - still uncompleted
 // Requires: name, locationName, postalCode
 router.patch("/edit-postalcode/:id", async (req, res) => {
-  mongoose.set("useFindAndModify", false);
-  const clique = await Clique.findOneAndUpdate(
-    {
-      _id: req.params.id,
-      "friends.name": req.body.name,
-    },
-    {
-      $set: {
-        // IDK HOW TO SET THIS SPECIFICCCC
-        "friends.$.locations.0": {
-          locationName: req.body.locationName,
-          postalCode: req.body.postalCode,
-        },
-      },
-    }
-  );
-  if (!clique) {
-    return res.status(400).send("the clique cannot be updated!");
+  // mongoose.set("useFindAndModify", false);
+  const filter = {
+    _id: req.params.id,
+    "friends.name": req.body.name,
+    "friends.locations.locationName": req.body.locationName,
+  };
+  const clique = await Clique.exists({ filter });
+  // const clique = await Clique.findOneAndUpdate(filter, {
+  //   $set: {
+  //     // IDK HOW TO SET THIS SPECIFICCCC
+  //     "friends.name.postalCode": {
+  //       postalCode: req.body.postalCode,
+  //     },
+  //   },
+  // });
+  // if (!clique) {
+  //   return res.status(400).send("the clique cannot be updated!");
+  // }
+  if (clique) {
+    return res.status(200).send("Clique has been found");
   }
-  res.send(clique);
+  res.status(400).send("Failed");
+  // res.send(clique);
 });
 
 // Logs \\
-// Get request
+// Get Logs
 router.get(`/getlogs/:id`, async (req, res) => {
-  const clique = await Clique.find({ _id: req.params.id }, ["logs"]);
+  let clique = await Clique.find({ _id: req.params.id }, ["logs"]);
+  clique = clique[0].logs;
+  clique.sort((a, b) => (a.dateNum > b.dateNum ? -1 : 1));
 
   if (!clique) {
     res.status(500).json({ success: false, message: "clique cannot be found" });
@@ -141,11 +186,6 @@ router.patch("/addlog/:id", async (req, res) => {
   });
 
   if (dateExist) {
-    const filter = {
-      _id: req.params.id,
-      "logs.date": req.body.date,
-    };
-
     // Ensure no duplicate location exists
     const locationExist = await Clique.exists({
       _id: req.params.id,
@@ -157,7 +197,12 @@ router.patch("/addlog/:id", async (req, res) => {
       return res.status(404).send("Location already exists!");
     }
 
-    // Create new clique
+    // Create new location
+    const filter = {
+      _id: req.params.id,
+      "logs.date": req.body.date,
+    };
+
     const clique = await Clique.findOneAndUpdate(filter, {
       $push: {
         "logs.$.locations": {
@@ -237,9 +282,10 @@ router.patch("/removelog/:id", async (req, res) => {
 });
 
 // Favourites \\
-// Get request
+// Get Favourites
 router.get(`/getfavourites/:id`, async (req, res) => {
-  const clique = await Clique.find({ _id: req.params.id }, ["favourites"]);
+  let clique = await Clique.find({ _id: req.params.id }, ["favourites"]);
+  clique = clique[0].favourites;
 
   if (!clique) {
     res.status(500).json({ success: false, message: "clique cannot be found" });

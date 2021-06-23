@@ -49,7 +49,7 @@ const cliqueSchema = new mongoose.Schema({
           type: String,
         },
         dateNum: {
-          type: String,
+          type: Number,
         },
         locations: {
           // required: true,

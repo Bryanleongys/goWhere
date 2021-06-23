@@ -58,7 +58,7 @@ const TravelLogScreen = ({ navigation, route }) => {
         .get(`${baseURL}cliques/getlogs/60cba472c5923607e63bacd7`)
         .then((res) => {
           console.log("Successfully GET request");
-          setData(res.data[0].logs);
+          setData(res.data);
         })
         .catch((error) => {
           console.log("GET request failed");

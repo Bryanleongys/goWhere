@@ -37,7 +37,7 @@ const FavouriteScreen = ({ navigation }) => {
         .get(`${baseURL}cliques/getfavourites/60cba472c5923607e63bacd7`)
         .then((res) => {
           console.log("Successfully GET request");
-          setData(res.data[0].favourites);
+          setData(res.data);
           setInit({ init: 1 });
         })
         .catch((error) => {

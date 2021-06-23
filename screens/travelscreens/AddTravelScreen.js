@@ -49,16 +49,8 @@ const AddTravelScreen = ({ navigation, route }) => {
   var mm = monthNames[date.getMonth()];
   var yyyy = date.getFullYear();
 
-  // Adds 0 in front of all months less than 10
-  var mmstring = mmnumber + 1;
-  if (mmstring < 10) {
-    mmstring = "0" + String(mmstring);
-  } else {
-    mmstring = String(mmstring);
-  }
-
+  var dateNum = yyyy * 10000 + (mmnumber + 1) * 100 + dd;
   var dateString = dd + " " + mm + " " + yyyy;
-  var dateNum = String(yyyy) + mmstring + String(dd);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
