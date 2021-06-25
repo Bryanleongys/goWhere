@@ -39,10 +39,13 @@ router.get(`/getfriendlocation/:id`, async (req, res) => {
   let indexFound = null;
 
   for (var i = 0; i < clique.length; i++) {
-    if (clique[i].name == req.body.name) {
+    if (clique[i].name == req.query.name || clique[i].name == req.body.name) {
       indexFound = i;
       break;
     }
+  }
+  if (indexFound == null) {
+    return res.status(500).send("friend does not exist");
   }
 
   res.status(200).send(clique[indexFound].locations);

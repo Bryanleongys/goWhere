@@ -8,7 +8,7 @@ import Welcome from "./screens/homescreens/WelcomeScreen";
 import Login from "./screens/homescreens/LoginScreen";
 import CreateAccount from "./screens/homescreens/CreateAccScreen";
 import Home from "./screens/homescreens/HomeScreen";
-import SelectPerson from "./screens/locationscreens/SelectPersonScreen";
+import SelectPerson from "./screens/locationscreens/SelectPersonScreen2";
 import InputLocation from "./screens/locationscreens/InputLocationScreen";
 import Preferences from "./screens/locationscreens/PreferencesScreen";
 import Timing from "./screens/locationscreens/TimingScreen";
