@@ -18,6 +18,8 @@ import {
   FooterTab,
   Card,
   CardItem,
+  Item,
+  Label,
 } from "native-base";
 
 import PickerElement from "./PickerElement";
@@ -26,15 +28,25 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
 const InputLocationScreen = ({ navigation, route }) => {
+  GLOBAL = require("../global");
   const { optionsArray } = route.params;
   const [currData, setData] = React.useState([]);
   const [init, setInit] = React.useState(0);
+
+  const colorArray = [
+    "#8AEEDA",
+    "#53E6C9",
+    "#1FDBB6",
+    "#17A488",
+    "#106E5B",
+    "#08372D",
+  ];
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       console.log("Refreshed");
       axios
-        .get(`${baseURL}cliques/getfriends/60cba472c5923607e63bacd7`)
+        .get(`${baseURL}cliques/getfriends/${GLOBAL.CLIQUEID}`)
         .then((res) => {
           console.log("Successfully GET request");
           setData(res.data);
@@ -58,16 +70,19 @@ const InputLocationScreen = ({ navigation, route }) => {
             {" "}
             Where will y'all be before the outing?{" "}
           </Text>
-          <Card style={{ width: 300, backgroundColor: "#86E7B8" }}>
-            <CardItem bordered />
-            {currData.map((person, i) => {
-              return optionsArray[i] ? (
-                <PickerElement key={i} name={person} navigation={navigation} />
-              ) : null;
-            })}
-          </Card>
+          {currData.map((person, i) => {
+            return optionsArray[i] ? (
+              <PickerElement
+                key={i}
+                name={person}
+                navigation={navigation}
+                colorCode={colorArray[i]}
+              />
+            ) : null;
+          })}
         </Content>
       </ScrollView>
+
       <Footer style={styles.container}>
         <FooterTab>
           <Button onPress={() => navigation.goBack()}>

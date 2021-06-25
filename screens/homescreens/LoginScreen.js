@@ -22,6 +22,7 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
 const LoginScreen = ({ navigation }) => {
+  GLOBAL = require("../global");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -34,12 +35,13 @@ const LoginScreen = ({ navigation }) => {
       email: email,
       password: password,
     };
-
     axios
       .post(`${baseURL}users/login`, user)
       .then((res) => {
         if (res.status == 200) {
           console.log("Successful login!");
+          GLOBAL.CLIQUEID = res.data.user.cliqueID;
+          console.log(GLOBAL.CLIQUEID);
           navigation.push("Home");
         }
         // else if (res.status == 400)

@@ -24,13 +24,14 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
 const SelectPersonScreen2 = ({ navigation }) => {
+  GLOBAL = require("../global");
   const [currData, setData] = React.useState([]);
   const [init, setInit] = React.useState(0);
 
   React.useEffect(() => {
     console.log("Refreshed");
     axios
-      .get(`${baseURL}cliques/getfriends/60cba472c5923607e63bacd7`)
+      .get(`${baseURL}cliques/getfriends/${GLOBAL.CLIQUEID}`)
       .then((res) => {
         console.log("Successfully GET request");
         setData(res.data);

@@ -13,6 +13,7 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
 const SwipeMemberElement = ({ inputArray }) => {
+  GLOBAL = require("../global");
   var length = inputArray.length;
   const [listData, setListData] = useState(
     Array(length)
@@ -37,7 +38,7 @@ const SwipeMemberElement = ({ inputArray }) => {
 
     axios
       .patch(
-        `${baseURL}cliques/removefavourite/60cba472c5923607e63bacd7`,
+        `${baseURL}cliques/removefavourite/${GLOBAL.CLIQUEID}`,
         inputDelete
       )
       .then((res) => {

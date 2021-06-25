@@ -16,10 +16,11 @@ module.exports = {
     5: ["Ben"],
   },
   MEMBERSARRAY1: {
-    "Bryan": [],
-    "Mukund": [],
-    "Sheryl": [],
+    Bryan: [],
+    Mukund: [],
+    Sheryl: [],
     "Zhi Ling": [],
-    "Ben": [],
-},
+    Ben: [],
+  },
+  CLIQUEID: "",
 };

@@ -17,22 +17,34 @@ import {
   Label,
   View,
 } from "native-base";
+import { StyleSheet } from "react-native";
 import "react-native-gesture-handler";
+
 import { Picker } from "@react-native-picker/picker";
 
+import BoxContainer from "./BoxContainer";
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
-const PickerElement = ({ navigation, name }) => {
+const PickerElement = ({ navigation, name, colorCode }) => {
+  GLOBAL = require("../global");
   const [selectedLocation, setSelectedLocation] = React.useState("");
 
   const [currData, setData] = React.useState([]);
   const [init, setInit] = React.useState(0);
 
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: colorCode,
+      height: 300,
+      width: 350,
+    },
+  });
+
   React.useEffect(() => {
     console.log("Refreshed");
     axios
-      .get(`${baseURL}cliques/getfriendlocation/60cba472c5923607e63bacd7`, {
+      .get(`${baseURL}cliques/getfriendlocation/${GLOBAL.CLIQUEID}`, {
         params: {
           name: name,
         },
@@ -47,31 +59,37 @@ const PickerElement = ({ navigation, name }) => {
       });
   }, []);
 
-  return (
+  return init ? (
     <View style={{ paddingBottom: 20 }}>
-      <Text style={{ alignSelf: "center" }}> {name}: </Text>
-      <Picker
-        style={{ width: 200, alignSelf: "center" }}
-        selectedValue={selectedLocation}
-        onValueChange={(itemValue, itemIndex) => setSelectedLocation(itemValue)}
-      >
-        {currData.map((location, index) => {
-          return (
-            <Picker.Item
-              key={index}
-              label={location.locationName}
-              value={index}
-            />
-          );
-        })}
-        <Picker.Item label="Others" value="others" />
-      </Picker>
-      {selectedLocation == "others" ? (
-        <Item rounded style={{ alignSelf: "center", width: 200 }}>
-          <Input placeholder="Input Postal Code" />
-        </Item>
-      ) : null}
+      <BoxContainer style={styles.container}>
+        <Text style={{ alignSelf: "center" }}> {name}: </Text>
+        <Picker
+          style={{ width: 200, alignSelf: "center" }}
+          selectedValue={selectedLocation}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedLocation(itemValue)
+          }
+        >
+          {currData.map((location, index) => {
+            return (
+              <Picker.Item
+                key={index}
+                label={location.locationName}
+                value={index}
+              />
+            );
+          })}
+          <Picker.Item label="Others" value="others" />
+        </Picker>
+        {selectedLocation == "others" ? (
+          <Item rounded style={{ alignSelf: "center", width: 200 }}>
+            <Input placeholder="Input Postal Code" />
+          </Item>
+        ) : null}
+      </BoxContainer>
     </View>
+  ) : (
+    <Text>Loading...</Text>
   );
 };
 

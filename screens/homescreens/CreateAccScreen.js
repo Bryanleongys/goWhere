@@ -46,7 +46,7 @@ const CreateAccount = ({ navigation }) => {
       name: username,
       email: email,
       password: password1,
-      isAdmin: false,
+      isAdmin: true,
     };
 
     axios
