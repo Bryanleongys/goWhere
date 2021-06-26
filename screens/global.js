@@ -22,5 +22,5 @@ module.exports = {
     "Zhi Ling": [],
     Ben: [],
   },
-  CLIQUEID: "",
+  USER: {},
 };

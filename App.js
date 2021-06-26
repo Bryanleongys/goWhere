@@ -29,6 +29,8 @@ import PaxScreen from "./screens/onetimescreens/PaxScreen";
 import OnePreferences from "./screens/onetimescreens/PreferencesScreen";
 import OneGoogleMap from "./screens/onetimescreens/GoogleMapScreen";
 import OneNotification from "./screens/onetimescreens/NotificationScreen";
+import ChangePassword from "./screens/accountscreens/ChangePassword";
+import ChangeEmail from "./screens/accountscreens/ChangeEmail";
 
 const AuthStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -107,6 +109,8 @@ const AccountStackScreen = () => {
       screenOptions={{ headerShown: false }}
     >
       <AccountStack.Screen name="Account" component={AccountScreen} />
+      <AccountStack.Screen name="ChangePassword" component={ChangePassword} />
+      <AccountStack.Screen name="ChangeEmail" component={ChangeEmail} />
     </AccountStack.Navigator>
   );
 };

@@ -29,6 +29,7 @@ import baseURL from "../../assets/common/baseUrl";
 
 const InputLocationScreen = ({ navigation, route }) => {
   GLOBAL = require("../global");
+  console.log(GLOBAL.USER.cliqueID);
   const { optionsArray } = route.params;
   const [currData, setData] = React.useState([]);
   const [init, setInit] = React.useState(0);
@@ -46,7 +47,7 @@ const InputLocationScreen = ({ navigation, route }) => {
     const unsubscribe = navigation.addListener("focus", () => {
       console.log("Refreshed");
       axios
-        .get(`${baseURL}cliques/getfriends/${GLOBAL.CLIQUEID}`)
+        .get(`${baseURL}cliques/getfriends/${GLOBAL.USER.cliqueID}`)
         .then((res) => {
           console.log("Successfully GET request");
           setData(res.data);

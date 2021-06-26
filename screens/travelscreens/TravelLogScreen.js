@@ -55,7 +55,7 @@ const TravelLogScreen = ({ navigation, route }) => {
     const unsubscribe = navigation.addListener("focus", () => {
       console.log("Refreshed");
       axios
-        .get(`${baseURL}cliques/getlogs/${GLOBAL.CLIQUEID}`)
+        .get(`${baseURL}cliques/getlogs/${GLOBAL.USER.cliqueID}`)
         .then((res) => {
           console.log("Successfully GET request");
           setData(res.data);

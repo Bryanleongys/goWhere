@@ -145,4 +145,59 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// Get user's email
+router.get("/email/:id", async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return res.status(400).send("the user cannot be found!");
+  }
+  res.send(user.email);
+});
+
+// Change user's email
+router.patch("/changeemail/:id", async (req, res) => {
+  const checkUser = await User.findById(req.params.id);
+
+  if (checkUser.email == req.body.email) {
+    return res.status(404).send("same email.");
+  }
+
+  const userExist = await User.exists({ email: req.body.email });
+  if (userExist) {
+    return res.status(500).send("email is already in use");
+  }
+
+  const user = await User.findByIdAndUpdate(req.params.id, {
+    email: req.body.email,
+  });
+  if (!user) {
+    return res.status(400).send("the user cannot be updated!");
+  }
+  res.send(user);
+});
+
+// Change user's password
+// req.body parameters: oldPassword, newPassword
+router.patch("/changepassword/:id", async (req, res) => {
+  const checkUser = await User.findById(req.params.id);
+
+  if (!bcrypt.compareSync(req.body.oldPassword, checkUser.passwordHash)) {
+    return res.status(500).send("old passwords mismatch.");
+  }
+
+  if (bcrypt.compareSync(req.body.newPassword, checkUser.passwordHash)) {
+    return res.status(404).send("same password.");
+  }
+  const user = await User.findByIdAndUpdate(req.params.id, {
+    passwordHash: bcrypt.hashSync(req.body.newPassword, 10),
+  });
+
+  if (!user) {
+    return res.status(400).send("the user cannot be updated!");
+  }
+
+  res.send(user);
+});
+
 module.exports = router;

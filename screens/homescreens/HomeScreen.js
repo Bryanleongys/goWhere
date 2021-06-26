@@ -17,6 +17,7 @@ import {
 } from "native-base";
 
 const HomeScreen = ({ navigation }) => {
+  const GLOBAL = require("../global");
   return (
     <Container style={styles.container}>
       <Header transparent>
@@ -26,7 +27,7 @@ const HomeScreen = ({ navigation }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 20 }}>LEO House!!!</Title>
+          <Title style={{ fontSize: 20 }}>{GLOBAL.USER.name}</Title>
         </Body>
         <Right />
       </Header>

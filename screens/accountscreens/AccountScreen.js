@@ -33,7 +33,7 @@ const AccountScreen = ({ navigation }) => {
         <Button
           rounded
           style={styles.startButton}
-          onPress={() => console.log("Password button pressed")}
+          onPress={() => navigation.push("ChangePassword")}
         >
           <Text style={{ color: "#000000" }}>Change Password</Text>
         </Button>
@@ -41,7 +41,7 @@ const AccountScreen = ({ navigation }) => {
           rounded
           info
           style={styles.cliqueButton}
-          onPress={() => console.log("Email button pressed")}
+          onPress={() => navigation.push("ChangeEmail")}
         >
           <Text style={{ color: "#000000" }}>Change Email Address</Text>
         </Button>

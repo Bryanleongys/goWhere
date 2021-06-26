@@ -40,8 +40,7 @@ const LoginScreen = ({ navigation }) => {
       .then((res) => {
         if (res.status == 200) {
           console.log("Successful login!");
-          GLOBAL.CLIQUEID = res.data.user.cliqueID;
-          console.log(GLOBAL.CLIQUEID);
+          GLOBAL.USER = res.data.user;
           navigation.push("Home");
         }
         // else if (res.status == 400)

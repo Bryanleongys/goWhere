@@ -34,7 +34,7 @@ const FavouriteScreen = ({ navigation }) => {
     const unsubscribe = navigation.addListener("focus", () => {
       console.log("Refreshed");
       axios
-        .get(`${baseURL}cliques/getfavourites/${GLOBAL.CLIQUEID}`)
+        .get(`${baseURL}cliques/getfavourites/${GLOBAL.USER.cliqueID}`)
         .then((res) => {
           console.log("Successfully GET request");
           setData(res.data);

@@ -43,7 +43,7 @@ const SwipeListElement = ({ inputArray, date }) => {
 
     axios
       .patch(
-        `${baseURL}cliques/addfavourite/${GLOBAL.CLIQUEID}`,
+        `${baseURL}cliques/addfavourite/${GLOBAL.USER.cliqueID}`,
         inputFavourite
       )
       .then((res) => {
@@ -71,7 +71,7 @@ const SwipeListElement = ({ inputArray, date }) => {
     };
 
     axios
-      .patch(`${baseURL}cliques/removelog/${GLOBAL.CLIQUEID}`, inputDelete)
+      .patch(`${baseURL}cliques/removelog/${GLOBAL.USER.cliqueID}`, inputDelete)
       .then((res) => {
         if (res.status == 200) {
           console.log("Successful login!");

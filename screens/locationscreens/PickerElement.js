@@ -44,7 +44,7 @@ const PickerElement = ({ navigation, name, colorCode }) => {
   React.useEffect(() => {
     console.log("Refreshed");
     axios
-      .get(`${baseURL}cliques/getfriendlocation/${GLOBAL.CLIQUEID}`, {
+      .get(`${baseURL}cliques/getfriendlocation/${GLOBAL.USER.cliqueID}`, {
         params: {
           name: name,
         },

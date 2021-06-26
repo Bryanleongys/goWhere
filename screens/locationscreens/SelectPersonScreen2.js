@@ -25,13 +25,14 @@ import baseURL from "../../assets/common/baseUrl";
 
 const SelectPersonScreen2 = ({ navigation }) => {
   GLOBAL = require("../global");
+  console.log(GLOBAL.USER.id);
   const [currData, setData] = React.useState([]);
   const [init, setInit] = React.useState(0);
 
   React.useEffect(() => {
     console.log("Refreshed");
     axios
-      .get(`${baseURL}cliques/getfriends/${GLOBAL.CLIQUEID}`)
+      .get(`${baseURL}cliques/getfriends/${GLOBAL.USER.cliqueID}`)
       .then((res) => {
         console.log("Successfully GET request");
         setData(res.data);
@@ -73,11 +74,13 @@ const SelectPersonScreen2 = ({ navigation }) => {
             <Icon name="caret-back-sharp" />
           </Button>
           <Button
-            onPress={() =>
-              navigation.navigate("LocationScreen2", {
-                optionsArray: initArray,
-              })
-            }
+            onPress={() => {
+              return initArray.filter(Boolean).length > 1
+                ? navigation.navigate("LocationScreen2", {
+                    optionsArray: initArray,
+                  })
+                : Alert.alert("How lonely! Select more people.");
+            }}
           >
             <Icon name="caret-forward-sharp" />
           </Button>

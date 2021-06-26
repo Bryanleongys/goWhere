@@ -38,7 +38,7 @@ const SwipeMemberElement = ({ inputArray }) => {
 
     axios
       .patch(
-        `${baseURL}cliques/removefavourite/${GLOBAL.CLIQUEID}`,
+        `${baseURL}cliques/removefavourite/${GLOBAL.USER.cliqueID}`,
         inputDelete
       )
       .then((res) => {

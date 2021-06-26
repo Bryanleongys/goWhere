@@ -75,7 +75,10 @@ const AddTravelScreen = ({ navigation, route }) => {
       postalCode: "439947", // figure out how to get from google api
     };
     axios
-      .patch(`${baseURL}cliques/addlog/${GLOBAL.CLIQUEID}`, locationDetails)
+      .patch(
+        `${baseURL}cliques/addlog/${GLOBAL.USER.cliqueID}`,
+        locationDetails
+      )
       .then((res) => {
         if (res.status == 200) {
           console.log("Location successfully added!");
