@@ -19,6 +19,9 @@ import {
 } from "native-base";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
 // import {
 //   InputText,
 //   InputCountrySelector,
@@ -31,28 +34,33 @@ const AddMemberScreen = ({ navigation }) => {
   const [location, setLocation] = useState("");
   const [postalCode, setPostalCode] = useState("");
 
-  const alertPress = () => {
-    console.log(Object.keys(GLOBAL.MEMBERSARRAY1).length)
-    GLOBAL.MEMBERSARRAY1[Object.keys(GLOBAL.MEMBERSARRAY1).length] = member;
-    console.log(Object.keys(GLOBAL.MEMBERSARRAY1)[Object.keys(GLOBAL.MEMBERSARRAY1).length - 1]);
-    navigation.navigate("Home");
-  };
+  // const alertPress = () => {
+  //   console.log(Object.keys(GLOBAL.MEMBERSARRAY1).length)
+  //   GLOBAL.MEMBERSARRAY1[Object.keys(GLOBAL.MEMBERSARRAY1).length] = member;
+  //   console.log(Object.keys(GLOBAL.MEMBERSARRAY1)[Object.keys(GLOBAL.MEMBERSARRAY1).length - 1]);
+  //   navigation.navigate("Home");
+  // };
 
-  const handlePress = () => {
-    return Alert.alert("Member Added!", "", [
-      {
-        text: "OK",
-        onPress: alertPress,
-        // navigation.navigate({
-        //   name: "TravelScreen1",
-        //   params: {
-        //     date: dateString,
-        //     location: location,
-        //   },
-        //   merge: true,
-        // }),
-      },
-    ]);
+  const handleSubmit = () => {
+    if (member == "") {
+      return Alert.alert("Please fill in missing fields")
+    }
+
+    let friend = {
+      name: member
+    };
+
+    axios.patch(`${baseURL}cliques/addmember/60cba472c5923607e63bacd7`, friend)
+    .then((res) => {
+      if (res.status == 200) {
+        console.log("Friend added!")
+        navigation.navigate("CliqueScreen4", {paramKey: friend.name})
+      }
+      return Alert.alert("Member added!");
+    }).catch((error) => {
+      Alert.alert("Failed to add")
+      console.log(error)
+    })
   };
 
   return (
@@ -72,20 +80,22 @@ const AddMemberScreen = ({ navigation }) => {
         <Form>
           <Item floatingLabel>
             <Label>Members Name</Label>
-            <Input value={member} onChangeText={setMember} />
+            <Input
+              onChangeText={setMember} 
+            />
           </Item>
         </Form>
-        <Button
+        {/* <Button
           block
           style={{ margin: 15, marginTop: 50 }}
           onPress={() => navigation.navigate("CliqueScreen4")}
         >
           <Text>Add Location</Text>
-        </Button>
+        </Button> */}
         <Button
           block
           style={{ margin: 15, marginTop: 50 }}
-          onPress={handlePress}
+          onPress={handleSubmit}
         >
           <Text>Add</Text>
         </Button>

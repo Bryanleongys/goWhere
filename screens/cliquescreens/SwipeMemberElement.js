@@ -8,15 +8,22 @@ import {
   View,
 } from "react-native";
 
-import { SwipeListView } from "react-native-swipe-list-view";
+import { Content, Separator, Icon } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
+import { SwipeListView } from "react-native-swipe-list-view";
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
+
 const SwipeMemberElement = ({ inputArray, navi }) => {
+  
+  GLOBAL = require("../global");
+  //console.log(inputArray);
   var length = inputArray.length;
   const [listData, setListData] = useState(
-    Array(1)
+    Array(length)
       .fill("")
-      .map((_, i) => ({ key: `${i}`, text: inputArray }))
+      .map((_, i) => ({ key: `${i}`, text: inputArray[i] }))
   );
 
   const closeRow = (rowMap, rowKey) => {
@@ -30,6 +37,32 @@ const SwipeMemberElement = ({ inputArray, navi }) => {
     const newData = [...listData];
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
     newData.splice(prevIndex, 1);
+
+    //console.log(inputArray[0])
+    let inputDelete = {
+      name: inputArray[rowKey]
+    };
+
+    axios
+      .patch(
+        `${baseURL}cliques/removemember/60cba472c5923607e63bacd7`,
+        inputDelete
+      )
+      .then((res) => {
+        if (res.status == 200) {
+          console.log("Successful login!");
+        }
+        // else if (res.status == 400)
+      })
+      .catch((error) => {
+        console.log("Failed");
+      });
+
+    // GLOBAL.TRAVELHISTORY[date].splice(prevIndex, 1);
+    // if (GLOBAL.TRAVELHISTORY[date].length == 0) {
+    //   delete GLOBAL.TRAVELHISTORY[date];
+    // }
+    console.log("New set data")
     setListData(newData);
   };
 
@@ -57,12 +90,12 @@ const SwipeMemberElement = ({ inputArray, navi }) => {
   const renderHiddenItem = (data, rowMap) => (
     <View style={styles.rowBack}>
       <Text>Juked</Text>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnLeft]}
         onPress={() => editRow(rowMap, data.item.key)}
       >
         <Text style={styles.backTextWhite}>Edit</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnRight]}
         onPress={() => deleteRow(rowMap, data.item.key)}
@@ -72,13 +105,15 @@ const SwipeMemberElement = ({ inputArray, navi }) => {
     </View>
   );
 
+  //console.log(inputArray);
   return (
     <SwipeListView
       data={listData}
       renderItem={renderItem}
       renderHiddenItem={renderHiddenItem}
       leftOpenValue={75}
-      rightOpenValue={-150}
+      //rightOpenValue={-150}
+      rightOpenValue={-75}
       previewRowKey={"0"}
       previewOpenValue={-40}
       previewOpenDelay={3000}

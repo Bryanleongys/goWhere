@@ -19,7 +19,10 @@ import {
 } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
-const EditMemberScreen = ({ navigation }) => {
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
+
+const EditMemberScreen = ({ route, navigation }) => {
   const handlePress = () => {
     if (true) {
       console.log(works);

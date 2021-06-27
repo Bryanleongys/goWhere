@@ -17,13 +17,43 @@ import {
   Form,
   Text,
 } from "native-base";
+import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const AddLocationScreen = ({ navigation }) => {
-  handlePress = () => {
-    if (true) {
-      console.log(works);
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
+
+const AddLocationScreen = ({ route, navigation }) => {
+  GLOBAL = require("../global");
+  const [location, setLocation] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+
+  const handleSubmit = () => {
+    if (location == "" || postalCode == "") {
+      return Alert.alert("Please fill in missing fields")
     }
+
+    let loc = {
+      name: route.params.paramKey,
+      location: location,
+      postalCode: postalCode      
+    }
+
+    console.log(loc.name);
+    axios.patch(`${baseURL}cliques/addlocation/60cba472c5923607e63bacd7`, loc)
+    .then((res) => {
+      if (res.status == 200) {
+        console.log("Location added!")
+      }
+      return Alert.alert("Location added!");
+    }).catch((error) => {
+      Alert.alert("Failed to add")
+      console.log(error)
+    })
+  };
+
+  const handlePress = () => {
+    navigation.push("CliqueScreen1")
   };
 
   return (
@@ -44,19 +74,30 @@ const AddLocationScreen = ({ navigation }) => {
         <Form>
           <Item floatingLabel>
             <Label>Location Name</Label>
-            <Input />
+            <Input 
+            onChangeText={setLocation}
+            />
           </Item>
           <Item floatingLabel>
             <Label>Postal Code</Label>
-            <Input />
+            <Input 
+            onChangeText={setPostalCode}
+            />
           </Item>
         </Form>
         <Button
           block
           style={{ margin: 15, marginTop: 50 }}
+          onPress={handleSubmit}
+        >
+          <Text>Add Location</Text>
+        </Button>
+        <Button
+          block
+          style={{ margin: 15, marginTop: 50 }}
           onPress={handlePress}
         >
-          <Text>Add</Text>
+          <Text>Done</Text>
         </Button>
       </Content>
     </Container>

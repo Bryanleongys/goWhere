@@ -1,5 +1,5 @@
-// Navigates here when Update Clique button is clicked on HomeScreen
-import React, { Component } from "react";
+/// Navigates here when Update Clique button is clicked on HomeScreen
+import React, { Component, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import {
   Container,
@@ -20,12 +20,35 @@ import {
   Item,
   List,
 } from "native-base";
-import { SwipeListView } from "react-native-swipe-list-view";
 import SwipeMemberElement from "./SwipeMemberElement";
-import "../global.js";
+import "react-native-gesture-handler";
 
-const UpdateCliqueScreen =({ navigation }) => {
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
+
+const UpdateCliqueScreen =({ navigation, route }) => {
     GLOBAL = require("../global");
+    let [currData, setData] = React.useState([]);
+    const [newData, setNewData] = React.useState([{}]);
+
+    React.useEffect(() => {
+      const unsubscribe = navigation.addListener("focus", () => {
+        console.log("Refreshed");
+        axios.get(`${baseURL}cliques/getfriends/60cba472c5923607e63bacd7`)
+        .then((res) => {
+          console.log("Get request success");
+          //console.log(res.data);
+          setData(res.data);
+          //currData = [currData];
+          //console.log(currData)
+        })
+        .catch((error) => {
+          console.log("Get request failed")
+        });
+      });
+      return unsubscribe;
+    }, [navigation]);
+
     return (
       <Container style={styles.container}>
         <Header style={{ backgroundColor: "#bff6eb" }}>
@@ -47,18 +70,25 @@ const UpdateCliqueScreen =({ navigation }) => {
           </Right>
         </Header>
         <Content>
-          {Object.keys(GLOBAL.MEMBERSARRAY1).map((name, index) => {
-            return (
+          {/* <List>
+            <SwipeMemberElement 
+              inputArray={currData}
+            />
+          </List> */}
+          {
+          currData.map((friend) => {
+            return(
               <Content>
                 <List>
                   <SwipeMemberElement
-                    inputArray={Object.keys(GLOBAL.MEMBERSARRAY1)[index] } navi={navigation}
+                    inputArray={currData}
+                    navi={navigation}
                   />
                 </List>
               </Content>
             );
-          })}
-          <SwipeListView></SwipeListView>
+          })
+        }
         </Content>
       </Container>
     );
