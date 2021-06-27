@@ -32,7 +32,7 @@ Only supported in iOS for Milestone #2.
 
 1. Ensure NodeJS and Expo has been downloaded.
 
-2. Clone the repository into your local machine.
+2. Clone the [repository](https://github.com/Bryanleongys/goWhere) into your local machine
 
 3. Open your preferred IDE. Run the following code in terminal to install missing dependencies.
 
@@ -76,7 +76,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ## Flow Diagrams
 
-<img src="url/./assets/Choose Location.png>
+![hi](./assets/common/ChooseOptimalLocation.png)
 
 ## Credits
 
