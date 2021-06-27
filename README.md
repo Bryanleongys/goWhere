@@ -76,7 +76,18 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ## Flow Diagrams
 
-![hi](./assets/common/ChooseOptimalLocation.png)
+### Choose Optimal Location
+![Choose Optimal Location](https://user-images.githubusercontent.com/69454147/123538802-088e1800-d769-11eb-9568-8bf1001c69e6.png)
+
+### Change Clique Settings*
+![Change Clique Settings](https://user-images.githubusercontent.com/69454147/123538819-28bdd700-d769-11eb-8e75-f0cbf3f6e1b2.png)
+
+### Update Travel Log
+![Update Travel Log](https://user-images.githubusercontent.com/69454147/123538822-307d7b80-d769-11eb-9b68-e0130436535e.png)
+
+
+### Database Overview
+![Database Overview](https://user-images.githubusercontent.com/69454147/123538825-32dfd580-d769-11eb-9a4c-bf7cd1d55aff.png)
 
 ## Credits
 
