@@ -23,7 +23,6 @@ You’re about to have an outing with your usual group of friends, but even afte
 ## Project Scope and Ideation
 
 Mobile Application Development using React Native and Firebase.
-![Database Overview](https://user-images.githubusercontent.com/69454147/123540158-2ad76400-d770-11eb-98be-77305a547ae6.png)
 
 goWhere decides on preferred location for an outing within a clique. Preferred location can be based on distance from members of the clique, crowd and rating levels, as well as the travel log of the clique. Users can create accounts for their cliques and personalise them by adding home or work locations of each member, as well as their travel log as a clique.
 
@@ -91,7 +90,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ### Database Overview
 
-![Database Overview](https://user-images.githubusercontent.com/69454147/123540166-3a56ad00-d770-11eb-84b6-0948e957b835.png)
+<img src="https://user-images.githubusercontent.com/69454147/123540166-3a56ad00-d770-11eb-84b6-0948e957b835.png" width = "700" height = "450">
 
 ## Further Documentations
 
