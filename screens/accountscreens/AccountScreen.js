@@ -45,6 +45,14 @@ const AccountScreen = ({ navigation }) => {
         >
           <Text style={{ color: "#000000" }}>Change Email Address</Text>
         </Button>
+        <Button
+          rounded
+          primary
+          style={styles.preferencesButton}
+          onPress={() => navigation.push("DeleteClique")}
+        >
+          <Text style={{ color: "#000000" }}>Delete Clique</Text>
+        </Button>
       </Content>
     </Container>
   );
