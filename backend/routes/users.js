@@ -127,22 +127,26 @@ router.get(`/get/count`, async (req, res) => {
 });
 
 // Delete user
-router.delete("/:id", (req, res) => {
-  User.findByIdAndRemove(req.params.id)
-    .then((user) => {
-      if (user) {
-        return res
-          .status(200)
-          .json({ success: true, message: "the user is deleted!" });
-      } else {
-        return res
-          .status(404)
-          .json({ success: false, message: "user not found!" });
-      }
-    })
-    .catch((err) => {
-      return res.status(500).json({ success: false, error: err });
-    });
+// req.body parameters: password
+router.delete("/delete/:id", async (req, res) => {
+  const checkUser = await User.findById(req.params.id);
+
+  if (!bcrypt.compareSync(req.query.password, checkUser.passwordHash)) {
+    return res.status(500).send("wrong password!");
+  }
+
+  const user = await User.findByIdAndRemove(req.params.id);
+  const clique = await Clique.findByIdAndRemove(checkUser.cliqueID);
+
+  if (!user) {
+    return res.status(400).send("the user cannot be deleted!");
+  }
+
+  if (!clique) {
+    return res.status(400).send("the clique cannot be deleted!");
+  }
+
+  res.send(user);
 });
 
 // Get user's email

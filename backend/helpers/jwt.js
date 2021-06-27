@@ -15,7 +15,7 @@ function authJwt() {
       { url: /\/api\/v1\/cliques(.*)/, methods: ["GET", "OPTIONS", "PATCH"] },
       {
         url: /\/api\/v1\/users(.*)/,
-        methods: ["GET", "OPTIONS", "PATCH", "POST"],
+        methods: ["GET", "OPTIONS", "PATCH", "POST", "DELETE"],
       },
       `${api}/users/login`,
       `${api}/users/register`,
