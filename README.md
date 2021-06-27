@@ -82,7 +82,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ### Change Clique Settings\*
 
-<img src="https://user-images.githubusercontent.com/69454147/123538819-28bdd700-d769-11eb-8e75-f0cbf3f6e1b2.png" width = "450" height = "500">
+<img src="https://user-images.githubusercontent.com/69454147/123540105-e2b84180-d76f-11eb-9cc2-630265629cb8.png" width = "450" height = "500">
 
 ### Update Travel Log
 
