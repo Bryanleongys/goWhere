@@ -31,26 +31,6 @@ const UpdateCliqueScreen = ({ navigation, route }) => {
   const [currData, setCurrData] = React.useState([]);
   const [init, setInit] = React.useState(0);
 
-  // React.useEffect(() => {
-  //   const unsubscribe = navigation.addListener("focus", () => {
-  //     console.log("Refreshed");
-  //     axios
-  //       .get(`${baseURL}cliques/getfriends/60cba472c5923607e63bacd7`)
-  //       .then((res) => {
-  //         console.log("Get request success");
-  //         //console.log(res.data);
-  //         setData(res.data);
-  //         //currData = [currData];
-  //         //console.log(currData)
-  //       })
-  //       .catch((error) => {
-  //         console.log("Get request failed");
-  //       });
-  //   });
-  //   return unsubscribe;
-  // }, [navigation]);
-  // console.log(currData);
-
   React.useEffect(() => {
     console.log("Refreshed");
     axios
