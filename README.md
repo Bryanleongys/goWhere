@@ -74,19 +74,56 @@ MongoDB is an open-source, document-based database. It stores data in JSON-like 
 
 We have chosen ExpressJS due to the fast and minimalist web framework used for NodeJS.
 
-## Flow Diagrams
+## Features and Program Flow
+
+### Create Account and Login Features
+
+- Create an account for your clique using an email and password
+- Reset password if forgotten
 
 ### Choose Optimal Location
 
 <img src="https://user-images.githubusercontent.com/69454147/123538802-088e1800-d769-11eb-9568-8bf1001c69e6.png" width="500" height="1000">
 
+1. Select the members of your clique that you would like to go out with (minimum two members)
+2. Select their respective locations or input a specific location
+3. Select location preferences:
+   - Lower crowd levels
+   - Higher ratings
+   - Have not visited before
+4. A meetup location is suggested. If the location is unsatisfactory, reroll for another location
+
+### One Time Use Account
+
+- A substitute for users that only seldom use the app and have no use for a clique account
+- Select number of pax and input their locations induvidually for the app to suggest an optimal meetup location
+- Select location preferences:
+  - Lower crowd levels
+  - Higher ratings
+- A meetup location is suggested. If the location is unsatisfactory, reroll for another location
+
 ### Change Clique Settings\*
 
 <img src="https://user-images.githubusercontent.com/69454147/123540105-e2b84180-d76f-11eb-9cc2-630265629cb8.png" width = "450" height = "500">
 
+- View existing members in the clique
+- Add members and their respective locations to the clique
+- Delete members that are not part of the clique anymore
+- Edit member details if needed
+
 ### Update Travel Log
 
 <img src="https://user-images.githubusercontent.com/69454147/123538822-307d7b80-d769-11eb-9b68-e0130436535e.png" width = "500" height = "500">
+
+- Maintain travel log based on travel history in the app
+- Add locations to travel log in order to be filtered out while finding optimal meetup location
+- Add locations from travel log to favorites if your clique wants to revisit them while rolling for location
+
+### Account Settings Features
+
+- Change Password
+- Change email
+- Delete account
 
 ### Database Overview
 
