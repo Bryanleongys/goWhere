@@ -57,7 +57,7 @@ const GoogleMapScreen = ({ navigation }) => {
             navigation.dispatch(
               CommonActions.reset({
                 index: 1,
-                routes: [{ name: "Welcome" }],
+                routes: [{ name: "Home" }],
               })
             ),
         },

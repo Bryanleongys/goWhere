@@ -62,12 +62,6 @@ const PaxScreen = ({ navigation }) => {
           </Item>
         </Form>
         {inputs}
-        <Button
-          block
-          style={{ margin: 15, marginTop: 50, width: 200, alignSelf: "center" }}
-        >
-          <Text>Add Location</Text>
-        </Button>
       </Content>
       <Footer style={styles.container}>
         <FooterTab>
