@@ -14,10 +14,38 @@ import {
 } from "native-base";
 
 const TimingScreen = ({ navigation }) => {
+  const GLOBAL = require("../global");
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  var dd = date.getDate();
+  var mm = monthNames[date.getMonth()];
+  var yyyy = date.getFullYear();
+
+  var hours = String(time.getHours());
+  var minutes = String(time.getMinutes());
+
+  var dateString = dd + " " + mm + " " + yyyy;
+  var timeString = hours + minutes + "hrs";
+  GLOBAL.OUTING_TIME.date = dateString;
+  GLOBAL.OUTING_TIME.time = timeString;
 
   const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate || date;

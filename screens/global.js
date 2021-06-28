@@ -23,4 +23,8 @@ module.exports = {
     Ben: [],
   },
   USER: {},
+  OUTING_TIME: {
+    date: "",
+    time: "",
+  },
 };
