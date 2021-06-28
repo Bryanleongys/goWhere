@@ -43,24 +43,26 @@ const AddMemberScreen = ({ navigation }) => {
 
   const handleSubmit = () => {
     if (member == "") {
-      return Alert.alert("Please fill in missing fields")
+      return Alert.alert("Please fill in missing fields");
     }
 
     let friend = {
-      name: member
+      name: member,
     };
 
-    axios.patch(`${baseURL}cliques/addmember/60cba472c5923607e63bacd7`, friend)
-    .then((res) => {
-      if (res.status == 200) {
-        console.log("Friend added!")
-        navigation.navigate("CliqueScreen4", {paramKey: friend.name})
-      }
-      return Alert.alert("Member added!");
-    }).catch((error) => {
-      Alert.alert("Failed to add")
-      console.log(error)
-    })
+    axios
+      .patch(`${baseURL}cliques/addmember/60cba472c5923607e63bacd7`, friend)
+      .then((res) => {
+        if (res.status == 200) {
+          console.log("Friend added!");
+          navigation.navigate("CliqueScreen4", { paramKey: friend.name });
+        }
+        return Alert.alert("Member added!");
+      })
+      .catch((error) => {
+        Alert.alert("Failed to add");
+        console.log(error);
+      });
   };
 
   return (
@@ -74,15 +76,14 @@ const AddMemberScreen = ({ navigation }) => {
         <Body>
           <Title style={{ fontSize: 17 }}>Member details</Title>
         </Body>
+        <Right />
       </Header>
 
       <Content>
         <Form>
           <Item floatingLabel>
             <Label>Members Name</Label>
-            <Input
-              onChangeText={setMember} 
-            />
+            <Input onChangeText={setMember} />
           </Item>
         </Form>
         {/* <Button

@@ -16,9 +16,8 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
 const SwipeMemberElement = ({ inputArray, navi }) => {
-  
   GLOBAL = require("../global");
-  //console.log(inputArray);
+  console.log(inputArray);
   var length = inputArray.length;
   const [listData, setListData] = useState(
     Array(length)
@@ -40,7 +39,7 @@ const SwipeMemberElement = ({ inputArray, navi }) => {
 
     //console.log(inputArray[0])
     let inputDelete = {
-      name: inputArray[rowKey]
+      name: inputArray[rowKey],
     };
 
     axios
@@ -62,14 +61,14 @@ const SwipeMemberElement = ({ inputArray, navi }) => {
     // if (GLOBAL.TRAVELHISTORY[date].length == 0) {
     //   delete GLOBAL.TRAVELHISTORY[date];
     // }
-    console.log("New set data")
+    console.log("New set data");
     setListData(newData);
   };
 
   const editRow = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
     navi.navigate("CliqueScreen3");
-  }
+  };
 
   const onRowDidOpen = (rowKey) => {
     console.log("This row opened", rowKey);
@@ -89,7 +88,7 @@ const SwipeMemberElement = ({ inputArray, navi }) => {
 
   const renderHiddenItem = (data, rowMap) => (
     <View style={styles.rowBack}>
-      <Text>Juked</Text>
+      <Text></Text>
       {/* <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnLeft]}
         onPress={() => editRow(rowMap, data.item.key)}

@@ -18,7 +18,7 @@ import {
   Text,
 } from "native-base";
 import { Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions } from "@react-navigation/native";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
@@ -30,30 +30,39 @@ const AddLocationScreen = ({ route, navigation }) => {
 
   const handleSubmit = () => {
     if (location == "" || postalCode == "") {
-      return Alert.alert("Please fill in missing fields")
+      return Alert.alert("Please fill in missing fields");
     }
 
     let loc = {
       name: route.params.paramKey,
-      location: location,
-      postalCode: postalCode      
-    }
+      locationName: location,
+      postalCode: postalCode,
+    };
 
     console.log(loc.name);
-    axios.patch(`${baseURL}cliques/addlocation/60cba472c5923607e63bacd7`, loc)
-    .then((res) => {
-      if (res.status == 200) {
-        console.log("Location added!")
-      }
-      return Alert.alert("Location added!");
-    }).catch((error) => {
-      Alert.alert("Failed to add")
-      console.log(error)
-    })
+    axios
+      .patch(`${baseURL}cliques/addlocation/${GLOBAL.USER.cliqueID}`, loc)
+      .then((res) => {
+        if (res.status == 200) {
+          console.log("Location added!");
+          setLocation("");
+          setPostalCode("");
+          return Alert.alert("Location added!");
+        }
+      })
+      .catch((error) => {
+        Alert.alert("Failed to add");
+        console.log(error);
+      });
   };
 
   const handlePress = () => {
-    navigation.push("CliqueScreen1")
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{ name: "CliqueScreen1" }],
+      })
+    );
   };
 
   return (
@@ -74,15 +83,11 @@ const AddLocationScreen = ({ route, navigation }) => {
         <Form>
           <Item floatingLabel>
             <Label>Location Name</Label>
-            <Input 
-            onChangeText={setLocation}
-            />
+            <Input value={location} onChangeText={setLocation} />
           </Item>
           <Item floatingLabel>
             <Label>Postal Code</Label>
-            <Input 
-            onChangeText={setPostalCode}
-            />
+            <Input value={postalCode} onChangeText={setPostalCode} />
           </Item>
         </Form>
         <Button
