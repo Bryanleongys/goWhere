@@ -51,7 +51,7 @@ const AddMemberScreen = ({ navigation }) => {
     };
 
     axios
-      .patch(`${baseURL}cliques/addmember/60cba472c5923607e63bacd7`, friend)
+      .patch(`${baseURL}cliques/addmember/${GLOBAL.USER.cliqueID}`, friend)
       .then((res) => {
         if (res.status == 200) {
           console.log("Friend added!");

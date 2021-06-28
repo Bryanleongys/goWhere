@@ -44,7 +44,7 @@ const SwipeMemberElement = ({ inputArray, navi }) => {
 
     axios
       .patch(
-        `${baseURL}cliques/removemember/60cba472c5923607e63bacd7`,
+        `${baseURL}cliques/removemember/${GLOBAL.USER.cliqueID}`,
         inputDelete
       )
       .then((res) => {
