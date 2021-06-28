@@ -204,4 +204,22 @@ router.patch("/changepassword/:id", async (req, res) => {
   res.send(user);
 });
 
+// Reset user's password
+// req.body parameters: email, password
+router.patch("/resetpassword", async (req, res) => {
+  const filter = {
+    email: req.body.email,
+  };
+
+  const user = await User.findOneAndUpdate(filter, {
+    passwordHash: bcrypt.hashSync(req.body.password, 10),
+  });
+
+  if (!user) {
+    return res.status(400).send("the user does not exist!");
+  }
+
+  res.send(user);
+});
+
 module.exports = router;
