@@ -76,6 +76,10 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ## Features and Program Flow
 
+### Webflow of Features
+![Features of goWhere](https://user-images.githubusercontent.com/69454147/123666665-019bfe00-d86c-11eb-8936-7d1735cb9266.png)
+
+
 ### Create Account and Login Features
 
 - Create an account for your clique using an email and password
