@@ -22,6 +22,7 @@ import {
 } from "native-base";
 import SwipeMemberElement from "./SwipeMemberElement";
 import "react-native-gesture-handler";
+import LoadingScreen from "../common/LoadingScreen";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
@@ -53,7 +54,7 @@ const UpdateCliqueScreen = ({ navigation, route }) => {
             <Icon name="arrow-back" />
           </Button>
         </Left>
-        <Body>
+        <Body style={{ flex: 3 }}>
           <Title>Members</Title>
         </Body>
         <Right>
@@ -70,7 +71,7 @@ const UpdateCliqueScreen = ({ navigation, route }) => {
       </Content>
     </Container>
   ) : (
-    <Text>Loading</Text>
+    <LoadingScreen />
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import {
   Container,
   Header,
@@ -38,6 +38,12 @@ const PaxScreen = ({ navigation }) => {
     inputs.push(<LocationElement index={i} />);
   }
 
+  const handlePress = () => {
+    if (pax < 2 || pax == null) {
+      return Alert.alert("Too little people!");
+    }
+    navigation.navigate("PreferencesScreen");
+  };
   return (
     <Container style={styles.container}>
       <Content contentContainerStyle={styles.content}>
@@ -68,7 +74,7 @@ const PaxScreen = ({ navigation }) => {
           <Button onPress={() => navigation.goBack()}>
             <Icon name="caret-back-sharp" />
           </Button>
-          <Button onPress={() => navigation.navigate("PreferencesScreen")}>
+          <Button onPress={handlePress}>
             <Icon name="caret-forward-sharp" />
           </Button>
         </FooterTab>

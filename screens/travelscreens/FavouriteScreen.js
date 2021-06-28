@@ -23,6 +23,7 @@ import SwipeDeleteElement from "./SwipeElement";
 import "react-native-gesture-handler";
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
+import LoadingScreen from "../common/LoadingScreen";
 
 const FavouriteScreen = ({ navigation }) => {
   GLOBAL = require("../global");
@@ -55,7 +56,7 @@ const FavouriteScreen = ({ navigation }) => {
             <Icon name="arrow-back" />
           </Button>
         </Left>
-        <Body style={{ alignSelf: "center" }}>
+        <Body style={{ alignSelf: "center", flex: 3 }}>
           <Title>Favourites</Title>
         </Body>
         <Right />
@@ -65,7 +66,7 @@ const FavouriteScreen = ({ navigation }) => {
       </Content>
     </Container>
   ) : (
-    <Text> "Loading..." </Text>
+    <LoadingScreen />
   );
 };
 

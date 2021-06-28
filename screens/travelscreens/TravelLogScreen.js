@@ -22,6 +22,7 @@ import {
 } from "native-base";
 import SwipeListElement from "./SwipeBorderElement";
 import "react-native-gesture-handler";
+import LoadingScreen from "../common/LoadingScreen";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
@@ -50,6 +51,7 @@ import baseURL from "../../assets/common/baseUrl";
 const TravelLogScreen = ({ navigation, route }) => {
   GLOBAL = require("../global");
   const [currData, setData] = React.useState([]);
+  const [init, setInit] = React.useState(0);
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -59,6 +61,7 @@ const TravelLogScreen = ({ navigation, route }) => {
         .then((res) => {
           console.log("Successfully GET request");
           setData(res.data);
+          setInit(1);
         })
         .catch((error) => {
           console.log("GET request failed");
@@ -67,7 +70,7 @@ const TravelLogScreen = ({ navigation, route }) => {
     return unsubscribe;
   }, [navigation]);
 
-  return (
+  return init ? (
     <Container style={styles.container}>
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
@@ -75,7 +78,7 @@ const TravelLogScreen = ({ navigation, route }) => {
             <Icon name="arrow-back" />
           </Button>
         </Left>
-        <Body>
+        <Body style={{ flex: 3 }}>
           <Title>Travel Log</Title>
         </Body>
         <Right>
@@ -104,6 +107,8 @@ const TravelLogScreen = ({ navigation, route }) => {
         })}
       </Content>
     </Container>
+  ) : (
+    <LoadingScreen />
   );
 };
 

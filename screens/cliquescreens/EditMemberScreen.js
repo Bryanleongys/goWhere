@@ -37,7 +37,7 @@ const EditMemberScreen = ({ route, navigation }) => {
             <Icon name="arrow-back" />
           </Button>
         </Left>
-        <Body>
+        <Body style={{ flex: 3 }}>
           <Title style={{ fontSize: 17 }}>Member details</Title>
         </Body>
         <Right />
@@ -49,7 +49,6 @@ const EditMemberScreen = ({ route, navigation }) => {
             <Label>Members Name</Label>
             <Input />
           </Item>
-          
         </Form>
         <Button
           block

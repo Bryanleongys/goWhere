@@ -19,6 +19,7 @@ import {
 } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import CheckboxElement from "./CheckboxElement";
+import LoadingScreen from "../common/LoadingScreen";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
@@ -37,6 +38,14 @@ const SelectPersonScreen2 = ({ navigation }) => {
         console.log("Successfully GET request");
         setData(res.data);
         setInit({ init: 1 });
+        if (res.data.length < 2) {
+          Alert.alert("Add members under Clique Settings!", "", [
+            {
+              text: "OK",
+              onPress: () => navigation.navigate("Home"),
+            },
+          ]);
+        }
       })
       .catch((error) => {
         console.log("GET request failed");
@@ -88,7 +97,7 @@ const SelectPersonScreen2 = ({ navigation }) => {
       </Footer>
     </Container>
   ) : (
-    <Text style={{ justifyContent: "center", flex: 1 }}>Loading...</Text>
+    <LoadingScreen />
   );
 };
 

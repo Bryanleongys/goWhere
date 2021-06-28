@@ -16,6 +16,7 @@ import {
   Icon,
   Form,
   Text,
+  Toast,
 } from "native-base";
 
 import axios from "axios";
@@ -47,7 +48,7 @@ const LoginScreen = ({ navigation }) => {
       })
       .catch((error) => {
         if (error.message == "Request failed with status code 400") {
-          Alert.alert("Incorrect password.");
+          Alert.alert("Incorrect password!");
         } else if (error.message == "Request failed with status code 500") {
           Alert.alert("Account does not exist.");
         }

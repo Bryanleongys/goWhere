@@ -39,8 +39,19 @@ const TimingScreen = ({ navigation }) => {
   var mm = monthNames[date.getMonth()];
   var yyyy = date.getFullYear();
 
-  var hours = String(time.getHours());
-  var minutes = String(time.getMinutes());
+  var hours = time.getHours();
+  var minutes = time.getMinutes();
+  if (minutes < 10) {
+    minutes = "0" + String(minutes);
+  } else {
+    minutes = String(minutes);
+  }
+
+  if (hours < 10) {
+    hours = "0" + String(hours);
+  } else {
+    hours = String(hours);
+  }
 
   var dateString = dd + " " + mm + " " + yyyy;
   var timeString = hours + minutes + "hrs";

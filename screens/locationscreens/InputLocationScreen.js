@@ -23,6 +23,7 @@ import {
 } from "native-base";
 
 import PickerElement from "./PickerElement";
+import LoadingScreen from "../common/LoadingScreen";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
@@ -34,14 +35,7 @@ const InputLocationScreen = ({ navigation, route }) => {
   const [currData, setData] = React.useState([]);
   const [init, setInit] = React.useState(0);
 
-  const colorArray = [
-    "#8AEEDA",
-    "#53E6C9",
-    "#1FDBB6",
-    "#17A488",
-    "#106E5B",
-    "#08372D",
-  ];
+  const colorArray = ["#8AEEDA", "#53E6C9", "#1FDBB6", "#17A488"];
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -72,12 +66,13 @@ const InputLocationScreen = ({ navigation, route }) => {
             Where will y'all be before the outing?{" "}
           </Text>
           {currData.map((person, i) => {
+            const colorIndex = i % colorArray.length;
             return optionsArray[i] ? (
               <PickerElement
                 key={i}
                 name={person}
                 navigation={navigation}
-                colorCode={colorArray[i]}
+                colorCode={colorArray[colorIndex]}
               />
             ) : null;
           })}
@@ -96,7 +91,7 @@ const InputLocationScreen = ({ navigation, route }) => {
       </Footer>
     </Container>
   ) : (
-    <Text> Loading... </Text>
+    <LoadingScreen />
   );
 };
 

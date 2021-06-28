@@ -86,7 +86,7 @@ const ResetPasswordScreen = ({ navigation }) => {
             <Icon name="arrow-back" />
           </Button>
         </Left>
-        <Body>
+        <Body style={{ flex: 3 }}>
           <Title style={{ fontSize: 17 }}>Reset Password</Title>
         </Body>
         <Right />

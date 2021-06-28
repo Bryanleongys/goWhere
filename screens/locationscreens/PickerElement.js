@@ -21,6 +21,7 @@ import { StyleSheet } from "react-native";
 import "react-native-gesture-handler";
 
 import { Picker } from "@react-native-picker/picker";
+import LoadingScreen from "../common/LoadingScreen";
 
 import BoxContainer from "./BoxContainer";
 import axios from "axios";
@@ -89,7 +90,7 @@ const PickerElement = ({ navigation, name, colorCode }) => {
       </BoxContainer>
     </View>
   ) : (
-    <Text>Loading...</Text>
+    <LoadingScreen />
   );
 };
 

@@ -106,7 +106,7 @@ const AddTravelScreen = ({ navigation, route }) => {
             <Icon name="arrow-back" />
           </Button>
         </Left>
-        <Body>
+        <Body style={{ flex: 3 }}>
           <Title>Add Location</Title>
         </Body>
         <Right></Right>
