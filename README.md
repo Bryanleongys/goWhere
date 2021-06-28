@@ -131,7 +131,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ## Further Documentations
 
-You can read more on our goWhere Proposal [here](https://docs.google.com/document/d/1P--Yg5Lm07k7BCNmae_dq1bYh14ATlRPQIxb1i1GbPA/edit?usp=sharing)
+You can read more on our goWhere Proposal (includes our testing documentations, project log and development plan) [here](https://docs.google.com/document/d/1P--Yg5Lm07k7BCNmae_dq1bYh14ATlRPQIxb1i1GbPA/edit?usp=sharing).
 
 ## Credits
 
