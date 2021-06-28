@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "goWhere3",
-    "slug": "goWhere3",
+    "name": "goWhere",
+    "slug": "gowhere",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,7 +13,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.orbital.goWhere",
@@ -29,6 +31,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "goWhere is a mobile application that allows you to choose a preferred meet up location easily!",
+    "githubUrl": "https://github.com/Bryanleongys/goWhere/tree/main"
   }
 }
