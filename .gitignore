@@ -6,3 +6,5 @@ goWhere.file
 goWhere.pub
 .env
 app.jsonapp.json
+
+yarn.lock
