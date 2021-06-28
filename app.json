@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "goWhere3",
-    "slug": "goWhere3",
+    "owner": "bryanleongys",
+    "name": "goWhere",
+    "slug": "gowhere",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,6 +30,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "goWhere is a mobile application which helps you to select a preferred location for your meet ups!",
+    "githubUrl": "https://github.com/Bryanleongys/goWhere"
   }
 }
