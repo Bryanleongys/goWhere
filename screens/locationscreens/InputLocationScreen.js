@@ -72,12 +72,13 @@ const InputLocationScreen = ({ navigation, route }) => {
             Where will y'all be before the outing?{" "}
           </Text>
           {currData.map((person, i) => {
+            const colorIndex = i % colorArray.length; // loop array infinite number of times
             return optionsArray[i] ? (
               <PickerElement
                 key={i}
                 name={person}
                 navigation={navigation}
-                colorCode={colorArray[i]}
+                colorCode={colorArray[colorIndex]}
               />
             ) : null;
           })}
