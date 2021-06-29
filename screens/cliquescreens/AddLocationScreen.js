@@ -1,5 +1,5 @@
 // Navigates here after clicking member button on UpdateCliqueScreen
-import React, { Component, useState } from "react";
+import React, { Component, useState, useRef, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import {
   Container,
@@ -17,13 +17,28 @@ import {
   Form,
   Text,
 } from "native-base";
-import { Alert } from "react-native";
+import { Alert, ActivityIndicator } from "react-native";
 import { CommonActions } from "@react-navigation/native";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
+import config from "../../config";
+
+const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
+console.log(GOOGLE_PLACES_API_KEY);
+
 const AddLocationScreen = ({ route, navigation }) => {
+  const [buttonWord, setButtonWord] = React.useState(<Text>Add Location</Text>);
+
+  // for Google Maps API
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.setAddressText("");
+  }, []);
+
   GLOBAL = require("../global");
   const [location, setLocation] = useState("");
   const [postalCode, setPostalCode] = useState("");
@@ -32,6 +47,7 @@ const AddLocationScreen = ({ route, navigation }) => {
     if (location == "" || postalCode == "") {
       return Alert.alert("Please fill in missing fields");
     }
+    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
 
     let loc = {
       name: route.params.paramKey,
@@ -47,10 +63,12 @@ const AddLocationScreen = ({ route, navigation }) => {
           console.log("Location added!");
           setLocation("");
           setPostalCode("");
+          setButtonWord(<Text>Add Location</Text>);
           return Alert.alert("Location added!");
         }
       })
       .catch((error) => {
+        setButtonWord(<Text>Add Location</Text>);
         Alert.alert("Failed to add");
         console.log(error);
       });
@@ -89,13 +107,30 @@ const AddLocationScreen = ({ route, navigation }) => {
             <Label>Postal Code</Label>
             <Input value={postalCode} onChangeText={setPostalCode} />
           </Item>
+          <Item regular>
+            <GooglePlacesAutocomplete
+              GooglePlacesDetailsQuery={{ fields: "geometry" }}
+              ref={ref}
+              placeholder="Search"
+              onPress={(data, details = null) => {
+                // 'details' is provided when fetchDetails = true
+                setLocation(details.structured_formatting.main_text);
+                console.log(details);
+              }}
+              query={{
+                key: GOOGLE_PLACES_API_KEY,
+                language: "en",
+                components: "country:sg",
+              }}
+            />
+          </Item>
         </Form>
         <Button
           block
           style={{ margin: 15, marginTop: 50 }}
           onPress={handleSubmit}
         >
-          <Text>Add Location</Text>
+          {buttonWord}
         </Button>
         <Button
           block

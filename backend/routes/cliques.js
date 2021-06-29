@@ -1,4 +1,5 @@
 const { Clique } = require("../models/clique");
+const { Log } = require("../models/logs");
 const cliqueInit = require("../common/cliqueinit");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -183,15 +184,27 @@ router.get(`/getlogs/:id`, async (req, res) => {
 // Requires: date, locationName, postalCode
 router.patch("/addlog/:id", async (req, res) => {
   mongoose.set("useFindAndModify", false);
-  const dateExist = await Clique.exists({
+  const dateExist = await Clique.findOne({
     _id: req.params.id,
     "logs.date": req.body.date,
   });
 
+  console.log(dateExist);
+
   if (dateExist) {
     // Ensure no duplicate location exists
-    const locationExist = await Clique.exists({
+    // const locationExist = await dateExist.findOne({
+    //   "locations.locationName": req.body.locationName,
+    // });
+
+    const locationExist = await Clique.findOne({
       _id: req.params.id,
+      // logs: {
+      //   date: req.body.date,
+      //   locations: {
+      //     locationName: req.body.locationName,
+      //   },
+      // },
       "logs.date": req.body.date,
       "logs.locations.locationName": req.body.locationName,
     });

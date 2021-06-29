@@ -17,7 +17,7 @@ import {
   Form,
   Text,
 } from "native-base";
-import { Alert } from "react-native";
+import { Alert, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import axios from "axios";
@@ -33,6 +33,7 @@ const AddMemberScreen = ({ navigation }) => {
   const [member, setMember] = useState("");
   const [location, setLocation] = useState("");
   const [postalCode, setPostalCode] = useState("");
+  const [buttonWord, setButtonWord] = useState(<Text>Add Member</Text>);
 
   // const alertPress = () => {
   //   console.log(Object.keys(GLOBAL.MEMBERSARRAY1).length)
@@ -49,17 +50,19 @@ const AddMemberScreen = ({ navigation }) => {
     let friend = {
       name: member,
     };
-
+    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
     axios
       .patch(`${baseURL}cliques/addmember/${GLOBAL.USER.cliqueID}`, friend)
       .then((res) => {
         if (res.status == 200) {
+          setButtonWord(<Text>Add Member</Text>);
           console.log("Friend added!");
           navigation.navigate("CliqueScreen4", { paramKey: friend.name });
         }
         return Alert.alert("Member added!");
       })
       .catch((error) => {
+        setButtonWord(<Text>Add Member</Text>);
         Alert.alert("Failed to add");
         console.log(error);
       });
@@ -98,7 +101,7 @@ const AddMemberScreen = ({ navigation }) => {
           style={{ margin: 15, marginTop: 50 }}
           onPress={handleSubmit}
         >
-          <Text>Add</Text>
+          {buttonWord}
         </Button>
         {/* <View>
           <InputText

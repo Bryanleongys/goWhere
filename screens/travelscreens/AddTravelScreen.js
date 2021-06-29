@@ -1,5 +1,5 @@
 // Navigates here when plus button is pressed from Travel Log Screen
-import React, { Component, useState } from "react";
+import React, { Component, useState, useRef, useEffect } from "react";
 import {
   Container,
   Header,
@@ -16,12 +16,25 @@ import {
 } from "native-base";
 import { Alert, ActivityIndicator } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { SwipeListView } from "react-native-swipe-list-view";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
+import config from "../../config";
+
+const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
+console.log(GOOGLE_PLACES_API_KEY);
+
 const AddTravelScreen = ({ navigation, route }) => {
+  // for Google Maps API
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.setAddressText("");
+  }, []);
+
   GLOBAL = require("../global");
   const [location, setLocation] = useState("");
   const [buttonWord, setButtonWord] = useState(
@@ -119,9 +132,24 @@ const AddTravelScreen = ({ navigation, route }) => {
         <Right></Right>
       </Header>
       <Content>
-        <Item regular>
-          <Text> Name of Location: </Text>
-          <Input value={location} onChangeText={setLocation} />
+        <Item regular style={{ width: 450 }}>
+          <Text>Name of Location:</Text>
+          <GooglePlacesAutocomplete
+            GooglePlacesDetailsQuery={{ fields: "geometry" }}
+            ref={ref}
+            placeholder="Search"
+            onPress={(data, details = null) => {
+              // 'details' is provided when fetchDetails = true
+              setLocation(details.structured_formatting.main_text);
+              console.log(details);
+            }}
+            query={{
+              key: GOOGLE_PLACES_API_KEY,
+              language: "en",
+              components: "country:sg",
+            }}
+          />
+          {/* <Input value={location} onChangeText={setLocation} /> */}
         </Item>
         <Item>
           <Text> Date of Outing: </Text>

@@ -39,6 +39,11 @@ const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 console.log(GOOGLE_PLACES_API_KEY);
 
 const GoogleMapScreen = ({ navigation }) => {
+  // const [marker, setMarker] = React.useState({
+  //   latitude: 1.264639175987081,
+  //   longitude: 103.822228554651,
+  // });
+
   const ref = useRef();
 
   useEffect(() => {
@@ -111,21 +116,20 @@ const GoogleMapScreen = ({ navigation }) => {
 
   return (
     <Container>
-      <Header style={{ backgroundColor: "#bff6eb" }}>
+      <Content>
         <GooglePlacesAutocomplete
+          GooglePlacesDetailsQuery={{ fields: "geometry" }}
           ref={ref}
           placeholder="Search"
-          onPress={(data, details = null) => {
+          onPress={(data, details, places = null) => {
             // 'details' is provided when fetchDetails = true
-            console.log(data, details);
+            console.log(details);
           }}
           query={{
             key: GOOGLE_PLACES_API_KEY,
             language: "en",
           }}
         />
-      </Header>
-      <Container>
         <MapView
           provider={PROVIDER_GOOGLE}
           style={styles.map}
@@ -160,12 +164,17 @@ const GoogleMapScreen = ({ navigation }) => {
               source={require("../../assets/pacman.png")}
             />
           </Marker>
+          {/* <Marker
+            draggable
+            coordinate={marker}
+            onDragEnd={(e) => setMarker(e.nativeEvent.coordinate)}
+          /> */}
           <Polygon
             coordinates={state.coordinates}
             fillColor={"rgba(100, 100, 200, 0.2)"}
           />
         </MapView>
-      </Container>
+      </Content>
       <Footer style={styles.container}>
         <FooterTab>
           <Button onPress={() => navigation.goBack()}>
