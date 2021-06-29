@@ -28,6 +28,8 @@ goWhere decides on preferred location for an outing within a clique. Preferred l
 
 ## Installation and Startup
 
+### For Developers
+
 Only supported in iOS for Milestone #2.
 
 1. Ensure NodeJS and Expo has been downloaded.
@@ -54,6 +56,20 @@ npm start
 
 6.  You're all set!
 
+### For Users
+
+Our application is only available on iOS for Milestone #2.
+
+1. Download Expo Go on the App Store.
+
+2. Login into Expo Go with the following account:
+   Email: goWhere99@gmail.com
+   Password: @Pass!1234
+
+3. Go to https://exp.host/@bryanleongys/gowhere
+
+4. You're all set!
+
 ## Tech Stack
 
 For our tech stack, we have decided to use MERN Stack to develop our application.
@@ -77,8 +93,8 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 ## Features and Program Flow
 
 ### Webflow of Features
-![Features of goWhere](https://user-images.githubusercontent.com/69454147/123666665-019bfe00-d86c-11eb-8936-7d1735cb9266.png)
 
+![Features of goWhere](https://user-images.githubusercontent.com/69454147/123666665-019bfe00-d86c-11eb-8936-7d1735cb9266.png)
 
 ### Create Account and Login Features
 
