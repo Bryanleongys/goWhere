@@ -299,7 +299,9 @@ router.get(`/getfavourites/:id`, async (req, res) => {
 // Add favourite
 // Requires: locationName, postalCode
 router.patch("/addfavourite/:id", async (req, res) => {
-  const locationExist = await Clique.exists({
+  mongoose.set("useFindAndModify", false);
+  const locationExist = await Clique.findOne({
+    _id: req.params.id,
     "favourites.locationName": req.body.locationName,
   });
   if (locationExist) {
