@@ -114,20 +114,28 @@ const GoogleMapScreen = ({ navigation }) => {
     longitude: total_longitude / 4,
   };
 
+  const [markerLat, setMarkerLat] = React.useState(central_coordinate.latitude);
+  const [markerLong, setMarkerLong] = React.useState(
+    central_coordinate.longitude
+  );
+
   return (
     <Container>
       <Content>
         <GooglePlacesAutocomplete
           GooglePlacesDetailsQuery={{ fields: "geometry" }}
           ref={ref}
+          fetchDetails={true}
           placeholder="Search"
           onPress={(data, details, places = null) => {
             // 'details' is provided when fetchDetails = true
-            console.log(details);
+            setMarkerLat(details.geometry.location.lat);
+            setMarkerLong(details.geometry.location.lng);
           }}
           query={{
             key: GOOGLE_PLACES_API_KEY,
             language: "en",
+            components: "country:sg",
           }}
         />
         <MapView
@@ -154,8 +162,8 @@ const GoogleMapScreen = ({ navigation }) => {
           <Marker
             key={central_coordinate.name}
             coordinate={{
-              latitude: central_coordinate.latitude,
-              longitude: central_coordinate.longitude,
+              latitude: markerLat,
+              longitude: markerLong,
             }}
             title={central_coordinate.name}
           >
