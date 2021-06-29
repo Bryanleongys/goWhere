@@ -35,10 +35,15 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { CommonActions } from "@react-navigation/native";
 import config from "../../config";
 
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
+
 const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 console.log(GOOGLE_PLACES_API_KEY);
 
-const GoogleMapScreen = ({ navigation }) => {
+const GoogleMapScreen = ({ navigation, route }) => {
+  const GLOBAL = require("../global");
+  const { dateString, timeString, dateNum } = route.params;
   // const [marker, setMarker] = React.useState({
   //   latitude: 1.264639175987081,
   //   longitude: 103.822228554651,
@@ -51,11 +56,35 @@ const GoogleMapScreen = ({ navigation }) => {
   }, []);
 
   const handlePress = () => {
+    let locationDetails = {
+      date: dateString,
+      dateNum: dateNum,
+      locationName: markerName,
+      postalCode: "439947", // figure out how to get from google api
+    };
+    axios
+      .patch(
+        `${baseURL}cliques/addlog/${GLOBAL.USER.cliqueID}`,
+        locationDetails
+      )
+      .then((res) => {
+        if (res.status == 200) {
+          console.log("Location successfully added!");
+        }
+      });
     return Alert.alert(
-      "Far East Plaza Selected!",
+      markerName + " Selected!",
       "Would you like to send reminders to your friends?",
       [
-        { text: "Yes", onPress: () => navigation.push("Notification") },
+        {
+          text: "Yes",
+          onPress: () =>
+            navigation.navigate("Notification", {
+              markerName: markerName,
+              dateString: dateString,
+              timeString: timeString,
+            }),
+        },
         {
           text: "No",
           onPress: () =>
@@ -118,19 +147,39 @@ const GoogleMapScreen = ({ navigation }) => {
   const [markerLong, setMarkerLong] = React.useState(
     central_coordinate.longitude
   );
+  const [markerName, setMarkerName] = React.useState("Central");
 
   return (
     <Container>
-      <Content>
+      <Content style={{ backgroundColor: "#bff6eb" }} scrollEnabled={false}>
         <GooglePlacesAutocomplete
+          isRowScrollable={false}
+          enablePoweredByContainer={false}
+          styles={{
+            container: {
+              height: 140,
+            },
+            textInput: {
+              backgroundColor: "#ffffff",
+            },
+            row: {
+              backgroundColor: "#bff6eb",
+            },
+          }}
           GooglePlacesDetailsQuery={{ fields: "geometry" }}
           ref={ref}
           fetchDetails={true}
-          placeholder="Search"
-          onPress={(data, details, places = null) => {
+          placeholder="Search Location"
+          onPress={(data, details = null) => {
             // 'details' is provided when fetchDetails = true
+            // const zipCode = details?.address_components.find(
+            //   (addressComponent) =>
+            //     addressComponent.types.includes("postal_code")
+            // )?.short_name;
             setMarkerLat(details.geometry.location.lat);
             setMarkerLong(details.geometry.location.lng);
+            setMarkerName(data.structured_formatting.main_text);
+            console.log(details);
           }}
           query={{
             key: GOOGLE_PLACES_API_KEY,
@@ -165,7 +214,7 @@ const GoogleMapScreen = ({ navigation }) => {
               latitude: markerLat,
               longitude: markerLong,
             }}
-            title={central_coordinate.name}
+            title={markerName}
           >
             <Image
               style={{ height: 60, width: 60 }}

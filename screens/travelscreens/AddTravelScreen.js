@@ -137,7 +137,7 @@ const AddTravelScreen = ({ navigation, route }) => {
           <GooglePlacesAutocomplete
             GooglePlacesDetailsQuery={{ fields: "geometry" }}
             ref={ref}
-            placeholder="Name/Postal Code"
+            placeholder="Name/Postal"
             onPress={(data, details = null) => {
               // 'details' is provided when fetchDetails = true
               setLocation(details.structured_formatting.main_text);

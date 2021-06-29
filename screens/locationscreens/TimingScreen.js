@@ -36,6 +36,7 @@ const TimingScreen = ({ navigation }) => {
   ];
 
   var dd = date.getDate();
+  var mmnumber = date.getMonth();
   var mm = monthNames[date.getMonth()];
   var yyyy = date.getFullYear();
 
@@ -53,8 +54,10 @@ const TimingScreen = ({ navigation }) => {
     hours = String(hours);
   }
 
+  var dateNum = yyyy * 10000 + (mmnumber + 1) * 100 + dd;
   var dateString = dd + " " + mm + " " + yyyy;
   var timeString = hours + minutes + "hrs";
+
   GLOBAL.OUTING_TIME.date = dateString;
   GLOBAL.OUTING_TIME.time = timeString;
 
@@ -102,7 +105,15 @@ const TimingScreen = ({ navigation }) => {
           <Button onPress={() => navigation.goBack()}>
             <Icon name="caret-back-outline" />
           </Button>
-          <Button onPress={() => navigation.push("GoogleMap")}>
+          <Button
+            onPress={() =>
+              navigation.navigate("GoogleMap", {
+                dateString: dateString,
+                timeString: timeString,
+                dateNum: dateNum,
+              })
+            }
+          >
             <Icon name="caret-forward-outline" />
           </Button>
         </FooterTab>
