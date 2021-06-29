@@ -14,7 +14,7 @@ import {
   Icon,
   Title,
 } from "native-base";
-import { Alert } from "react-native";
+import { Alert, ActivityIndicator } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { SwipeListView } from "react-native-swipe-list-view";
 
@@ -24,6 +24,9 @@ import baseURL from "../../assets/common/baseUrl";
 const AddTravelScreen = ({ navigation, route }) => {
   GLOBAL = require("../global");
   const [location, setLocation] = useState("");
+  const [buttonWord, setButtonWord] = useState(
+    <Text style={{ color: "#000000" }}>Update Travel Log</Text>
+  );
 
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
@@ -68,6 +71,7 @@ const AddTravelScreen = ({ navigation, route }) => {
     if (location == "") {
       return Alert.alert("Please fill in missing fields!");
     }
+    setButtonWord(<ActivityIndicator size="small" color="#000000" />);
     let locationDetails = {
       date: dateString,
       dateNum: dateNum,
@@ -91,6 +95,9 @@ const AddTravelScreen = ({ navigation, route }) => {
         }
       })
       .catch((error) => {
+        setButtonWord(
+          <Text style={{ color: "#000000" }}>Update Travel Log</Text>
+        );
         if (error.message == "Request failed with status code 404") {
           return Alert.alert("Location already exists!");
         }
@@ -138,7 +145,7 @@ const AddTravelScreen = ({ navigation, route }) => {
             }}
             onPress={handlePress}
           >
-            <Text style={{ color: "#000000" }}>Update Travel Log</Text>
+            {buttonWord}
           </Button>
         </Content>
       </Content>
