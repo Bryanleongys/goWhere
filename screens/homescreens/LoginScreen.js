@@ -26,11 +26,14 @@ const LoginScreen = ({ navigation }) => {
   GLOBAL = require("../global");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [buttonWord, setButtonWord] = useState(<Text>Sign in</Text>);
 
   const handleSubmit = () => {
     if (email === "" || password === "") {
       return Alert.alert("Please fill in missing fields.");
     }
+
+    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
 
     let user = {
       email: email,
@@ -47,6 +50,7 @@ const LoginScreen = ({ navigation }) => {
         // else if (res.status == 400)
       })
       .catch((error) => {
+        setButtonWord(<Text>Sign in</Text>);
         if (error.message == "Request failed with status code 400") {
           Alert.alert("Incorrect password!");
         } else if (error.message == "Request failed with status code 500") {
@@ -101,7 +105,7 @@ const LoginScreen = ({ navigation }) => {
           style={{ margin: 15, marginTop: 50 }}
           onPress={handleSubmit}
         >
-          <Text>Sign In</Text>
+          {buttonWord}
         </Button>
         <Button
           onPress={() => navigation.navigate("ResetPassword")}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 import {
   Container,
   Header,
@@ -29,6 +29,9 @@ const ChangePasswordScreen = ({ navigation }) => {
   const [oldPassword, setOldPassword] = React.useState("");
   const [newPassword, setNewPassword] = React.useState("");
   const [newPassword2, setNewPassword2] = React.useState("");
+  const [buttonWord, setButtonWord] = React.useState(
+    <Text>Change Password</Text>
+  );
 
   const handleSubmit = () => {
     if (oldPassword == "" || newPassword == "" || newPassword2 == "") {
@@ -38,6 +41,7 @@ const ChangePasswordScreen = ({ navigation }) => {
     } else if (newPassword != newPassword2) {
       return Alert.alert("Passwords mismatched. Please retype passwords.");
     }
+    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
 
     const userData = {
       oldPassword: oldPassword,
@@ -58,6 +62,7 @@ const ChangePasswordScreen = ({ navigation }) => {
         // else if (res.status == 400)
       })
       .catch((error) => {
+        setButtonWord(<Text>Change Password</Text>);
         if (error.message == "Request failed with status code 404") {
           Alert.alert("Please use another password.");
         } else if (error.message == "Request failed with status code 500") {
@@ -124,7 +129,7 @@ const ChangePasswordScreen = ({ navigation }) => {
           style={{ margin: 15, marginTop: 50 }}
           onPress={handleSubmit}
         >
-          <Text>Change Password</Text>
+          {buttonWord}
         </Button>
       </Content>
     </Container>

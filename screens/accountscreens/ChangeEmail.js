@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 import {
   Container,
   Header,
@@ -26,6 +26,9 @@ import baseURL from "../../assets/common/baseUrl";
 const ChangeEmailScreen = ({ navigation }) => {
   GLOBAL = require("../global");
   const [email, setEmail] = React.useState("");
+  const [buttonWord, setButtonWord] = React.useState(
+    <Text>Change Email Address</Text>
+  );
 
   React.useEffect(() => {
     console.log("Refreshed");
@@ -41,6 +44,7 @@ const ChangeEmailScreen = ({ navigation }) => {
   }, []);
 
   const handleSubmit = () => {
+    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
     axios
       .patch(`${baseURL}users/changeemail/${GLOBAL.USER.id}`, { email: email })
       .then((res) => {
@@ -56,6 +60,7 @@ const ChangeEmailScreen = ({ navigation }) => {
         // else if (res.status == 400)
       })
       .catch((error) => {
+        setButtonWord(<Text>Change Email Address</Text>);
         if (error.message == "Request failed with status code 404") {
           Alert.alert("Please use another email.");
         } else if (error.message == "Request failed with status code 500") {
@@ -95,7 +100,7 @@ const ChangeEmailScreen = ({ navigation }) => {
           style={{ margin: 15, marginTop: 50 }}
           onPress={handleSubmit}
         >
-          <Text>Change Email Address</Text>
+          {buttonWord}
         </Button>
       </Content>
     </Container>

@@ -1,6 +1,6 @@
 // Navigates here when Log In button is clicked on WelcomeScreen
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 import {
   Container,
   Header,
@@ -27,6 +27,9 @@ const ResetPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [password2, setPassword2] = React.useState("");
+  const [buttonWord, setButtonWord] = React.useState(
+    <Text>Reset Password</Text>
+  );
 
   const handlePress = () => {
     if (email == "" || password == "" || password2 == "") {
@@ -35,6 +38,7 @@ const ResetPasswordScreen = ({ navigation }) => {
     if (password != password2) {
       return Alert.alert("Passwords mismatch. Please key in again.");
     }
+    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
     const userData = {
       email: email,
       password: password,
@@ -59,6 +63,7 @@ const ResetPasswordScreen = ({ navigation }) => {
         }
       })
       .catch((error) => {
+        setButtonWord(<Text>Reset Password</Text>);
         if (error.message == "Request failed with status code 400") {
           Alert.alert("Email does not exist.");
         }
@@ -129,7 +134,7 @@ const ResetPasswordScreen = ({ navigation }) => {
           style={{ margin: 15, marginTop: 50 }}
           onPress={handlePress}
         >
-          <Text>Reset Password</Text>
+          {buttonWord}
         </Button>
       </Content>
     </Container>

@@ -1,6 +1,6 @@
 // Navigates here when Create Account button clicked from Welcome Screen
 import React, { Component } from "react";
-import { StyleSheet, Alert } from "react-native";
+import { StyleSheet, Alert, ActivityIndicator } from "react-native";
 import {
   Container,
   Header,
@@ -30,6 +30,9 @@ const CreateAccount = ({ navigation }) => {
   const [password1, onChangePassword1] = React.useState("");
   const [password2, onChangePassword2] = React.useState("");
   const [email, onChangeEmail] = React.useState("");
+  const [buttonWord, setButtonWord] = React.useState(
+    <Text>Create Account</Text>
+  );
 
   // Alert if account created successfully
   handlePress = () => {
@@ -48,6 +51,7 @@ const CreateAccount = ({ navigation }) => {
       password: password1,
       isAdmin: true,
     };
+    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
 
     axios
       .post(`${baseURL}users/register`, user)
@@ -62,6 +66,7 @@ const CreateAccount = ({ navigation }) => {
         }
       })
       .catch((error) => {
+        setButtonWord(<Text>Create Account</Text>);
         if (error.message == "Request failed with status code 400") {
           // try to find better code?
           return Alert.alert("Email is already in use.");
@@ -122,7 +127,7 @@ const CreateAccount = ({ navigation }) => {
           style={{ margin: 15, marginTop: 50 }}
           onPress={handlePress}
         >
-          <Text>Create Account</Text>
+          {buttonWord}
         </Button>
       </Content>
     </Container>

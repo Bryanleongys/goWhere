@@ -26,9 +26,12 @@ import baseURL from "../../assets/common/baseUrl";
 const DeleteCliqueScreen = ({ navigation }) => {
   GLOBAL = require("../global");
   const [password, setPassword] = React.useState("");
+  const [buttonWord, setButtonWord] = React.useState(
+    <Text>Delete Clique</Text>
+  );
 
   const handleSubmit = () => {
-    console.log("hello1");
+    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
     axios
       .delete(`${baseURL}users/delete/${GLOBAL.USER.id}`, {
         params: { password: password },
@@ -40,6 +43,7 @@ const DeleteCliqueScreen = ({ navigation }) => {
         }
       })
       .catch((error) => {
+        setButtonWord(<Text>Delete Clique</Text>);
         if (error.message == "Request failed with status code 404") {
           Alert.alert("Password is wrong.");
         }
@@ -99,7 +103,7 @@ const DeleteCliqueScreen = ({ navigation }) => {
             );
           }}
         >
-          <Text style={{ color: "#000" }}>Delete Clique</Text>
+          {buttonWord}
         </Button>
       </Content>
     </Container>
