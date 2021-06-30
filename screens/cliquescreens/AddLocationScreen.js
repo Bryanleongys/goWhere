@@ -41,7 +41,7 @@ const AddLocationScreen = ({ route, navigation }) => {
 
   GLOBAL = require("../global");
   const [location, setLocation] = useState("");
-  const [postalCode, setPostalCode] = useState("");
+  const [postalCode, setPostalCode] = useState("439947");
 
   const handleSubmit = () => {
     if (location == "" || postalCode == "") {
@@ -96,46 +96,51 @@ const AddLocationScreen = ({ route, navigation }) => {
         </Body>
         <Right />
       </Header>
-
-      <Content>
-        <Form>
-          <Item floatingLabel>
-            <Label>Location Name</Label>
-            <Input value={location} onChangeText={setLocation} />
-          </Item>
-          <Item floatingLabel>
-            <Label>Postal Code</Label>
-            <Input value={postalCode} onChangeText={setPostalCode} />
-          </Item>
-          <Item regular>
-            <GooglePlacesAutocomplete
-              GooglePlacesDetailsQuery={{ fields: "geometry" }}
-              ref={ref}
-              placeholder="Search"
-              onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                setLocation(details.structured_formatting.main_text);
-                console.log(details);
-              }}
-              query={{
-                key: GOOGLE_PLACES_API_KEY,
-                language: "en",
-                components: "country:sg",
-              }}
-            />
-          </Item>
-        </Form>
+      <Content contentContainerStyle={{ paddingLeft: 10, paddingTop: 10 }}>
+        <Item floatingLabel>
+          <Label>Location Name</Label>
+          <Input value={location} onChangeText={setLocation} />
+        </Item>
+        <Item style={styles.searchBarContainer}>
+          <GooglePlacesAutocomplete
+            GooglePlacesDetailsQuery={{ fields: "geometry" }}
+            enablePoweredByContainer={false}
+            ref={ref}
+            placeholder="Name/Postal"
+            onPress={(data, details = null) => {
+              // 'details' is provided when fetchDetails = true
+              console.log(details);
+            }}
+            query={{
+              key: GOOGLE_PLACES_API_KEY,
+              language: "en",
+              components: "country:sg",
+            }}
+            styles={autoCompleteStyles}
+          />
+          {/* <Input value={location} onChangeText={setLocation} /> */}
+        </Item>
         <Button
           block
-          style={{ margin: 15, marginTop: 50 }}
           onPress={handleSubmit}
+          style={{
+            position: "absolute",
+            top: 150,
+            alignSelf: "center",
+            width: "90%",
+          }}
         >
           {buttonWord}
         </Button>
         <Button
           block
-          style={{ margin: 15, marginTop: 50 }}
           onPress={handlePress}
+          style={{
+            position: "absolute",
+            top: 225,
+            alignSelf: "center",
+            width: "90%",
+          }}
         >
           <Text>Done</Text>
         </Button>
@@ -146,6 +151,33 @@ const AddLocationScreen = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#bff6eb",
+  },
+  searchBarContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    top: 75,
+    zIndex: 1,
+    width: "100%",
+  },
+});
+
+const autoCompleteStyles = StyleSheet.create({
+  container: {
+    width: "100%",
+    marginTop: 10,
+  },
+  listView: {
+    borderColor: "#c8c7cc",
+    borderWidth: 1,
+    borderRadius: 2,
+  },
+  row: {
+    backgroundColor: "#bff6eb",
+  },
+  textInput: {
     backgroundColor: "#bff6eb",
   },
 });

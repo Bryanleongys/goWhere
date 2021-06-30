@@ -1,5 +1,4 @@
 const { Clique } = require("../models/clique");
-const { Log } = require("../models/logs");
 const cliqueInit = require("../common/cliqueinit");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -71,6 +70,16 @@ router.get(`/getfriends/:id`, async (req, res) => {
 
 // Add members (must find a way to ensure no two names are the same)
 router.patch("/addmember/:id", async (req, res) => {
+  mongoose.set("useFindAndModify", false);
+  const memberExist = await Clique.findOne({
+    _id: req.params.id,
+    "friends.name": req.body.name,
+  });
+
+  if (memberExist) {
+    return res.status(404).send("friend already exists!");
+  }
+
   const clique = await Clique.findByIdAndUpdate(req.params.id, {
     $push: {
       friends: {
@@ -101,6 +110,16 @@ router.patch("/removemember/:id", async (req, res) => {
 
 // Add location (per friend)
 router.patch("/addlocation/:id", async (req, res) => {
+  // const locationExist = await Clique.exists({
+  //   _id: req.params.id,
+  //   "friends.name": req.body.name,
+  //   "friends.locations.locationName": req.body.locationName,
+  // });
+
+  // if (locationExist) {
+  //   return res.status(404).send("location already exists!");
+  // }
+
   const filter = {
     _id: req.params.id,
     "friends.name": req.body.name,

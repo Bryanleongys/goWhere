@@ -152,41 +152,40 @@ const GoogleMapScreen = ({ navigation, route }) => {
   return (
     <Container>
       <Content style={{ backgroundColor: "#bff6eb" }} scrollEnabled={false}>
-        <GooglePlacesAutocomplete
-          isRowScrollable={false}
-          enablePoweredByContainer={false}
-          styles={{
-            container: {
-              height: 140,
-            },
-            textInput: {
-              backgroundColor: "#ffffff",
-            },
-            row: {
-              backgroundColor: "#bff6eb",
-            },
-          }}
-          GooglePlacesDetailsQuery={{ fields: "geometry" }}
-          ref={ref}
-          fetchDetails={true}
-          placeholder="Search Location"
-          onPress={(data, details = null) => {
-            // 'details' is provided when fetchDetails = true
-            // const zipCode = details?.address_components.find(
-            //   (addressComponent) =>
-            //     addressComponent.types.includes("postal_code")
-            // )?.short_name;
-            setMarkerLat(details.geometry.location.lat);
-            setMarkerLong(details.geometry.location.lng);
-            setMarkerName(data.structured_formatting.main_text);
-            console.log(details);
-          }}
-          query={{
-            key: GOOGLE_PLACES_API_KEY,
-            language: "en",
-            components: "country:sg",
-          }}
-        />
+        <Item style={styles.searchBarContainer}>
+          <GooglePlacesAutocomplete
+            isRowScrollable={false}
+            enablePoweredByContainer={false}
+            styles={{
+              textInput: {
+                backgroundColor: "#ffffff",
+              },
+              row: {
+                backgroundColor: "#bff6eb",
+              },
+            }}
+            GooglePlacesDetailsQuery={{ fields: "geometry" }}
+            ref={ref}
+            fetchDetails={true}
+            placeholder="Search Location"
+            onPress={(data, details, types = null) => {
+              // 'details' is provided when fetchDetails = true
+              // const zipCode = details?.address_components.find(
+              //   (addressComponent) =>
+              //     addressComponent.types.includes("postal_code")
+              // )?.short_name;
+              setMarkerLat(details.geometry.location.lat);
+              setMarkerLong(details.geometry.location.lng);
+              setMarkerName(data.structured_formatting.main_text);
+              console.log(types);
+            }}
+            query={{
+              key: GOOGLE_PLACES_API_KEY,
+              language: "en",
+              components: "country:sg",
+            }}
+          />
+        </Item>
         <MapView
           provider={PROVIDER_GOOGLE}
           style={styles.map}
@@ -263,6 +262,26 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
+  },
+  searchBarContainer: {
+    width: "100%",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    zIndex: 1,
+  },
+});
+
+const autoCompleteStyles = StyleSheet.create({
+  container: {
+    width: "100%",
+    marginTop: 10,
+  },
+  listView: {
+    borderColor: "#c8c7cc",
+    borderWidth: 1,
+    borderRadius: 2,
   },
 });
 

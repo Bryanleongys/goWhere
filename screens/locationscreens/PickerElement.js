@@ -22,6 +22,7 @@ import "react-native-gesture-handler";
 
 import { Picker } from "@react-native-picker/picker";
 import LoadingScreen from "../common/LoadingScreen";
+import GoogleSearchBar from "../common/GoogleSearchBar";
 
 import BoxContainer from "./BoxContainer";
 import axios from "axios";
@@ -82,11 +83,7 @@ const PickerElement = ({ navigation, name, colorCode }) => {
           })}
           <Picker.Item label="Others" value="others" />
         </Picker>
-        {selectedLocation == "others" ? (
-          <Item rounded style={{ alignSelf: "center", width: 200 }}>
-            <Input placeholder="Input Postal Code" />
-          </Item>
-        ) : null}
+        {selectedLocation == "others" ? <GoogleSearchBar /> : null}
       </BoxContainer>
     </View>
   ) : (

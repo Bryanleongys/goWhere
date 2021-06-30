@@ -14,7 +14,7 @@ import {
   Icon,
   Title,
 } from "native-base";
-import { Alert, ActivityIndicator } from "react-native";
+import { Alert, ActivityIndicator, StyleSheet, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { SwipeListView } from "react-native-swipe-list-view";
@@ -25,7 +25,6 @@ import baseURL from "../../assets/common/baseUrl";
 import config from "../../config";
 
 const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
-console.log(GOOGLE_PLACES_API_KEY);
 
 const AddTravelScreen = ({ navigation, route }) => {
   // for Google Maps API
@@ -132,15 +131,25 @@ const AddTravelScreen = ({ navigation, route }) => {
         <Right></Right>
       </Header>
       <Content>
-        <Item regular style={{ width: 450 }}>
-          <Text>Name of Location:</Text>
+        <Item
+          regular
+          style={{
+            position: "absolute",
+            height: 30,
+            width: "100%",
+          }}
+        >
+          <Text>Name of Location</Text>
+        </Item>
+        <Item style={styles.searchBarContainer}>
           <GooglePlacesAutocomplete
             GooglePlacesDetailsQuery={{ fields: "geometry" }}
+            enablePoweredByContainer={false}
             ref={ref}
             placeholder="Name/Postal"
             onPress={(data, details = null) => {
               // 'details' is provided when fetchDetails = true
-              setLocation(details.structured_formatting.main_text);
+              setLocation(data.structured_formatting.main_text);
               console.log(details);
             }}
             query={{
@@ -148,11 +157,14 @@ const AddTravelScreen = ({ navigation, route }) => {
               language: "en",
               components: "country:sg",
             }}
+            styles={autoCompleteStyles}
           />
           {/* <Input value={location} onChangeText={setLocation} /> */}
         </Item>
-        <Item>
-          <Text> Date of Outing: </Text>
+        <Item
+          style={{ position: "absolute", top: 85, height: 55, width: "100%" }}
+        >
+          <Text> Date of Outing </Text>
           <DateTimePicker
             testID="dateTimePicker"
             value={date}
@@ -163,7 +175,14 @@ const AddTravelScreen = ({ navigation, route }) => {
             style={{ width: 130, alignSelf: "center", paddingTop: 50 }}
           />
         </Item>
-        <Content style={{ paddingTop: 20 }}>
+        <Content
+          style={{
+            paddingTop: 20,
+            position: "absolute",
+            top: 150,
+            alignSelf: "center",
+          }}
+        >
           <Button
             block
             style={{
@@ -180,5 +199,28 @@ const AddTravelScreen = ({ navigation, route }) => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  searchBarContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    top: 30,
+    zIndex: 1,
+  },
+});
+
+const autoCompleteStyles = StyleSheet.create({
+  container: {
+    width: "100%",
+    marginTop: 10,
+  },
+  listView: {
+    borderColor: "#c8c7cc",
+    borderWidth: 1,
+    borderRadius: 2,
+  },
+});
 
 export default AddTravelScreen;
