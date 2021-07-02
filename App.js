@@ -20,6 +20,7 @@ import Notification from "./screens/locationscreens/NotificationScreen";
 import Favourite from "./screens/travelscreens/FavouriteScreen";
 import AddMember from "./screens/cliquescreens/AddMemberScreen";
 import EditMember from "./screens/cliquescreens/EditMemberScreen";
+import EditMemberLocation from "./screens/cliquescreens/EditMemberLocationScreen"
 import AddLocation from "./screens/cliquescreens/AddLocationScreen";
 import HomeScreen from "./screens/homescreens/HomeScreen";
 import WelcomeScreen from "./screens/homescreens/WelcomeScreen";
@@ -83,6 +84,7 @@ const CliqueStackScreen = () => {
       <CliqueStack.Screen name="CliqueScreen2" component={AddMember} />
       <CliqueStack.Screen name="CliqueScreen3" component={EditMember} />
       <CliqueStack.Screen name="CliqueScreen4" component={AddLocation} />
+      <CliqueStack.Screen name="CliqueScreen5" component={EditMemberLocation} />
     </CliqueStack.Navigator>
   );
 };

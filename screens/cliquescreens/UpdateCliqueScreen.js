@@ -67,7 +67,7 @@ const UpdateCliqueScreen = ({ navigation, route }) => {
         </Right>
       </Header>
       <Content>
-        <SwipeMemberElement inputArray={currData} />
+        <SwipeMemberElement inputArray={currData} navi={navigation}/>
       </Content>
     </Container>
   ) : (

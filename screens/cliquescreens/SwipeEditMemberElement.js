@@ -15,16 +15,17 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
-const SwipeMemberElement = ({ inputArray, navi }) => {
+const SwipeEditMemberElement = ({ inputArray, navi, name }) => {
   GLOBAL = require("../global");
-  // console.log(inputArray);
+//   console.log(inputArray);
   var length = inputArray.length;
   const [listData, setListData] = useState(
     Array(length)
       .fill("")
-      .map((_, i) => ({ key: `${i}`, text: inputArray[i] }))
-  );
+      .map((_, i) => ({ key: `${i}`, text: inputArray[i].locationName }))
+  )
 
+  console.log(listData.length);
   const closeRow = (rowMap, rowKey) => {
     if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
@@ -39,12 +40,13 @@ const SwipeMemberElement = ({ inputArray, navi }) => {
 
     //console.log(inputArray[0])
     let inputDelete = {
-      name: inputArray[rowKey],
+      name: name,
+      locationName: inputArray[rowKey].locationName
     };
 
     axios
       .patch(
-        `${baseURL}cliques/removemember/${GLOBAL.USER.cliqueID}`,
+        `${baseURL}cliques/removelocation/${GLOBAL.USER.cliqueID}`,
         inputDelete
       )
       .then((res) => {
@@ -67,7 +69,8 @@ const SwipeMemberElement = ({ inputArray, navi }) => {
 
   const editRow = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
-    navi.navigate("CliqueScreen3", { paramKey: inputArray[rowKey] });
+    navi.navigate("CliqueScreen5", { paramKey: { name: name,
+      locationName: inputArray[rowKey].locationName } })
   };
 
   const onRowDidOpen = (rowKey) => {
@@ -159,4 +162,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SwipeMemberElement;
+export default SwipeEditMemberElement;
