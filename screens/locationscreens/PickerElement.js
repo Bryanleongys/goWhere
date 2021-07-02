@@ -30,7 +30,7 @@ import baseURL from "../../assets/common/baseUrl";
 
 const PickerElement = ({ navigation, name, colorCode }) => {
   GLOBAL = require("../global");
-  const [selectedLocation, setSelectedLocation] = React.useState("");
+  const [selectedLocation, setSelectedLocation] = React.useState("others");
 
   const [currData, setData] = React.useState([]);
   const [init, setInit] = React.useState(0);

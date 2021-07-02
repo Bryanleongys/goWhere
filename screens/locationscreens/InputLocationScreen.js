@@ -59,7 +59,7 @@ const InputLocationScreen = ({ navigation, route }) => {
 
   return init ? (
     <Container style={styles.container}>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps="always" listViewDisplayed={false}>
         <Content contentContainerStyle={styles.content}>
           <Text style={{ alignSelf: "center", paddingBottom: 20 }}>
             {" "}

@@ -208,8 +208,6 @@ router.patch("/addlog/:id", async (req, res) => {
     "logs.date": req.body.date,
   });
 
-  console.log(dateExist);
-
   if (dateExist) {
     // Ensure no duplicate location exists
     // const locationExist = await dateExist.findOne({
@@ -225,7 +223,7 @@ router.patch("/addlog/:id", async (req, res) => {
       //   },
       // },
       "logs.date": req.body.date,
-      "logs.locations.locationName": req.body.locationName,
+      "logs.locations.locationName": req.body.locationName, // find solution
     });
 
     if (locationExist) {

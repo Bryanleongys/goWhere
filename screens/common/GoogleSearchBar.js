@@ -22,6 +22,8 @@ import config from "../../config";
 const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 
 const GoogleSearchBar = () => {
+  const [location, setLocation] = useState("");
+
   const ref = useRef();
 
   useEffect(() => {
@@ -35,9 +37,11 @@ const GoogleSearchBar = () => {
         enablePoweredByContainer={false}
         ref={ref}
         placeholder="Name/Postal"
+        fetchDetails={true}
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
-          console.log(details);
+          // setLocation(data.structured_formatting.main_text);
+          console.log(details.geometry.location.lat);
         }}
         query={{
           key: GOOGLE_PLACES_API_KEY,
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     zIndex: 1,
-    width: "75%",
+    width: "90%",
   },
 });
 
