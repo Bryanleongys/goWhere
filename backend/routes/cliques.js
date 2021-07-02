@@ -186,6 +186,31 @@ router.patch("/edit-postalcode/:id", async (req, res) => {
   // res.send(clique);
 });
 
+// Edit location
+// router.patch("/editlocation/:id", async (req, res) => {
+  
+//   let filter = {
+//     _id: req.params.id,
+//     "friends.name": req.body.name,
+//     "friends.locations.locationName": req.body.locationName,
+//   };
+
+//   let clique = await Clique.exists({ filter });
+
+//   if (clique) {
+//     res.status(200).send(clique);
+//     clique = await Clique.findOneAndUpdate( filter,
+//       { $set: {
+//         "friends.location": {
+//           locationName: req.body.locationName,
+//           postalCode: req.body.postalCode
+//         }
+//       } }
+//     )
+//   }
+//   res.status(400).send("Failed");
+// })
+
 // Logs \\
 // Get Logs
 router.get(`/getlogs/:id`, async (req, res) => {
