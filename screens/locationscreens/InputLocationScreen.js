@@ -37,6 +37,8 @@ const InputLocationScreen = ({ navigation, route }) => {
 
   const colorArray = ["#8AEEDA", "#53E6C9", "#1FDBB6", "#17A488"];
 
+  var objectArray = new Array(currData.length);
+
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       console.log("Refreshed");
@@ -57,6 +59,10 @@ const InputLocationScreen = ({ navigation, route }) => {
     return unsubscribe;
   }, [navigation]);
 
+  const handleCallback = (data, index) => {
+    objectArray[index] = data;
+  };
+
   return init ? (
     <Container style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always" listViewDisplayed={false}>
@@ -73,6 +79,8 @@ const InputLocationScreen = ({ navigation, route }) => {
                 name={person}
                 navigation={navigation}
                 colorCode={colorArray[colorIndex]}
+                index={i}
+                parentCallback={handleCallback}
               />
             ) : null;
           })}
@@ -84,7 +92,11 @@ const InputLocationScreen = ({ navigation, route }) => {
           <Button onPress={() => navigation.goBack()}>
             <Icon name="caret-back-sharp" />
           </Button>
-          <Button onPress={() => navigation.navigate("Preferences")}>
+          <Button
+            onPress={() =>
+              navigation.navigate("Preferences", { objectArray: objectArray })
+            }
+          >
             <Icon name="caret-forward-sharp" />
           </Button>
         </FooterTab>

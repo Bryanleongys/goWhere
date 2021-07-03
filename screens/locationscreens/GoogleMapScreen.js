@@ -44,7 +44,7 @@ console.log(GOOGLE_PLACES_API_KEY);
 const GoogleMapScreen = ({ navigation, route }) => {
   const GLOBAL = require("../global");
   const [postalCode, setPostalCode] = React.useState(null);
-  const { dateString, timeString, dateNum } = route.params;
+  const { dateString, timeString, dateNum, objectArray } = route.params;
   // const [marker, setMarker] = React.useState({
   //   latitude: 1.264639175987081,
   //   longitude: 103.822228554651,
@@ -102,48 +102,18 @@ const GoogleMapScreen = ({ navigation, route }) => {
     );
   };
 
-  const state = {
-    coordinates: [
-      // {
-      //   name: "1",
-      //   latitude: 1.3579294997441924,
-      //   longitude: 103.81196521563633,
-      // }, // Singapore
-      {
-        name: "VivoCity",
-        latitude: 1.264639175987083,
-        longitude: 103.822228554653,
-      },
-      {
-        name: "Parkway Parade",
-        latitude: 1.301583298620964,
-        longitude: 103.90523329698091,
-      },
-      {
-        name: "NEX Mall",
-        latitude: 1.3510726229232952,
-        longitude: 103.87225849698069,
-      },
-      {
-        name: "J-Cube",
-        latitude: 1.3335245176414159,
-        longitude: 103.74017773930859,
-      },
-    ],
-  };
-
   // Calculating midpoint
   var total_longitude = 0;
   var total_latitude = 0;
-  for (var i = 0; i < 4; i++) {
-    total_longitude += state.coordinates[i].longitude;
-    total_latitude += state.coordinates[i].latitude;
+  for (var i = 0; i < objectArray.length; i++) {
+    total_longitude += objectArray[i].longitude;
+    total_latitude += objectArray[i].latitude;
   }
 
   const central_coordinate = {
     name: "Central",
-    latitude: total_latitude / 4,
-    longitude: total_longitude / 4,
+    latitude: total_latitude / objectArray.length,
+    longitude: total_longitude / objectArray.length,
   };
 
   const [markerLat, setMarkerLat] = React.useState(central_coordinate.latitude);
@@ -202,14 +172,14 @@ const GoogleMapScreen = ({ navigation, route }) => {
             longitudeDelta: 0.5,
           }}
         >
-          {state.coordinates.map((marker) => (
+          {objectArray.map((marker) => (
             <Marker
-              key={marker.name}
+              key={marker.postalCode}
               coordinate={{
                 latitude: marker.latitude,
                 longitude: marker.longitude,
               }}
-              title={marker.name}
+              title={marker.locationName}
             ></Marker>
           ))}
           {/* Midpoint Marker */}
@@ -232,7 +202,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
             onDragEnd={(e) => setMarker(e.nativeEvent.coordinate)}
           /> */}
           <Polygon
-            coordinates={state.coordinates}
+            coordinates={objectArray}
             fillColor={"rgba(100, 100, 200, 0.2)"}
           />
         </MapView>

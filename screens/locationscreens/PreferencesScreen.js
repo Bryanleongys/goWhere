@@ -24,101 +24,82 @@ function GoToButton() {
   return navigation.navigate.goBack();
 }
 
-class SelectPersonScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checkbox1: false,
-      checkbox2: false,
-      checkbox3: false,
-    };
-  }
-  toggleSwitch1() {
-    this.setState({
-      checkbox1: !this.state.checkbox1,
-    });
-  }
+const PreferencesScreen = ({ navigation, route }) => {
+  const { objectArray } = route.params;
+  const [checkbox1, setCheckbox1] = React.useState(false);
+  const [checkbox2, setCheckbox2] = React.useState(false);
+  const [checkbox3, setCheckbox3] = React.useState(false);
 
-  toggleSwitch2() {
-    this.setState({
-      checkbox2: !this.state.checkbox2,
-    });
-  }
-
-  toggleSwitch3() {
-    this.setState({
-      checkbox3: !this.state.checkbox3,
-    });
-  }
-
-  render() {
-    return (
-      <Container style={styles.container}>
-        <Content padder contentContainerStyle={styles.contentContainer}>
-          <Text style={styles.question}>
-            Pick your preferred type of location:
-          </Text>
-          <ListItem
-            button
-            onPress={() => this.toggleSwitch1()}
+  return (
+    <Container style={styles.container}>
+      <Content padder contentContainerStyle={styles.contentContainer}>
+        <Text style={styles.question}>
+          Pick your preferred type of location:
+        </Text>
+        <ListItem
+          button
+          onPress={() => setCheckbox1(!checkbox1)}
+          style={styles.button}
+        >
+          <CheckBox
+            checked={checkbox1}
+            onPress={() => setCheckbox1(!checkbox1)}
             style={styles.button}
-          >
-            <CheckBox
-              checked={this.state.checkbox1}
-              onPress={() => this.toggleSwitch1()}
-              style={styles.button}
-            />
-            <Body>
-              <Text style={styles.text}>Lower crowd levels</Text>
-            </Body>
-          </ListItem>
-          <ListItem
-            button
-            onPress={() => this.toggleSwitch2()}
+          />
+          <Body>
+            <Text style={styles.text}>Lower crowd levels</Text>
+          </Body>
+        </ListItem>
+        <ListItem
+          button
+          onPress={() => setCheckbox2(!checkbox2)}
+          style={styles.button}
+        >
+          <CheckBox
+            color="red"
+            checked={checkbox2}
+            onPress={() => setCheckbox2(!checkbox2)}
             style={styles.button}
-          >
-            <CheckBox
-              color="red"
-              checked={this.state.checkbox2}
-              onPress={() => this.toggleSwitch2()}
-              style={styles.button}
-            />
-            <Body>
-              <Text style={styles.text}>Higher ratings</Text>
-            </Body>
-          </ListItem>
-          <ListItem
-            button
-            onPress={() => this.toggleSwitch3()}
+          />
+          <Body>
+            <Text style={styles.text}>Higher ratings</Text>
+          </Body>
+        </ListItem>
+        <ListItem
+          button
+          onPress={() => setCheckbox3(!checkbox3)}
+          style={styles.button}
+        >
+          <CheckBox
+            color="green"
+            checked={checkbox3}
+            onPress={() => setCheckbox1(!checkbox1)}
             style={styles.button}
+          />
+          <Body>
+            <Text style={styles.text}>
+              Have not been there before (travel log)
+            </Text>
+          </Body>
+        </ListItem>
+      </Content>
+      <Footer style={styles.container}>
+        <FooterTab>
+          <Button onPress={() => navigation.goBack()}>
+            <Icon name="caret-back-outline" />
+          </Button>
+          <Button
+            onPress={() =>
+              navigation.navigate("Timing", { objectArray: objectArray })
+            }
           >
-            <CheckBox
-              color="green"
-              checked={this.state.checkbox3}
-              onPress={() => this.toggleSwitch3()}
-              style={styles.button}
-            />
-            <Body>
-              <Text style={styles.text}>
-                Have not been there before (travel log)
-              </Text>
-            </Body>
-          </ListItem>
-        </Content>
-        <Footer style={styles.container}>
-          <FooterTab>
-            <Button onPress={() => this.props.navigation.goBack()}>
-              <Icon name="caret-back-outline" />
-            </Button>
-            <Button onPress={() => this.props.navigation.push("Timing")}>
-              <Icon name="caret-forward-outline" />
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
-    );
-  }
-}
+            <Icon name="caret-forward-outline" />
+          </Button>
+        </FooterTab>
+      </Footer>
+    </Container>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -145,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SelectPersonScreen;
+export default PreferencesScreen;

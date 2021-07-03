@@ -33,7 +33,6 @@ const GoogleSearchBar = () => {
   return (
     <Item style={styles.searchBarContainer}>
       <GooglePlacesAutocomplete
-        GooglePlacesDetailsQuery={{ fields: "geometry" }}
         enablePoweredByContainer={false}
         ref={ref}
         placeholder="Name/Postal"

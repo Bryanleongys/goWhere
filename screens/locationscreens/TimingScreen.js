@@ -13,7 +13,8 @@ import {
   List,
 } from "native-base";
 
-const TimingScreen = ({ navigation }) => {
+const TimingScreen = ({ navigation, route }) => {
+  const { objectArray } = route.params;
   const GLOBAL = require("../global");
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
@@ -111,6 +112,7 @@ const TimingScreen = ({ navigation }) => {
                 dateString: dateString,
                 timeString: timeString,
                 dateNum: dateNum,
+                objectArray: objectArray,
               })
             }
           >
