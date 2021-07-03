@@ -79,12 +79,7 @@ const AddLocationScreen = ({ route, navigation }) => {
   };
 
   const handlePress = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 1,
-        routes: [{ name: "CliqueScreen1" }],
-      })
-    );
+    navigation.goBack();
   };
 
   return (
@@ -96,7 +91,7 @@ const AddLocationScreen = ({ route, navigation }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 17 }}>Member details</Title>
+          <Title style={{ fontSize: 17 }}>Add Location</Title>
         </Body>
         <Right />
       </Header>

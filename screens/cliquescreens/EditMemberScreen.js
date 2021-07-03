@@ -23,7 +23,7 @@ import {
   Label,
   Input,
 } from "native-base";
-import { CommonActions } from "@react-navigation/native";
+import { CommonActions, useIsFocused } from "@react-navigation/native";
 import SwipeEditMemberElement from "./SwipeEditMemberElement";
 import "react-native-gesture-handler";
 import LoadingScreen from "../common/LoadingScreen";
@@ -44,7 +44,10 @@ const EditMemberScreen = ({ route, navigation }) => {
     name: name,
   };
   //console.log("test:", friend);
+
+  const isFocused = useIsFocused();
   React.useEffect(() => {
+    setInit(0);
     console.log("Refreshed");
     axios
       .get(`${baseURL}cliques/getfriendlocation/${GLOBAL.USER.cliqueID}`, {
@@ -60,7 +63,7 @@ const EditMemberScreen = ({ route, navigation }) => {
         console.error(error.message);
         console.log("GET request failed");
       });
-  }, []);
+  }, [isFocused]);
 
   const handlePress = () => {
     navigation.navigate("CliqueScreen4", { paramKey: friend.name });
