@@ -36,6 +36,11 @@ const AddTravelScreen = ({ navigation, route }) => {
 
   GLOBAL = require("../global");
   const [location, setLocation] = useState("");
+  const [postalCode, setPostalCode] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [latitude, setLatitude] = useState(null);
+  console.log(postalCode);
+
   const [buttonWord, setButtonWord] = useState(
     <Text style={{ color: "#000000" }}>Update Travel Log</Text>
   );
@@ -88,7 +93,9 @@ const AddTravelScreen = ({ navigation, route }) => {
       date: dateString,
       dateNum: dateNum,
       locationName: location,
-      postalCode: "439947", // figure out how to get from google api
+      postalCode: postalCode,
+      longitude: longitude,
+      latitude: latitude,
     };
     axios
       .patch(
@@ -101,7 +108,7 @@ const AddTravelScreen = ({ navigation, route }) => {
           Alert.alert("Location Added!", "", [
             {
               text: "OK",
-              onPress: () => navigation.navigate("Home"),
+              onPress: () => navigation.goBack(),
             },
           ]);
         }
@@ -143,14 +150,20 @@ const AddTravelScreen = ({ navigation, route }) => {
         </Item>
         <Item style={styles.searchBarContainer}>
           <GooglePlacesAutocomplete
-            GooglePlacesDetailsQuery={{ fields: "geometry" }}
             enablePoweredByContainer={false}
+            fetchDetails={true}
             ref={ref}
             placeholder="Name/Postal"
             onPress={(data, details = null) => {
               // 'details' is provided when fetchDetails = true
               setLocation(data.structured_formatting.main_text);
-              console.log(details);
+              setLongitude(details.geometry.location.lng);
+              setLatitude(details.geometry.location.lat);
+              const postalNum = details?.address_components.find(
+                (addressComponent) =>
+                  addressComponent.types.includes("postal_code")
+              )?.short_name;
+              setPostalCode(postalNum);
             }}
             query={{
               key: GOOGLE_PLACES_API_KEY,
@@ -159,7 +172,6 @@ const AddTravelScreen = ({ navigation, route }) => {
             }}
             styles={autoCompleteStyles}
           />
-          {/* <Input value={location} onChangeText={setLocation} /> */}
         </Item>
         <Item
           style={{ position: "absolute", top: 85, height: 55, width: "100%" }}

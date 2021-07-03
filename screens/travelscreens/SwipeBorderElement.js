@@ -38,7 +38,9 @@ const SwipeListElement = ({ inputArray, date }) => {
     // console.log(GLOBAL.FAVOURITEPLACES);
     let inputFavourite = {
       locationName: inputArray[rowKey].locationName,
-      postalCode: "439947",
+      postalCode: inputArray[rowKey].postalCode,
+      longitude: inputArray[rowKey].longitude,
+      latitude: inputArray[rowKey].latitude,
     };
 
     axios

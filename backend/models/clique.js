@@ -5,12 +5,19 @@ const cliqueSchema = new mongoose.Schema({
     type: [
       {
         locationName: {
-          // required: true,
           type: String,
+          required: true,
         },
         postalCode: {
-          // required: true,
           type: String,
+        },
+        longitude: {
+          type: Number,
+          required: true,
+        },
+        latitude: {
+          type: Number,
+          required: true,
         },
       },
     ],
@@ -32,6 +39,12 @@ const cliqueSchema = new mongoose.Schema({
               },
               postalCode: {
                 type: String,
+              },
+              longitude: {
+                type: Number,
+              },
+              latitude: {
+                type: Number,
               },
             },
           ],
@@ -56,12 +69,19 @@ const cliqueSchema = new mongoose.Schema({
           type: [
             {
               locationName: {
-                // required: true,
                 type: String,
+                required: true,
               },
               postalCode: {
-                // required: true,
                 type: String,
+              },
+              longitude: {
+                type: Number,
+                required: true,
+              },
+              latitude: {
+                type: Number,
+                required: true,
               },
             },
           ],

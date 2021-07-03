@@ -23,6 +23,7 @@ import {
 import SwipeListElement from "./SwipeBorderElement";
 import "react-native-gesture-handler";
 import LoadingScreen from "../common/LoadingScreen";
+import { useIsFocused } from "@react-navigation/native";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
@@ -53,7 +54,9 @@ const TravelLogScreen = ({ navigation, route }) => {
   const [currData, setData] = React.useState([]);
   const [init, setInit] = React.useState(0);
 
+  const isFocused = useIsFocused();
   React.useEffect(() => {
+    setInit(0);
     const unsubscribe = navigation.addListener("focus", () => {
       console.log("Refreshed");
       axios
@@ -68,7 +71,7 @@ const TravelLogScreen = ({ navigation, route }) => {
         });
     });
     return unsubscribe;
-  }, [navigation]);
+  }, [isFocused]);
 
   return init ? (
     <Container style={styles.container}>

@@ -19,7 +19,11 @@ import {
   Separator,
   Item,
   List,
+  Form,
+  Label,
+  Input,
 } from "native-base";
+import { CommonActions } from "@react-navigation/native";
 import SwipeEditMemberElement from "./SwipeEditMemberElement";
 import "react-native-gesture-handler";
 import LoadingScreen from "../common/LoadingScreen";
@@ -28,20 +32,24 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
 const EditMemberScreen = ({ route, navigation }) => {
+  const name = route.params.paramKey;
   GLOBAL = require("../global");
   const [currData, setCurrData] = React.useState([]);
   const [init, setInit] = React.useState(0);
   const [buttonWord, setButtonWord] = useState(<Text>Add location</Text>);
-  
+  const [nameChange, setNameChange] = useState(name);
+  console.log(nameChange);
+
   let friend = {
-    name: route.params.paramKey
+    name: name,
   };
   //console.log("test:", friend);
   React.useEffect(() => {
     console.log("Refreshed");
     axios
-      .get(`${baseURL}cliques/getfriendlocation/${GLOBAL.USER.cliqueID}`,
-        { params: friend })
+      .get(`${baseURL}cliques/getfriendlocation/${GLOBAL.USER.cliqueID}`, {
+        params: friend,
+      })
       .then((res) => {
         //console.log(res.data);
         console.log("Successfully GET request");
@@ -58,36 +66,62 @@ const EditMemberScreen = ({ route, navigation }) => {
     navigation.navigate("CliqueScreen4", { paramKey: friend.name });
   };
 
+  const backPress = () => {
+    const details = {
+      oldName: name,
+      newName: nameChange,
+    };
+    axios
+      .patch(`${baseURL}cliques/changename/${GLOBAL.USER.cliqueID}`, details)
+      .then((res) => {
+        if (res.status == 200) {
+          console.log("Changed name!");
+        }
+        // else if (res.status == 400)
+      })
+      .catch((error) => {
+        console.log("Failed");
+      });
+    navigation.goBack();
+  };
+
   return init ? (
     <Container style={styles.container}>
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
-          <Button transparent onPress={() => navigation.goBack()}>
+          <Button transparent onPress={backPress}>
             <Icon name="arrow-back" />
           </Button>
         </Left>
-        <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 17 }}>Member details</Title>
+        <Body>
+          <Input
+            textAlign={"center"}
+            value={nameChange}
+            onChangeText={setNameChange}
+          />
         </Body>
         <Right />
       </Header>
-      
+
       <Content>
         <Button
-        block
+          block
           style={{ margin: 15, marginTop: 50 }}
           onPress={handlePress}
         >
           {buttonWord}
         </Button>
 
-        <SwipeEditMemberElement 
+        <SwipeEditMemberElement
           inputArray={currData}
-          navi={navigation} 
-          name={ route.params.paramKey }/>
+          navi={navigation}
+          name={route.params.paramKey}
+        />
       </Content>
     </Container>
-  ) : (<Text>Loading...</Text>);
+  ) : (
+    <Text>Loading...</Text>
+  );
 };
 
 const styles = StyleSheet.create({

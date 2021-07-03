@@ -110,6 +110,7 @@ router.patch("/removemember/:id", async (req, res) => {
 
 // Add location (per friend)
 router.patch("/addlocation/:id", async (req, res) => {
+  //distinct names
   // const locationExist = await Clique.exists({
   //   _id: req.params.id,
   //   "friends.name": req.body.name,
@@ -129,6 +130,8 @@ router.patch("/addlocation/:id", async (req, res) => {
       "friends.$.locations": {
         locationName: req.body.locationName,
         postalCode: req.body.postalCode,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
       },
     },
   });
@@ -147,7 +150,6 @@ router.patch("/removelocation/:id", async (req, res) => {
   const clique = await Clique.findOneAndUpdate(filter, {
     $pull: {
       "friends.$.locations": {
-        // can use postal code as well
         locationName: req.body.locationName,
       },
     },
@@ -158,37 +160,57 @@ router.patch("/removelocation/:id", async (req, res) => {
   res.send(clique);
 });
 
-// Edit postal code ??? - still uncompleted
-// Requires: name, locationName, postalCode
-router.patch("/edit-postalcode/:id", async (req, res) => {
-  // mongoose.set("useFindAndModify", false);
+// Change Name, oldName, newName
+router.patch("/changename/:id", async (req, res) => {
+  mongoose.set("useFindAndModify", false);
+
   const filter = {
     _id: req.params.id,
-    "friends.name": req.body.name,
-    "friends.locations.locationName": req.body.locationName,
+    "friends.name": req.body.oldName,
   };
-  const clique = await Clique.exists({ filter });
-  // const clique = await Clique.findOneAndUpdate(filter, {
-  //   $set: {
-  //     // IDK HOW TO SET THIS SPECIFICCCC
-  //     "friends.name.postalCode": {
-  //       postalCode: req.body.postalCode,
-  //     },
-  //   },
-  // });
-  // if (!clique) {
-  //   return res.status(400).send("the clique cannot be updated!");
-  // }
-  if (clique) {
-    return res.status(200).send("Clique has been found");
+
+  const clique = await Clique.findOneAndUpdate(filter, {
+    "friends.$.name": req.body.newName,
+  });
+
+  if (!clique) {
+    return res.status(400).send("the user does not exist!");
   }
-  res.status(400).send("Failed");
-  // res.send(clique);
+
+  res.send(clique);
 });
+
+// // Edit postal code ??? - still uncompleted
+// // Requires: name, locationName, postalCode
+// router.patch("/edit-postalcode/:id", async (req, res) => {
+//   // mongoose.set("useFindAndModify", false);
+//   const filter = {
+//     _id: req.params.id,
+//     "friends.name": req.body.name,
+//     "friends.locations.locationName": req.body.locationName,
+//   };
+//   const clique = await Clique.exists({ filter });
+//   // const clique = await Clique.findOneAndUpdate(filter, {
+//   //   $set: {
+//   //     // IDK HOW TO SET THIS SPECIFICCCC
+//   //     "friends.name.postalCode": {
+//   //       postalCode: req.body.postalCode,
+//   //     },
+//   //   },
+//   // });
+//   // if (!clique) {
+//   //   return res.status(400).send("the clique cannot be updated!");
+//   // }
+//   if (clique) {
+//     return res.status(200).send("Clique has been found");
+//   }
+//   res.status(400).send("Failed");
+//   // res.send(clique);
+// });
 
 // Edit location
 // router.patch("/editlocation/:id", async (req, res) => {
-  
+
 //   let filter = {
 //     _id: req.params.id,
 //     "friends.name": req.body.name,
@@ -235,21 +257,20 @@ router.patch("/addlog/:id", async (req, res) => {
 
   if (dateExist) {
     // Ensure no duplicate location exists
-    // const locationExist = await dateExist.findOne({
-    //   "locations.locationName": req.body.locationName,
-    // });
-
-    const locationExist = await Clique.findOne({
-      _id: req.params.id,
-      // logs: {
-      //   date: req.body.date,
-      //   locations: {
-      //     locationName: req.body.locationName,
-      //   },
-      // },
-      "logs.date": req.body.date,
-      "logs.locations.locationName": req.body.locationName, // find solution
-    });
+    let locationExist = null;
+    if (req.body.postalCode) {
+      locationExist = await Clique.findOne({
+        _id: req.params.id,
+        "logs.date": req.body.date,
+        "logs.locations.postalCode": req.body.postalCode,
+      });
+    } else {
+      locationExist = await Clique.findOne({
+        _id: req.params.id,
+        "logs.date": req.body.date,
+        "logs.locations.locationName": req.body.locationName,
+      });
+    }
 
     if (locationExist) {
       return res.status(404).send("Location already exists!");
@@ -266,6 +287,8 @@ router.patch("/addlog/:id", async (req, res) => {
         "logs.$.locations": {
           locationName: req.body.locationName,
           postalCode: req.body.postalCode,
+          longitude: req.body.longitude,
+          latitude: req.body.latitude,
         },
       },
     });
@@ -274,6 +297,7 @@ router.patch("/addlog/:id", async (req, res) => {
     }
     res.send(clique);
   } else {
+    // date doesn't exist
     const clique = await Clique.findByIdAndUpdate(
       {
         _id: req.params.id,
@@ -286,6 +310,8 @@ router.patch("/addlog/:id", async (req, res) => {
             locations: {
               locationName: req.body.locationName,
               postalCode: req.body.postalCode,
+              longitude: req.body.longitude,
+              latitude: req.body.latitude,
             },
           },
         },
@@ -355,18 +381,31 @@ router.get(`/getfavourites/:id`, async (req, res) => {
 // Requires: locationName, postalCode
 router.patch("/addfavourite/:id", async (req, res) => {
   mongoose.set("useFindAndModify", false);
-  const locationExist = await Clique.findOne({
-    _id: req.params.id,
-    "favourites.locationName": req.body.locationName,
-  });
+
+  let locationExist = null;
+  if (req.body.postalCode) {
+    locationExist = await Clique.findOne({
+      _id: req.params.id,
+      "favourites.postalCode": req.body.postalCode,
+    });
+  } else {
+    locationExist = await Clique.findOne({
+      _id: req.params.id,
+      "favourites.locationName": req.body.locationName,
+    });
+  }
+
   if (locationExist) {
     return res.status(404).send("Location already exists!");
   }
+
   const clique = await Clique.findByIdAndUpdate(req.params.id, {
     $push: {
       favourites: {
         locationName: req.body.locationName,
         postalCode: req.body.postalCode,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
       },
     },
   });

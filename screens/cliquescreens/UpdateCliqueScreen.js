@@ -23,6 +23,7 @@ import {
 import SwipeMemberElement from "./SwipeMemberElement";
 import "react-native-gesture-handler";
 import LoadingScreen from "../common/LoadingScreen";
+import { useIsFocused } from "@react-navigation/native";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
@@ -31,8 +32,10 @@ const UpdateCliqueScreen = ({ navigation, route }) => {
   GLOBAL = require("../global");
   const [currData, setCurrData] = React.useState([]);
   const [init, setInit] = React.useState(0);
+  const isFocused = useIsFocused();
 
   React.useEffect(() => {
+    setInit(0);
     console.log("Refreshed");
     axios
       .get(`${baseURL}cliques/getfriends/${GLOBAL.USER.cliqueID}`)
@@ -44,7 +47,7 @@ const UpdateCliqueScreen = ({ navigation, route }) => {
       .catch((error) => {
         console.log("GET request failed");
       });
-  }, []);
+  }, [isFocused]);
 
   return init ? (
     <Container style={styles.container}>
@@ -67,7 +70,7 @@ const UpdateCliqueScreen = ({ navigation, route }) => {
         </Right>
       </Header>
       <Content>
-        <SwipeMemberElement inputArray={currData} navi={navigation}/>
+        <SwipeMemberElement inputArray={currData} navi={navigation} />
       </Content>
     </Container>
   ) : (

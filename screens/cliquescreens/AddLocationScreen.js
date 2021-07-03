@@ -41,7 +41,9 @@ const AddLocationScreen = ({ route, navigation }) => {
 
   GLOBAL = require("../global");
   const [location, setLocation] = useState("");
-  const [postalCode, setPostalCode] = useState("439947");
+  const [postalCode, setPostalCode] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [latitude, setLatitude] = useState(null);
 
   const handleSubmit = () => {
     if (location == "" || postalCode == "") {
@@ -53,9 +55,10 @@ const AddLocationScreen = ({ route, navigation }) => {
       name: route.params.paramKey,
       locationName: location,
       postalCode: postalCode,
+      longitude: longitude,
+      latitude: latitude,
     };
 
-    console.log(loc.name);
     axios
       .patch(`${baseURL}cliques/addlocation/${GLOBAL.USER.cliqueID}`, loc)
       .then((res) => {
@@ -63,6 +66,7 @@ const AddLocationScreen = ({ route, navigation }) => {
           console.log("Location added!");
           setLocation("");
           setPostalCode("");
+          ref.current?.setAddressText("");
           setButtonWord(<Text>Add Location</Text>);
           return Alert.alert("Location added!");
         }
@@ -103,13 +107,20 @@ const AddLocationScreen = ({ route, navigation }) => {
         </Item>
         <Item style={styles.searchBarContainer}>
           <GooglePlacesAutocomplete
-            GooglePlacesDetailsQuery={{ fields: "geometry" }}
             enablePoweredByContainer={false}
+            fetchDetails={true}
             ref={ref}
             placeholder="Name/Postal"
             onPress={(data, details = null) => {
               // 'details' is provided when fetchDetails = true
-              console.log(details);
+              setLongitude(details.geometry.location.lng);
+              setLatitude(details.geometry.location.lat);
+              const postalNum = details?.address_components.find(
+                (addressComponent) =>
+                  addressComponent.types.includes("postal_code")
+              )?.short_name;
+              setPostalCode(postalNum);
+              console.log(details.geometry.location.lng);
             }}
             query={{
               key: GOOGLE_PLACES_API_KEY,
