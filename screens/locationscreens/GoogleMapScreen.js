@@ -43,6 +43,7 @@ console.log(GOOGLE_PLACES_API_KEY);
 
 const GoogleMapScreen = ({ navigation, route }) => {
   const GLOBAL = require("../global");
+  const [postalCode, setPostalCode] = React.useState(null);
   const { dateString, timeString, dateNum } = route.params;
   // const [marker, setMarker] = React.useState({
   //   latitude: 1.264639175987081,
@@ -60,7 +61,9 @@ const GoogleMapScreen = ({ navigation, route }) => {
       date: dateString,
       dateNum: dateNum,
       locationName: markerName,
-      postalCode: "439947", // figure out how to get from google api
+      postalCode: postalCode, // figure out how to get from google api
+      longitude: markerLong,
+      latitude: markerLat,
     };
     axios
       .patch(
@@ -164,7 +167,6 @@ const GoogleMapScreen = ({ navigation, route }) => {
                 backgroundColor: "#bff6eb",
               },
             }}
-            GooglePlacesDetailsQuery={{ fields: "geometry" }}
             ref={ref}
             fetchDetails={true}
             placeholder="Search Location"
@@ -177,7 +179,11 @@ const GoogleMapScreen = ({ navigation, route }) => {
               setMarkerLat(details.geometry.location.lat);
               setMarkerLong(details.geometry.location.lng);
               setMarkerName(data.structured_formatting.main_text);
-              console.log(types);
+              const postalNum = details?.address_components.find(
+                (addressComponent) =>
+                  addressComponent.types.includes("postal_code")
+              )?.short_name;
+              setPostalCode(postalNum);
             }}
             query={{
               key: GOOGLE_PLACES_API_KEY,
