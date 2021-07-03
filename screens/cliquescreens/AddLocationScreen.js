@@ -79,7 +79,12 @@ const AddLocationScreen = ({ route, navigation }) => {
   };
 
   const handlePress = () => {
-    navigation.goBack();
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{ name: "CliqueScreen1" }],
+      })
+    );
   };
 
   return (
