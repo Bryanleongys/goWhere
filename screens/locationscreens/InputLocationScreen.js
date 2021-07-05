@@ -27,6 +27,7 @@ import LoadingScreen from "../common/LoadingScreen";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
+import { Alert } from "react-native";
 
 const InputLocationScreen = ({ navigation, route }) => {
   GLOBAL = require("../global");
@@ -34,10 +35,25 @@ const InputLocationScreen = ({ navigation, route }) => {
   const { optionsArray } = route.params;
   const [currData, setData] = React.useState([]);
   const [init, setInit] = React.useState(0);
+  var length = 0;
+
+  for (var i = 0; i < optionsArray.length; i++) {
+    if (optionsArray[i] == 1) {
+      length += 1;
+    }
+  }
+  
+  // for (var i = 0; i < optionsArray.length ; i++) {
+  //   if (optionsArray[i] == 1) {
+  //     var newLength = length + 1;
+  //     setLength(newLength)
+  //   }
+  // }
 
   const colorArray = ["#8AEEDA", "#53E6C9", "#1FDBB6", "#17A488"];
 
-  var objectArray = new Array(currData.length);
+
+  var objectArray = new Array(length);
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -60,8 +76,18 @@ const InputLocationScreen = ({ navigation, route }) => {
   }, [navigation]);
 
   const handleCallback = (data, index) => {
-    objectArray[index] = data;
+      objectArray[index] = data;
+      console.log(objectArray);
   };
+
+  const handlePress = () => {
+    for (var i = 0; i < objectArray.length; i++) {
+      if (objectArray[i].latitude == null || objectArray[i].longitude == null) {
+        return Alert.alert("Please fill in missing fields!")
+      }
+    }
+    return navigation.navigate("Preferences", { objectArray: objectArray })
+  }
 
   return init ? (
     <Container style={styles.container}>
@@ -93,9 +119,7 @@ const InputLocationScreen = ({ navigation, route }) => {
             <Icon name="caret-back-sharp" />
           </Button>
           <Button
-            onPress={() =>
-              navigation.navigate("Preferences", { objectArray: objectArray })
-            }
+            onPress={handlePress}
           >
             <Icon name="caret-forward-sharp" />
           </Button>

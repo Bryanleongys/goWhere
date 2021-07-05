@@ -107,7 +107,7 @@ const PickerElement = ({
     };
   } else {
     objectPass = {
-      locationName: locationName,
+      locationName: locationName + " (" + name + ")",
       postalCode: postalCode,
       latitude: latitude,
       longitude: longitude,

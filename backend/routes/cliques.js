@@ -68,7 +68,7 @@ router.get(`/getfriends/:id`, async (req, res) => {
   res.status(200).send(friends);
 });
 
-// Add members (must find a way to ensure no two names are the same)
+// Add members
 router.patch("/addmember/:id", async (req, res) => {
   mongoose.set("useFindAndModify", false);
   const memberExist = await Clique.findOne({
@@ -111,15 +111,17 @@ router.patch("/removemember/:id", async (req, res) => {
 // Add location (per friend)
 router.patch("/addlocation/:id", async (req, res) => {
   //distinct names
-  // const locationExist = await Clique.exists({
-  //   _id: req.params.id,
-  //   "friends.name": req.body.name,
-  //   "friends.locations.locationName": req.body.locationName,
-  // });
+  const filterLocation = {
+    _id: req.params.id,
+    friends: {$elemMatch: {name: req.body.name, locations: {$elemMatch: {locationName: req.body.locationName}}}
+  }}
 
-  // if (locationExist) {
-  //   return res.status(404).send("location already exists!");
-  // }
+  const locationExist = await Clique.findOne(filterLocation);
+
+  console.log(locationExist);
+  if (locationExist) {
+    return res.status(404).send("location already exists!");
+  }
 
   const filter = {
     _id: req.params.id,
@@ -258,19 +260,44 @@ router.patch("/addlog/:id", async (req, res) => {
   if (dateExist) {
     // Ensure no duplicate location exists
     let locationExist = null;
+    
+    // const filterPostal = {
+    //   _id: req.params.id,
+    //   "logs.date": req.body.date,
+    //   // logs: {$elemMatch: {locations: {$elemMatch: {$in:[{postalCode: req.body.postalCode}]}}}}
+    //   "logs.locations": {$elemMatch: {postalCode: req.body.postalCode}}
+    // }
+    // const filterLocation = {
+    //   _id: req.params.id, 
+    //   "logs.date": req.body.date,
+    //   // logs: {$elemMatch: {locations: {$elemMatch: {$in:[{locationName: req.body.locationName}]}}}}
+    //   "logs.locations": {$elemMatch: {locationName: req.body.locationName}}
+    // }
+
+    // const filterPostal = {
+    //   _id: req.params.id,
+    //   'logs': {$elemMatch: {$in: {'date': req.body.date, 'locations': {$elemMatch: {$in:{'postalCode': req.body.postalCode}}}}}}
+    // }
+
+    // const filterLocation = {
+    //   _id: req.params.id,
+    //   'logs': {$elemMatch: {$in: {'date': req.body.date, 'locations': {$elemMatch: {$in:{'locationName': req.body.locationName}}}}}}
+    // }
+
+    const filterPostal = {
+      _id: req.params.id,
+      logs: {$elemMatch: {date: req.body.date, locations: {$elemMatch: {postalCode: req.body.postalCode}}}
+    }}
+
+    const filterLocation = {
+      _id: req.params.id,
+      logs: {$elemMatch: {date: req.body.date, locations: {$elemMatch: {postalCode: req.body.postalCode}}}
+    }}
+
     if (req.body.postalCode) {
-      locationExist = await Clique.findOne({
-        _id: req.params.id,
-        "logs.date": req.body.date,
-        "logs.locations.postalCode": req.body.postalCode,
-      });
+      locationExist = await Clique.findOne(filterPostal);
     } else {
-      locationExist = await Clique.findOne({
-        _id: req.params.id,
-        "logs.date": req.body.date,
-        "logs.locations.locationName": req.body.locationName,
-      });
-    }
+      locationExist = await Clique.findOne(filterLocation)};
 
     if (locationExist) {
       return res.status(404).send("Location already exists!");
