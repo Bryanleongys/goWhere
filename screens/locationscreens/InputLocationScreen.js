@@ -31,11 +31,11 @@ import { Alert } from "react-native";
 
 const InputLocationScreen = ({ navigation, route }) => {
   GLOBAL = require("../global");
-  console.log(GLOBAL.USER.cliqueID);
   const { optionsArray } = route.params;
   const [currData, setData] = React.useState([]);
   const [init, setInit] = React.useState(0);
   var length = 0;
+
 
   for (var i = 0; i < optionsArray.length; i++) {
     if (optionsArray[i] == 1) {
@@ -82,7 +82,7 @@ const InputLocationScreen = ({ navigation, route }) => {
 
   const handlePress = () => {
     for (var i = 0; i < objectArray.length; i++) {
-      if (objectArray[i].latitude == null || objectArray[i].longitude == null) {
+      if (objectArray[i] && (objectArray[i].latitude == null || objectArray[i].longitude == null)) {
         return Alert.alert("Please fill in missing fields!")
       }
     }

@@ -49,6 +49,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
   //   latitude: 1.264639175987081,
   //   longitude: 103.822228554651,
   // });
+  console.log(objectArray);
 
   const ref = useRef();
 
