@@ -97,11 +97,13 @@ const EditMemberScreen = ({ route, navigation }) => {
           </Button>
         </Left>
         <Body>
+          <Item rounded style={{borderColor: "#54b1bc"}}>
           <Input
             textAlign={"center"}
             value={nameChange}
             onChangeText={setNameChange}
           />
+          </Item>
         </Body>
         <Right />
       </Header>
