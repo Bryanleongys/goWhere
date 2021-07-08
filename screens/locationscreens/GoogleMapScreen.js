@@ -33,29 +33,19 @@ import {
 } from "native-base";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { CommonActions } from "@react-navigation/native";
+import getNearbyLocations from "../../algorithm/getNearbyLocations";
+import getDistance from "../../algorithm/getDistance";
 import config from "../../config";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
 const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
-console.log(GOOGLE_PLACES_API_KEY);
 
 const GoogleMapScreen = ({ navigation, route }) => {
   const GLOBAL = require("../global");
   const [postalCode, setPostalCode] = React.useState(null);
   const { dateString, timeString, dateNum, objectArray } = route.params;
-  // const [marker, setMarker] = React.useState({
-  //   latitude: 1.264639175987081,
-  //   longitude: 103.822228554651,
-  // });
-  console.log(objectArray);
-
-  const ref = useRef();
-
-  useEffect(() => {
-    ref.current?.setAddressText("");
-  }, []);
 
   const handlePress = () => {
     let locationDetails = {
@@ -66,6 +56,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
       longitude: markerLong,
       latitude: markerLat,
     };
+
     axios
       .patch(
         `${baseURL}cliques/addlog/${GLOBAL.USER.cliqueID}`,
@@ -107,8 +98,10 @@ const GoogleMapScreen = ({ navigation, route }) => {
   var total_longitude = 0;
   var total_latitude = 0;
   for (var i = 0; i < objectArray.length; i++) {
-    total_longitude += objectArray[i].longitude;
-    total_latitude += objectArray[i].latitude;
+    if (objectArray[i]) {
+      total_longitude += objectArray[i].longitude;
+      total_latitude += objectArray[i].latitude;
+    }
   }
 
   const central_coordinate = {
@@ -122,6 +115,29 @@ const GoogleMapScreen = ({ navigation, route }) => {
     central_coordinate.longitude
   );
   const [markerName, setMarkerName] = React.useState("Central");
+
+  // Showing route from start to end location
+  const [nearbyArray, setNearbyArray] = React.useState();
+  const [timeArray, setTimeArray] = React.useState();
+  const centralLoc = `${central_coordinate.latitude}, ${central_coordinate.longitude}`; // midpoint
+
+  const ref = useRef();
+  useEffect(() => {
+    ref.current?.setAddressText("");
+
+    // set array of nearby locations
+    (async () => {
+      setNearbyArray(await getNearbyLocations(centralLoc));
+      async () => {
+        const startLoc = `${nearbyArray[0].latitude}, ${nearbyArray[0].longitude}`;
+        console.log(startLoc);
+        setTimeArray(await getDistance(startLoc, centralLoc));
+      };
+    })();
+  }, []);
+
+  console.log(nearbyArray);
+  console.log("timeArray:", timeArray);
 
   return (
     <Container>
@@ -173,9 +189,9 @@ const GoogleMapScreen = ({ navigation, route }) => {
             longitudeDelta: 0.5,
           }}
         >
-          {objectArray.map((marker) => (
+          {objectArray.map((marker, index) => (
             <Marker
-              key={marker.postalCode}
+              key={index}
               coordinate={{
                 latitude: marker.latitude,
                 longitude: marker.longitude,

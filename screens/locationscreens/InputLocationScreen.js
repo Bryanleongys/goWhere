@@ -77,7 +77,6 @@ const InputLocationScreen = ({ navigation, route }) => {
 
   const handleCallback = (data, index) => {
       objectArray[index] = data;
-      console.log(objectArray);
   };
 
   const handlePress = () => {
@@ -85,7 +84,11 @@ const InputLocationScreen = ({ navigation, route }) => {
       if (objectArray[i] && (objectArray[i].latitude == null || objectArray[i].longitude == null)) {
         return Alert.alert("Please fill in missing fields!")
       }
+      if (objectArray[i] == undefined) {
+        objectArray.splice(i, 1);
+      }
     }
+    console.log(objectArray);
     return navigation.navigate("Preferences", { objectArray: objectArray })
   }
 
