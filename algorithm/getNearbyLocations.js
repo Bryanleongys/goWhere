@@ -6,7 +6,7 @@ async function getNearbyLocations(loc) {
   var objectArray = [];
   try {
     const resp = await fetch(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc}&type=shopping_mall&rankby=distance&key=${GOOGLE_PLACES_API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc}&type=cafe&rankby=distance&key=${GOOGLE_PLACES_API_KEY}`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -17,6 +17,9 @@ async function getNearbyLocations(loc) {
               latitude: responseJson.results[i].geometry.location.lat,
               longitude: responseJson.results[i].geometry.location.lng,
               place_id: responseJson.results[i].place_id,
+              rating: responseJson.results[i].rating,
+              price_level: responseJson.results[i].price_level,
+              // address_components: responseJson.results[i].address_components,
             });
           }
         }

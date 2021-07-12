@@ -34,7 +34,8 @@ import {
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { CommonActions } from "@react-navigation/native";
 import getNearbyLocations from "../../algorithm/getNearbyLocations";
-import getDistance from "../../algorithm/getDistance";
+import getDistanceMatrix from "../../algorithm/getDistanceMatrix";
+import minTime from "../../algorithm/minTime";
 import config from "../../config";
 
 import axios from "axios";
@@ -117,27 +118,51 @@ const GoogleMapScreen = ({ navigation, route }) => {
   const [markerName, setMarkerName] = React.useState("Central");
 
   // Showing route from start to end location
-  const [nearbyArray, setNearbyArray] = React.useState();
-  const [timeArray, setTimeArray] = React.useState();
-  const centralLoc = `${central_coordinate.latitude}, ${central_coordinate.longitude}`; // midpoint
+  const [nearbyArray, setNearbyArray] = React.useState([]);
+  const [timeArray, setTimeArray] = React.useState([]);
 
+  // Inputs for getDistanceMatrix
+
+  // for origins
+  var startLoc = ``;
+  for (var i = 0; i < objectArray.length; i++) {
+    startLoc =
+      startLoc + `${objectArray[i].latitude},${objectArray[i].longitude}|`;
+  }
+
+  // for destinations
+  const centralLoc = `${central_coordinate.latitude},${central_coordinate.longitude}`; // midpoint
+
+  // for destinations
+
+  // initialize arrays
   const ref = useRef();
   useEffect(() => {
     ref.current?.setAddressText("");
-
-    // set array of nearby locations
-    (async () => {
-      setNearbyArray(await getNearbyLocations(centralLoc));
-      async () => {
-        const startLoc = `${nearbyArray[0].latitude}, ${nearbyArray[0].longitude}`;
-        console.log(startLoc);
-        setTimeArray(await getDistance(startLoc, centralLoc));
-      };
-    })();
+    getNearbyLocations(centralLoc).then((data) => {
+      setNearbyArray(data);
+      var endLoc = ``;
+      for (var i = 0; i < data.length; i++) {
+        endLoc = endLoc + `place_id:${data[i].place_id}|`;
+      }
+      getDistanceMatrix(startLoc, endLoc).then((data2) => {
+        setTimeArray(data2);
+      });
+    });
+    // var endLoc = ``;
+    // for (var i = 0; i < nearbyArray.length; i++) {
+    //   endLoc = endLoc + `place_id:${nearbyArray[i].place_id}|`;
+    // }
+    // getDistanceMatrix(startLoc, endLoc).then((data) => {
+    //   setTimeArray(data);
+    // });
   }, []);
 
-  console.log(nearbyArray);
-  console.log("timeArray:", timeArray);
+  // run algorithm functions
+  if (nearbyArray.length && timeArray.length) {
+    const index = minTime(timeArray);
+    console.log(nearbyArray[index].name);
+  }
 
   return (
     <Container>
@@ -218,10 +243,10 @@ const GoogleMapScreen = ({ navigation, route }) => {
             coordinate={marker}
             onDragEnd={(e) => setMarker(e.nativeEvent.coordinate)}
           /> */}
-          <Polygon
+          {/* <Polygon
             coordinates={objectArray}
             fillColor={"rgba(100, 100, 200, 0.2)"}
-          />
+          /> */}
         </MapView>
       </Content>
       <Footer style={styles.container}>

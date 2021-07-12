@@ -161,6 +161,8 @@ const PickerElement = ({
                     addressComponent.types.includes("postal_code")
                 )?.short_name;
                 setPostalCode(postalNum);
+                console.log(details.place_id);
+                console.log(postalNum);
               }}
               query={{
                 key: GOOGLE_PLACES_API_KEY,
