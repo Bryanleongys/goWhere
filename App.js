@@ -20,7 +20,7 @@ import Notification from "./screens/locationscreens/NotificationScreen";
 import Favourite from "./screens/travelscreens/FavouriteScreen";
 import AddMember from "./screens/cliquescreens/AddMemberScreen";
 import EditMember from "./screens/cliquescreens/EditMemberScreen";
-import EditMemberLocation from "./screens/cliquescreens/EditMemberLocationScreen"
+import EditMemberLocation from "./screens/cliquescreens/EditMemberLocationScreen";
 import AddLocation from "./screens/cliquescreens/AddLocationScreen";
 import HomeScreen from "./screens/homescreens/HomeScreen";
 import WelcomeScreen from "./screens/homescreens/WelcomeScreen";
@@ -33,6 +33,7 @@ import OneNotification from "./screens/onetimescreens/NotificationScreen";
 import ChangePassword from "./screens/accountscreens/ChangePassword";
 import ChangeEmail from "./screens/accountscreens/ChangeEmail";
 import DeleteClique from "./screens/accountscreens/DeleteClique";
+import TimeRoute from "./screens/locationscreens/TimeRouteScreen";
 
 const AuthStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -100,6 +101,7 @@ const LocationStackScreen = () => {
       <LocationStack.Screen name="Preferences" component={Preferences} />
       <LocationStack.Screen name="Timing" component={Timing} />
       <LocationStack.Screen name="GoogleMap" component={GoogleMap} />
+      <LocationStack.Screen name="TimeRoute" component={TimeRoute} />
       <LocationStack.Screen name="Notification" component={Notification} />
     </LocationStack.Navigator>
   );

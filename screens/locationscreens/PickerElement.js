@@ -100,6 +100,7 @@ const PickerElement = ({
 
   if (selectedLocation != "others") {
     objectPass = {
+      personName: name,
       locationName: name + "'s " + currData[selectedLocation].locationName,
       postalCode: currData[selectedLocation].postalCode,
       latitude: currData[selectedLocation].latitude,
@@ -107,6 +108,7 @@ const PickerElement = ({
     };
   } else {
     objectPass = {
+      personName: name,
       locationName: locationName + " (" + name + ")",
       postalCode: postalCode,
       latitude: latitude,

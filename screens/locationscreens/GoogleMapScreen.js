@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
@@ -30,8 +30,12 @@ import {
   Title,
   Footer,
   FooterTab,
+  List,
+  ListItem,
 } from "native-base";
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import LoadingScreen from "../common/LoadingScreen";
 import { CommonActions } from "@react-navigation/native";
 import getNearbyLocations from "../../algorithm/getNearbyLocations";
 import getDistanceMatrix from "../../algorithm/getDistanceMatrix";
@@ -159,13 +163,84 @@ const GoogleMapScreen = ({ navigation, route }) => {
   }, []);
 
   // run algorithm functions
-  if (nearbyArray.length && timeArray.length) {
-    const index = minTime(timeArray);
-    console.log(nearbyArray[index].name);
+  // if (nearbyArray.length && timeArray.length) {
+  //   const index = minTime(timeArray);
+  //   console.log(nearbyArray[index].name);
+  // }
+
+  // Marker position
+  var locationsArray = [];
+  if (nearbyArray.length) {
+    for (var i = 0; i < 3; i++) {
+      locationsArray.push(nearbyArray[i]);
+    }
   }
+
+  const changeMarkerPosition = (name, longitude, latitude) => {
+    setMarkerLong(longitude);
+    setMarkerLat(latitude);
+    setMarkerName(name);
+  };
 
   return (
     <Container>
+      <Header style={{ height: 50, backgroundColor: "#bff6eb" }}>
+        <Left />
+        <Body style={{ flex: 3 }}>
+          <Title>Top 3 Locations</Title>
+        </Body>
+        <Right>
+          <Button transparent>
+            <Icon name="refresh-sharp" />
+          </Button>
+          <Button
+            transparent
+            onPress={() =>
+              navigation.navigate("TimeRoute", {
+                objectArray: objectArray,
+                markerLat: markerLat,
+                markerLong: markerLong,
+                locationName: markerName,
+              })
+            }
+          >
+            <Icon name="git-branch" />
+          </Button>
+        </Right>
+      </Header>
+      <Content style={styles.content2} scrollEnabled={true}>
+        {locationsArray.map((location, index) => {
+          if (!locationsArray.length) {
+            return <LoadingScreen />;
+          }
+          return (
+            <List>
+              <ListItem
+                onPress={() =>
+                  changeMarkerPosition(
+                    location.name,
+                    location.longitude,
+                    location.latitude
+                  )
+                }
+              >
+                <Text>{location.name}</Text>
+              </ListItem>
+            </List>
+          );
+        })}
+        <View style={{ paddingLeft: 20, flexDirection: "row" }}>
+          <Text style={{ paddingLeft: 20 }}>Ratings</Text>
+          <MultiSlider
+            values={[0, 5]}
+            sliderLength={200}
+            onValuesChange={() => console.log("hello")}
+            min={0}
+            max={5}
+            step={0.5}
+          />
+        </View>
+      </Content>
       <Content style={{ backgroundColor: "#bff6eb" }} scrollEnabled={false}>
         <Item style={styles.searchBarContainer}>
           <GooglePlacesAutocomplete
@@ -210,7 +285,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
           region={{
             latitude: 1.3579294997441924,
             longitude: 103.81196521563633,
-            latitudeDelta: 1,
+            latitudeDelta: 0.25,
             longitudeDelta: 0.5,
           }}
         >
@@ -254,9 +329,6 @@ const GoogleMapScreen = ({ navigation, route }) => {
           <Button onPress={() => navigation.goBack()}>
             <Icon name="caret-back-sharp" />
           </Button>
-          <Button onPress={() => console.log("Refresh Button Pressed")}>
-            <Icon name="ios-refresh-outline" />
-          </Button>
           <Button onPress={handlePress}>
             <Icon name="checkmark-outline" />
           </Button>
@@ -277,9 +349,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  content2: {
+    backgroundColor: "#bff6eb",
+  },
   map: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("window").height / 2,
   },
   searchBarContainer: {
     width: "100%",

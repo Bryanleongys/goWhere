@@ -18,7 +18,7 @@ async function getDistanceMatrix(origins, destinations) {
           //
           for (var j = 0; j < responseJson.rows[i].elements.length; j++) {
             arrayResult[i].push(
-              responseJson.rows[i].elements[j].duration.value
+              responseJson.rows[i].elements[j].duration.text
             );
           }
         }

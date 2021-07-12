@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mapbox/polyline": "^1.1.1",
+    "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-firebase/app": "^12.0.0",
     "@react-native-firebase/auth": "^12.0.0",
@@ -31,12 +32,14 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-maps": "0.27.1",
     "react-native-placesearch": "^3.0.3",
+    "react-native-range-slider": "^0.1.2",
     "react-native-reanimated": "~2.1.0",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "~3.0.0",
     "react-native-swipe-list-view": "^3.2.7",
     "react-native-vector-icons": "^8.1.0",
-    "react-native-web": "^0.17.0"
+    "react-native-web": "^0.17.0",
+    "rn-range-slider": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
