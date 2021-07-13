@@ -33,12 +33,12 @@ import {
   List,
   ListItem,
 } from "native-base";
-import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { useIsFocused } from "@react-navigation/native";
 import LoadingScreen from "../common/LoadingScreen";
 import { CommonActions } from "@react-navigation/native";
 import getNearbyLocations from "../../algorithm/getNearbyLocations";
-import getDistanceMatrix from "../../algorithm/getDistanceMatrix";
+import getTransitTime from "../../algorithm/getTransitTime";
 import minTime from "../../algorithm/minTime";
 import config from "../../config";
 
@@ -50,7 +50,20 @@ const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 const GoogleMapScreen = ({ navigation, route }) => {
   const GLOBAL = require("../global");
   const [postalCode, setPostalCode] = React.useState(null);
-  const { dateString, timeString, dateNum, objectArray } = route.params;
+  const { dateString, timeString, dateNum, objectArray, time } = route.params;
+  var { ratingsValue, priceValue, locationType, includeLog } = route.params;
+
+  if (
+    ratingsValue == undefined ||
+    priceValue == undefined ||
+    locationType == undefined ||
+    includeLog == undefined
+  ) {
+    ratingsValue = [0, 5];
+    priceValue = [0, 4];
+    locationType = "restaurant";
+    includeLog = false;
+  }
 
   const handlePress = () => {
     let locationDetails = {
@@ -141,17 +154,11 @@ const GoogleMapScreen = ({ navigation, route }) => {
 
   // initialize arrays
   const ref = useRef();
+  const isFocused = useIsFocused();
   useEffect(() => {
     ref.current?.setAddressText("");
-    getNearbyLocations(centralLoc).then((data) => {
+    getNearbyLocations(centralLoc, locationType).then((data) => {
       setNearbyArray(data);
-      var endLoc = ``;
-      for (var i = 0; i < data.length; i++) {
-        endLoc = endLoc + `place_id:${data[i].place_id}|`;
-      }
-      getDistanceMatrix(startLoc, endLoc).then((data2) => {
-        setTimeArray(data2);
-      });
     });
     // var endLoc = ``;
     // for (var i = 0; i < nearbyArray.length; i++) {
@@ -160,7 +167,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
     // getDistanceMatrix(startLoc, endLoc).then((data) => {
     //   setTimeArray(data);
     // });
-  }, []);
+  }, [isFocused]);
 
   // run algorithm functions
   // if (nearbyArray.length && timeArray.length) {
@@ -190,8 +197,18 @@ const GoogleMapScreen = ({ navigation, route }) => {
           <Title>Top 3 Locations</Title>
         </Body>
         <Right>
-          <Button transparent>
-            <Icon name="refresh-sharp" />
+          <Button
+            transparent
+            onPress={() =>
+              navigation.navigate("Filter", {
+                inputRatingsValue: ratingsValue,
+                inputPriceValue: priceValue,
+                inputLocationType: locationType,
+                inputIncludeLog: includeLog,
+              })
+            }
+          >
+            <Icon name="ios-list" />
           </Button>
           <Button
             transparent
@@ -201,6 +218,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
                 markerLat: markerLat,
                 markerLong: markerLong,
                 locationName: markerName,
+                time: time,
               })
             }
           >
@@ -229,17 +247,6 @@ const GoogleMapScreen = ({ navigation, route }) => {
             </List>
           );
         })}
-        <View style={{ paddingLeft: 20, flexDirection: "row" }}>
-          <Text style={{ paddingLeft: 20 }}>Ratings</Text>
-          <MultiSlider
-            values={[0, 5]}
-            sliderLength={200}
-            onValuesChange={() => console.log("hello")}
-            min={0}
-            max={5}
-            step={0.5}
-          />
-        </View>
       </Content>
       <Content style={{ backgroundColor: "#bff6eb" }} scrollEnabled={false}>
         <Item style={styles.searchBarContainer}>
@@ -252,6 +259,9 @@ const GoogleMapScreen = ({ navigation, route }) => {
               },
               row: {
                 backgroundColor: "#bff6eb",
+              },
+              listView: {
+                height: 135,
               },
             }}
             ref={ref}

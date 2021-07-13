@@ -4,12 +4,14 @@ const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 
 // per row: each origin to different destinations
 // per column: each destination to different origins
-async function getDistanceMatrix(origins, destinations) {
+async function getTransitTime(origins, destinations, time) {
   var arrayResult = []; // array of arrays
+
+  var seconds = Math.round(time / 1000);
 
   try {
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origins}&destinations=${destinations}&key=${GOOGLE_PLACES_API_KEY}`
+      `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origins}&destinations=${destinations}&arrival_time=${seconds}&mode=transit&key=${GOOGLE_PLACES_API_KEY}`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -17,9 +19,13 @@ async function getDistanceMatrix(origins, destinations) {
           arrayResult.push([]);
           //
           for (var j = 0; j < responseJson.rows[i].elements.length; j++) {
-            arrayResult[i].push(
-              responseJson.rows[i].elements[j].duration.text
-            );
+            if (responseJson.rows[i].elements[j].duration) {
+              arrayResult[i].push(
+                responseJson.rows[i].elements[j].duration.text
+              );
+            } else {
+              arrayResult[i].push("N/A");
+            }
           }
         }
       });
@@ -29,4 +35,4 @@ async function getDistanceMatrix(origins, destinations) {
   return arrayResult;
 }
 
-export default getDistanceMatrix;
+export default getTransitTime;

@@ -34,6 +34,7 @@ import ChangePassword from "./screens/accountscreens/ChangePassword";
 import ChangeEmail from "./screens/accountscreens/ChangeEmail";
 import DeleteClique from "./screens/accountscreens/DeleteClique";
 import TimeRoute from "./screens/locationscreens/TimeRouteScreen";
+import Filter from "./screens/locationscreens/FilterScreen";
 
 const AuthStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -98,9 +99,10 @@ const LocationStackScreen = () => {
     >
       <LocationStack.Screen name="LocationScreen1" component={SelectPerson} />
       <LocationStack.Screen name="LocationScreen2" component={InputLocation} />
-      <LocationStack.Screen name="Preferences" component={Preferences} />
+      {/* <LocationStack.Screen name="Preferences" component={Preferences} /> */}
       <LocationStack.Screen name="Timing" component={Timing} />
       <LocationStack.Screen name="GoogleMap" component={GoogleMap} />
+      <LocationStack.Screen name="Filter" component={Filter} />
       <LocationStack.Screen name="TimeRoute" component={TimeRoute} />
       <LocationStack.Screen name="Notification" component={Notification} />
     </LocationStack.Navigator>

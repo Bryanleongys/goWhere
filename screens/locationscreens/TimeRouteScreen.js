@@ -20,12 +20,15 @@ import {
   List,
 } from "native-base";
 import "react-native-gesture-handler";
-import getDistanceMatrix from "../../algorithm/getDistanceMatrix";
+import getTransitTime from "../../algorithm/getTransitTime";
+import getDrivingTime from "../../algorithm/getDrivingTime";
 
 const TimeRouteScreen = ({ navigation, route }) => {
-  const { objectArray, markerLat, markerLong, locationName } = route.params;
+  const { objectArray, markerLat, markerLong, locationName, time } =
+    route.params;
   const [currData, setData] = React.useState([]);
-  const [timeArray, setTimeArray] = React.useState([]);
+  const [transitArray, setTransitArray] = React.useState([]);
+  const [drivingArray, setDrivingArray] = React.useState([]);
 
   var startLoc = ``;
   for (var i = 0; i < objectArray.length; i++) {
@@ -36,19 +39,13 @@ const TimeRouteScreen = ({ navigation, route }) => {
   var endLoc = `${markerLat},${markerLong}`;
 
   useEffect(() => {
-    getDistanceMatrix(startLoc, endLoc).then((data) => {
-      setTimeArray(data);
+    getTransitTime(startLoc, endLoc, time).then((data) => {
+      setTransitArray(data);
     });
-    // var endLoc = ``;
-    // for (var i = 0; i < nearbyArray.length; i++) {
-    //   endLoc = endLoc + `place_id:${nearbyArray[i].place_id}|`;
-    // }
-    // getDistanceMatrix(startLoc, endLoc).then((data) => {
-    //   setTimeArray(data);
-    // });
+    getDrivingTime(startLoc, endLoc, time).then((data) => {
+      setDrivingArray(data);
+    });
   }, []);
-
-  console.log(timeArray);
 
   return (
     <Container style={styles.container}>
@@ -59,25 +56,38 @@ const TimeRouteScreen = ({ navigation, route }) => {
           </Button>
         </Left>
         <Body style={{ alignSelf: "center", flex: 3 }}>
-          <Title>Travel Time</Title>
+          <Title>{locationName}</Title>
         </Body>
         <Right />
       </Header>
       <Content>
         <List>
           <ListItem style={{ justifyContent: "center" }}>
-            <Text>To {locationName}:</Text>
+            <Left></Left>
+            <Right style={{ alignItems: "center" }}>
+              <Icon name="ios-car-sport" />
+            </Right>
+            <Right />
+            <Right style={{ alignItems: "center" }}>
+              <Icon name="ios-bus" />
+            </Right>
           </ListItem>
         </List>
-        {timeArray.map((time, index) => {
+        {transitArray.map((time, index) => {
           return (
             <List>
               <ListItem>
                 <Left>
                   <Text>{objectArray[index].personName}</Text>
                 </Left>
-                <Right>
-                  <Text>{time}</Text>
+                <Right style={{ alignItems: "center" }}>
+                  <Text style={{ alignSelf: "center" }}>
+                    {drivingArray[index]}
+                  </Text>
+                </Right>
+                <Right />
+                <Right key={index} style={{ alignItems: "center" }}>
+                  <Text style={{ alignSelf: "center" }}>{time}</Text>
                 </Right>
               </ListItem>
             </List>

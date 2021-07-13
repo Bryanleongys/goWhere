@@ -36,13 +36,12 @@ const InputLocationScreen = ({ navigation, route }) => {
   const [init, setInit] = React.useState(0);
   var length = 0;
 
-
   for (var i = 0; i < optionsArray.length; i++) {
     if (optionsArray[i] == 1) {
       length += 1;
     }
   }
-  
+
   // for (var i = 0; i < optionsArray.length ; i++) {
   //   if (optionsArray[i] == 1) {
   //     var newLength = length + 1;
@@ -51,7 +50,6 @@ const InputLocationScreen = ({ navigation, route }) => {
   // }
 
   const colorArray = ["#8AEEDA", "#53E6C9", "#1FDBB6", "#17A488"];
-
 
   var objectArray = new Array(length);
 
@@ -76,21 +74,24 @@ const InputLocationScreen = ({ navigation, route }) => {
   }, [navigation]);
 
   const handleCallback = (data, index) => {
-      objectArray[index] = data;
+    objectArray[index] = data;
   };
 
   const handlePress = () => {
     for (var i = 0; i < objectArray.length; i++) {
-      if (objectArray[i] && (objectArray[i].latitude == null || objectArray[i].longitude == null)) {
-        return Alert.alert("Please fill in missing fields!")
+      if (
+        objectArray[i] &&
+        (objectArray[i].latitude == null || objectArray[i].longitude == null)
+      ) {
+        return Alert.alert("Please fill in missing fields!");
       }
       if (objectArray[i] == undefined) {
         objectArray.splice(i, 1);
       }
     }
     console.log(objectArray);
-    return navigation.navigate("Preferences", { objectArray: objectArray })
-  }
+    return navigation.navigate("Timing", { objectArray: objectArray });
+  };
 
   return init ? (
     <Container style={styles.container}>
@@ -121,9 +122,7 @@ const InputLocationScreen = ({ navigation, route }) => {
           <Button onPress={() => navigation.goBack()}>
             <Icon name="caret-back-sharp" />
           </Button>
-          <Button
-            onPress={handlePress}
-          >
+          <Button onPress={handlePress}>
             <Icon name="caret-forward-sharp" />
           </Button>
         </FooterTab>

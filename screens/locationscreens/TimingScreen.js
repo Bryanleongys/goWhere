@@ -74,6 +74,8 @@ const TimingScreen = ({ navigation, route }) => {
     setTime(currentTime);
   };
 
+  console.log(time);
+
   return (
     <Container style={styles.container}>
       <Content contentContainerStyle={styles.content}>
@@ -113,6 +115,7 @@ const TimingScreen = ({ navigation, route }) => {
                 timeString: timeString,
                 dateNum: dateNum,
                 objectArray: objectArray,
+                time: time,
               })
             }
           >

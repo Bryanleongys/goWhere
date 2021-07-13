@@ -2,11 +2,11 @@ import React from "react";
 import config from "../config";
 const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 
-async function getNearbyLocations(loc) {
+async function getNearbyLocations(loc, locationType) {
   var objectArray = [];
   try {
     const resp = await fetch(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc}&type=cafe&rankby=distance&key=${GOOGLE_PLACES_API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc}&type=${locationType}&rankby=distance&key=${GOOGLE_PLACES_API_KEY}`
     )
       .then((response) => response.json())
       .then((responseJson) => {
