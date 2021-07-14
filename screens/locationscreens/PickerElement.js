@@ -53,7 +53,7 @@ const PickerElement = ({
   const styles = StyleSheet.create({
     container: {
       backgroundColor: colorCode,
-      height: 300,
+      height: 400,
       width: 350,
     },
   });
@@ -123,11 +123,12 @@ const PickerElement = ({
   return init ? (
     <View style={{ paddingBottom: 20 }}>
       <BoxContainer style={styles.container}>
-        <Text style={{ alignSelf: "center" }}> {name}: </Text>
+        <Text style={{ position: "absolute", top: 20 }}> {name}: </Text>
         <Picker
           style={{
-            width: 200,
-            alignSelf: "center",
+            width: 300,
+            position: "absolute",
+            top: 50,
           }}
           selectedValue={selectedLocation}
           onValueChange={(itemValue, itemIndex) => {
@@ -146,7 +147,7 @@ const PickerElement = ({
           <Picker.Item label="Others" value="others" />
         </Picker>
         {selectedLocation == "others" ? (
-          <Item style={styles.searchBarContainer}>
+          <Item style={styles2.searchBarContainer}>
             <GooglePlacesAutocomplete
               enablePoweredByContainer={false}
               ref={ref}
@@ -184,15 +185,12 @@ const PickerElement = ({
   );
 };
 
-const styles = StyleSheet.create({
+const styles2 = StyleSheet.create({
   searchBarContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     position: "absolute",
-    top: 10,
+    top: 250,
     zIndex: 1,
-    width: "90%",
+    width: "90%%",
   },
 });
 
@@ -205,6 +203,7 @@ const autoCompleteStyles = StyleSheet.create({
     borderColor: "#c8c7cc",
     borderWidth: 1,
     borderRadius: 2,
+    height: 90,
   },
 });
 

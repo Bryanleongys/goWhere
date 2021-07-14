@@ -203,7 +203,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
       <Header style={{ height: 50, backgroundColor: "#bff6eb" }}>
         <Left />
         <Body style={{ flex: 3 }}>
-          <Title>Top 3 Locations</Title>
+          <Title>Central Locations</Title>
         </Body>
         <Right>
           <Button
@@ -236,6 +236,14 @@ const GoogleMapScreen = ({ navigation, route }) => {
         </Right>
       </Header>
       <Content style={styles.content2} scrollEnabled={true}>
+        <List style={{ alignItems: "center" }}>
+          <ListItem style={{ height: 100 }}>
+            <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+              {" "}
+              Selected Location: {markerName}
+            </Text>
+          </ListItem>
+        </List>
         {locationsArray.map((location, index) => {
           if (!locationsArray.length) {
             return <LoadingScreen />;
@@ -250,8 +258,11 @@ const GoogleMapScreen = ({ navigation, route }) => {
                     location.latitude
                   )
                 }
+                underlayColor={"#00c6bb"}
               >
-                <Text>{location.name}</Text>
+                <Text>
+                  {index + 1}. {location.name}
+                </Text>
               </ListItem>
             </List>
           );

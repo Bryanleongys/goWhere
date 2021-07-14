@@ -106,7 +106,6 @@ const TimingScreen = ({ navigation, route }) => {
           <Button onPress={() => navigation.goBack()}>
             <Icon name="caret-back-outline" />
           </Button>
-          {console.log("timing", objectArray)}
           <Button
             onPress={() =>
               navigation.navigate("GoogleMap", {

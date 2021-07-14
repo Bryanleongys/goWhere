@@ -56,7 +56,7 @@ const TimeRouteScreen = ({ navigation, route }) => {
           </Button>
         </Left>
         <Body style={{ alignSelf: "center", flex: 3 }}>
-          <Title>{locationName}</Title>
+          <Title>To: {locationName}</Title>
         </Body>
         <Right />
       </Header>

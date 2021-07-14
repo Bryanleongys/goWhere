@@ -89,7 +89,6 @@ const InputLocationScreen = ({ navigation, route }) => {
         objectArray.splice(i, 1);
       }
     }
-    console.log("input", objectArray);
     return navigation.navigate("Timing", { objectArray: objectArray });
   };
 
