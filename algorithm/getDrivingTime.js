@@ -10,7 +10,7 @@ async function getDrivingTime(origins, destinations, time) {
 
   try {
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origins}&destinations=${destinations}&departure_time=now&mode=driving&key=${GOOGLE_PLACES_API_KEY}`
+      `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origins}&destinations=${destinations}&arrival_time=${seconds}&mode=driving&key=${GOOGLE_PLACES_API_KEY}`
     )
       .then((response) => response.json())
       .then((responseJson) => {

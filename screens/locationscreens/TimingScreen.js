@@ -74,8 +74,6 @@ const TimingScreen = ({ navigation, route }) => {
     setTime(currentTime);
   };
 
-  console.log(time);
-
   return (
     <Container style={styles.container}>
       <Content contentContainerStyle={styles.content}>
@@ -108,6 +106,7 @@ const TimingScreen = ({ navigation, route }) => {
           <Button onPress={() => navigation.goBack()}>
             <Icon name="caret-back-outline" />
           </Button>
+          {console.log("timing", objectArray)}
           <Button
             onPress={() =>
               navigation.navigate("GoogleMap", {

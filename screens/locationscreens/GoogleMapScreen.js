@@ -51,6 +51,15 @@ const GoogleMapScreen = ({ navigation, route }) => {
   const GLOBAL = require("../global");
   const [postalCode, setPostalCode] = React.useState(null);
   const { dateString, timeString, dateNum, objectArray, time } = route.params;
+
+  // Solve react navigation repeat bug
+  for (var i = 0; i < objectArray.length; i++) {
+    if (i > 0) {
+      if (objectArray[i].personName == objectArray[i - 1].personName) {
+        objectArray.splice(i, 1);
+      }
+    }
+  }
   var { ratingsValue, priceValue, locationType, includeLog } = route.params;
 
   if (

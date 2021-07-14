@@ -10,7 +10,6 @@ import CreateAccount from "./screens/homescreens/CreateAccScreen";
 import Home from "./screens/homescreens/HomeScreen";
 import SelectPerson from "./screens/locationscreens/SelectPersonScreen2";
 import InputLocation from "./screens/locationscreens/InputLocationScreen";
-import Preferences from "./screens/locationscreens/PreferencesScreen";
 import Timing from "./screens/locationscreens/TimingScreen";
 import UpdateClique from "./screens/cliquescreens/UpdateCliqueScreen";
 import TravelLog from "./screens/travelscreens/TravelLogScreen";
@@ -99,7 +98,6 @@ const LocationStackScreen = () => {
     >
       <LocationStack.Screen name="LocationScreen1" component={SelectPerson} />
       <LocationStack.Screen name="LocationScreen2" component={InputLocation} />
-      {/* <LocationStack.Screen name="Preferences" component={Preferences} /> */}
       <LocationStack.Screen name="Timing" component={Timing} />
       <LocationStack.Screen name="GoogleMap" component={GoogleMap} />
       <LocationStack.Screen name="Filter" component={Filter} />
