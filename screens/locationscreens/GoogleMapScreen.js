@@ -39,6 +39,7 @@ import LoadingScreen from "../common/LoadingScreen";
 import { CommonActions } from "@react-navigation/native";
 import getNearbyLocations from "../../algorithm/getNearbyLocations";
 import getTransitTime from "../../algorithm/getTransitTime";
+import getPostalCode2 from "../../algorithm/getPostalCode2";
 import minTime from "../../algorithm/minTime";
 import config from "../../config";
 
@@ -105,6 +106,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
               markerName: markerName,
               dateString: dateString,
               timeString: timeString,
+              postalCode: postalCode,
             }),
         },
         {
@@ -167,16 +169,30 @@ const GoogleMapScreen = ({ navigation, route }) => {
   useEffect(() => {
     ref.current?.setAddressText("");
     getNearbyLocations(centralLoc, locationType).then((data) => {
-      setNearbyArray(data);
+      getPostalCode2(data).then((data2) => setNearbyArray(data2));
+      // setNearbyArray(data);
+      setMarkerName(data[0].name);
+      setMarkerLat(data[0].latitude);
+      setMarkerLong(data[0].longitude);
     });
-    // var endLoc = ``;
-    // for (var i = 0; i < nearbyArray.length; i++) {
-    //   endLoc = endLoc + `place_id:${nearbyArray[i].place_id}|`;
-    // }
-    // getDistanceMatrix(startLoc, endLoc).then((data) => {
-    //   setTimeArray(data);
-    // });
   }, [isFocused]);
+
+  // console.log(nearbyArray);
+
+  // if (nearbyArray.length) {
+  //   var count = 0;
+  //   while (count < nearbyArray.length) {
+  //     async () => {
+  //       var number = await getPostalCode(
+  //         nearbyArray[count].latitude,
+  //         nearbyArray[count].longitude
+  //       );
+  //       console.log(nearbyArray[count]);
+  //       count++;
+  //     };
+  //   }
+  //   count = 0;
+  // }
 
   // run algorithm functions
   // if (nearbyArray.length && timeArray.length) {
@@ -184,7 +200,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
   //   console.log(nearbyArray[index].name);
   // }
 
-  // Marker position
+  // Marker position - select top 3 locations
   var locationsArray = [];
   if (nearbyArray.length) {
     for (var i = 0; i < 3; i++) {
@@ -192,10 +208,11 @@ const GoogleMapScreen = ({ navigation, route }) => {
     }
   }
 
-  const changeMarkerPosition = (name, longitude, latitude) => {
+  const changeMarkerPosition = (name, longitude, latitude, postalCode) => {
     setMarkerLong(longitude);
     setMarkerLat(latitude);
     setMarkerName(name);
+    setPostalCode(postalCode);
   };
 
   return (
@@ -244,8 +261,8 @@ const GoogleMapScreen = ({ navigation, route }) => {
             </Text>
           </ListItem>
         </List>
-        {locationsArray.map((location, index) => {
-          if (!locationsArray.length) {
+        {nearbyArray.map((location, index) => {
+          if (!nearbyArray.length) {
             return <LoadingScreen />;
           }
           return (
@@ -255,7 +272,8 @@ const GoogleMapScreen = ({ navigation, route }) => {
                   changeMarkerPosition(
                     location.name,
                     location.longitude,
-                    location.latitude
+                    location.latitude,
+                    location.postalCode
                   )
                 }
                 underlayColor={"#00c6bb"}
