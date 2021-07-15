@@ -37,6 +37,7 @@ import getNearbyLocations from "../../algorithm/getNearbyLocations";
 import getDistanceMatrix from "../../algorithm/getDistanceMatrix";
 import minTime from "../../algorithm/minTime";
 import config from "../../config";
+import { useIsFocused } from "@react-navigation/native";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
@@ -47,6 +48,42 @@ const GoogleMapScreen = ({ navigation, route }) => {
   const GLOBAL = require("../global");
   const [postalCode, setPostalCode] = React.useState(null);
   const { dateString, timeString, dateNum, objectArray } = route.params;
+
+  const [travelLogArray, setTravelLogArray] = React.useState([]);
+  const [init, setInit] = React.useState(0);
+
+  const isFocused = useIsFocused();
+  const ref = useRef();
+  React.useEffect(() => {
+    setInit(0);
+    const unsubscribe = navigation.addListener("focus", () => {
+      console.log("Refreshed");
+      axios
+      .get(`${baseURL}cliques/getlogs/${GLOBAL.USER.cliqueID}`)
+      .then((res) => {
+        console.log("Successfully GET request");
+        setTravelLogArray(res.data);
+        setInit(1);
+        ref.current?.setAddressText("");
+        getNearbyLocations(centralLoc, travelLogArray, [0, 4], [0, 4]).then((data) => {
+          setNearbyArray(data);
+          var endLoc = ``;
+          for (var i = 0; i < data.length; i++) {
+            endLoc = endLoc + `place_id:${data[i].place_id}|`;
+          }
+          getDistanceMatrix(startLoc, endLoc).then((data2) => {
+            setTimeArray(data2);
+          });
+        });
+      })
+      .catch((error) => {
+        console.log("GET request failed");
+      });
+    });
+    return unsubscribe;
+  }, [isFocused]);
+
+  //console.log("travelLog array: ", travelLogArray);
 
   const handlePress = () => {
     let locationDetails = {
@@ -136,27 +173,20 @@ const GoogleMapScreen = ({ navigation, route }) => {
   // for destinations
 
   // initialize arrays
-  const ref = useRef();
-  useEffect(() => {
-    ref.current?.setAddressText("");
-    getNearbyLocations(centralLoc).then((data) => {
-      setNearbyArray(data);
-      var endLoc = ``;
-      for (var i = 0; i < data.length; i++) {
-        endLoc = endLoc + `place_id:${data[i].place_id}|`;
-      }
-      getDistanceMatrix(startLoc, endLoc).then((data2) => {
-        setTimeArray(data2);
-      });
-    });
-    // var endLoc = ``;
-    // for (var i = 0; i < nearbyArray.length; i++) {
-    //   endLoc = endLoc + `place_id:${nearbyArray[i].place_id}|`;
-    // }
-    // getDistanceMatrix(startLoc, endLoc).then((data) => {
-    //   setTimeArray(data);
-    // });
-  }, []);
+  // const ref = useRef();
+  // useEffect(() => {
+  //   ref.current?.setAddressText("");
+  //   getNearbyLocations(centralLoc, travelLogArray).then((data) => {
+  //     setNearbyArray(data);
+  //     var endLoc = ``;
+  //     for (var i = 0; i < data.length; i++) {
+  //       endLoc = endLoc + `place_id:${data[i].place_id}|`;
+  //     }
+  //     getDistanceMatrix(startLoc, endLoc).then((data2) => {
+  //       setTimeArray(data2);
+  //     });
+  //   });
+  // }, []);
 
   // run algorithm functions
   if (nearbyArray.length && timeArray.length) {
