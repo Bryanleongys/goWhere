@@ -42,6 +42,7 @@ import getTransitTime from "../../algorithm/getTransitTime";
 import getPostalCode2 from "../../algorithm/getPostalCode2";
 import minTime from "../../algorithm/minTime";
 import config from "../../config";
+import { useIsFocused } from "@react-navigation/native";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
@@ -74,6 +75,42 @@ const GoogleMapScreen = ({ navigation, route }) => {
     locationType = "restaurant";
     includeLog = false;
   }
+
+  const [travelLogArray, setTravelLogArray] = React.useState([]);
+  const [init, setInit] = React.useState(0);
+
+  const isFocused = useIsFocused();
+  const ref = useRef();
+  React.useEffect(() => {
+    setInit(0);
+    const unsubscribe = navigation.addListener("focus", () => {
+      console.log("Refreshed");
+      axios
+      .get(`${baseURL}cliques/getlogs/${GLOBAL.USER.cliqueID}`)
+      .then((res) => {
+        console.log("Successfully GET request");
+        setTravelLogArray(res.data);
+        setInit(1);
+        ref.current?.setAddressText("");
+        getNearbyLocations(centralLoc, travelLogArray, [0, 4], [0, 4]).then((data) => {
+          setNearbyArray(data);
+          var endLoc = ``;
+          for (var i = 0; i < data.length; i++) {
+            endLoc = endLoc + `place_id:${data[i].place_id}|`;
+          }
+          getDistanceMatrix(startLoc, endLoc).then((data2) => {
+            setTimeArray(data2);
+          });
+        });
+      })
+      .catch((error) => {
+        console.log("GET request failed");
+      });
+    });
+    return unsubscribe;
+  }, [isFocused]);
+
+  //console.log("travelLog array: ", travelLogArray);
 
   const handlePress = () => {
     let locationDetails = {
