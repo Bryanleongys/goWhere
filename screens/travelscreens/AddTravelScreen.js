@@ -39,6 +39,7 @@ const AddTravelScreen = ({ navigation, route }) => {
   const [postalCode, setPostalCode] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [latitude, setLatitude] = useState(null);
+  const [placeId, setPlaceId] = useState(null);
   console.log(postalCode);
 
   const [buttonWord, setButtonWord] = useState(
@@ -96,6 +97,7 @@ const AddTravelScreen = ({ navigation, route }) => {
       postalCode: postalCode,
       longitude: longitude,
       latitude: latitude,
+      placeId: placeId,
     };
     axios
       .patch(
@@ -164,6 +166,7 @@ const AddTravelScreen = ({ navigation, route }) => {
                   addressComponent.types.includes("postal_code")
               )?.short_name;
               setPostalCode(postalNum);
+              setPlaceId(details.place_id);
             }}
             query={{
               key: GOOGLE_PLACES_API_KEY,

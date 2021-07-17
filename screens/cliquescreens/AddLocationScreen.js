@@ -44,6 +44,7 @@ const AddLocationScreen = ({ route, navigation }) => {
   const [postalCode, setPostalCode] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [latitude, setLatitude] = useState(null);
+  const [placeId, setPlaceId] = useState(null);
 
   const handleSubmit = () => {
     if (location == "" || postalCode == "") {
@@ -57,6 +58,7 @@ const AddLocationScreen = ({ route, navigation }) => {
       postalCode: postalCode,
       longitude: longitude,
       latitude: latitude,
+      placeId: placeId
     };
 
     axios
@@ -66,6 +68,7 @@ const AddLocationScreen = ({ route, navigation }) => {
           console.log("Location added!");
           setLocation("");
           setPostalCode("");
+          setPlaceId("");
           ref.current?.setAddressText("");
           setButtonWord(<Text>Add Location</Text>);
           return Alert.alert("Location added!");
@@ -120,7 +123,7 @@ const AddLocationScreen = ({ route, navigation }) => {
                   addressComponent.types.includes("postal_code")
               )?.short_name;
               setPostalCode(postalNum);
-              console.log(details.geometry.location.lng);
+              setPlaceId(details.place_id);
             }}
             query={{
               key: GOOGLE_PLACES_API_KEY,

@@ -19,6 +19,9 @@ const cliqueSchema = new mongoose.Schema({
           type: Number,
           required: true,
         },
+        placeId: {
+          type: String
+        }
       },
     ],
   },
@@ -46,6 +49,9 @@ const cliqueSchema = new mongoose.Schema({
               latitude: {
                 type: Number,
               },
+              placeId: {
+                type: String
+              }
             },
           ],
         },
@@ -83,6 +89,9 @@ const cliqueSchema = new mongoose.Schema({
                 type: Number,
                 required: true,
               },
+              placeId: {
+                type: String
+              }
             },
           ],
         },

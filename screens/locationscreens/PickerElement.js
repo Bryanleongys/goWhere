@@ -46,6 +46,7 @@ const PickerElement = ({
   const [postalCode, setPostalCode] = React.useState("");
   const [latitude, setLatitude] = React.useState(null);
   const [longitude, setLongitude] = React.useState(null);
+  const [placeId, setPlaceId] = React.useState(null);
 
   const [currData, setData] = React.useState([]);
   const [init, setInit] = React.useState(0);
@@ -96,6 +97,7 @@ const PickerElement = ({
     postalCode: "",
     latitude: null,
     longitude: null,
+    placeId: "",
   };
 
   if (selectedLocation != "others") {
@@ -105,6 +107,7 @@ const PickerElement = ({
       postalCode: currData[selectedLocation].postalCode,
       latitude: currData[selectedLocation].latitude,
       longitude: currData[selectedLocation].longitude,
+      placeId: currData[selectedLocation].placeId,
     };
   } else {
     objectPass = {
@@ -113,6 +116,7 @@ const PickerElement = ({
       postalCode: postalCode,
       latitude: latitude,
       longitude: longitude,
+      placeId: placeId,
     };
   }
 
@@ -164,8 +168,7 @@ const PickerElement = ({
                     addressComponent.types.includes("postal_code")
                 )?.short_name;
                 setPostalCode(postalNum);
-                console.log(details.place_id);
-                console.log(postalNum);
+                setPlaceId(details.place_id)
               }}
               query={{
                 key: GOOGLE_PLACES_API_KEY,

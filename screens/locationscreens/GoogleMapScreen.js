@@ -42,7 +42,6 @@ import getTransitTime from "../../algorithm/getTransitTime";
 import getPostalCode2 from "../../algorithm/getPostalCode2";
 import minTime from "../../algorithm/minTime";
 import config from "../../config";
-import { useIsFocused } from "@react-navigation/native";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
@@ -52,6 +51,7 @@ const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 const GoogleMapScreen = ({ navigation, route }) => {
   const GLOBAL = require("../global");
   const [postalCode, setPostalCode] = React.useState(null);
+  const [placeId, setPlaceId] = React.useState(null);
   const { dateString, timeString, dateNum, objectArray, time } = route.params;
 
   // Solve react navigation repeat bug
@@ -79,37 +79,6 @@ const GoogleMapScreen = ({ navigation, route }) => {
   const [travelLogArray, setTravelLogArray] = React.useState([]);
   const [init, setInit] = React.useState(0);
 
-  const isFocused = useIsFocused();
-  const ref = useRef();
-  React.useEffect(() => {
-    setInit(0);
-    const unsubscribe = navigation.addListener("focus", () => {
-      console.log("Refreshed");
-      axios
-      .get(`${baseURL}cliques/getlogs/${GLOBAL.USER.cliqueID}`)
-      .then((res) => {
-        console.log("Successfully GET request");
-        setTravelLogArray(res.data);
-        setInit(1);
-        ref.current?.setAddressText("");
-        getNearbyLocations(centralLoc, travelLogArray, [0, 4], [0, 4]).then((data) => {
-          setNearbyArray(data);
-          var endLoc = ``;
-          for (var i = 0; i < data.length; i++) {
-            endLoc = endLoc + `place_id:${data[i].place_id}|`;
-          }
-          getDistanceMatrix(startLoc, endLoc).then((data2) => {
-            setTimeArray(data2);
-          });
-        });
-      })
-      .catch((error) => {
-        console.log("GET request failed");
-      });
-    });
-    return unsubscribe;
-  }, [isFocused]);
-
   //console.log("travelLog array: ", travelLogArray);
 
   const handlePress = () => {
@@ -120,6 +89,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
       postalCode: postalCode, // figure out how to get from google api
       longitude: markerLong,
       latitude: markerLat,
+      placeId: placeId
     };
 
     axios
@@ -197,45 +167,39 @@ const GoogleMapScreen = ({ navigation, route }) => {
 
   // for destinations
   const centralLoc = `${central_coordinate.latitude},${central_coordinate.longitude}`; // midpoint
-
-  // for destinations
-
-  // initialize arrays
-  const ref = useRef();
   const isFocused = useIsFocused();
-  useEffect(() => {
-    ref.current?.setAddressText("");
-    getNearbyLocations(centralLoc, locationType).then((data) => {
-      getPostalCode2(data).then((data2) => setNearbyArray(data2));
-      // setNearbyArray(data);
-      setMarkerName(data[0].name);
-      setMarkerLat(data[0].latitude);
-      setMarkerLong(data[0].longitude);
+  const ref = useRef();
+
+  React.useEffect(() => {
+    setInit(0);
+    const unsubscribe = navigation.addListener("focus", () => {
+      console.log("Refreshed");
+      axios
+      .get(`${baseURL}cliques/getlogs/${GLOBAL.USER.cliqueID}`)
+      .then((res) => {
+        console.log("Successfully GET request");
+        setTravelLogArray(res.data);
+        setInit(1);
+        ref.current?.setAddressText("");
+        getNearbyLocations(centralLoc, res.data, ratingsValue, priceValue, locationType).then((data) =>{
+          setNearbyArray(data);
+          setPostalCode(data[0].postalCode);
+          setMarkerName(data[0].name);
+          setMarkerLat(data[0].latitude);
+          setMarkerLong(data[0].longitude);
+          setPlaceId(data[0].placeId);
+        }
+        )
+      })
+      .catch((error) => {
+        console.log("GET request failed");
+      });
     });
+
+    // });
+    return unsubscribe;
   }, [isFocused]);
-
-  // console.log(nearbyArray);
-
-  // if (nearbyArray.length) {
-  //   var count = 0;
-  //   while (count < nearbyArray.length) {
-  //     async () => {
-  //       var number = await getPostalCode(
-  //         nearbyArray[count].latitude,
-  //         nearbyArray[count].longitude
-  //       );
-  //       console.log(nearbyArray[count]);
-  //       count++;
-  //     };
-  //   }
-  //   count = 0;
-  // }
-
-  // run algorithm functions
-  // if (nearbyArray.length && timeArray.length) {
-  //   const index = minTime(timeArray);
-  //   console.log(nearbyArray[index].name);
-  // }
+// console.log(nearbyArray);
 
   // Marker position - select top 3 locations
   var locationsArray = [];
@@ -245,11 +209,12 @@ const GoogleMapScreen = ({ navigation, route }) => {
     }
   }
 
-  const changeMarkerPosition = (name, longitude, latitude, postalCode) => {
+  const changeMarkerPosition = (name, longitude, latitude, postalCode, placeId) => {
     setMarkerLong(longitude);
     setMarkerLat(latitude);
     setMarkerName(name);
     setPostalCode(postalCode);
+    setPlaceId(placeId);
   };
 
   return (
@@ -281,6 +246,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
                 markerLat: markerLat,
                 markerLong: markerLong,
                 locationName: markerName,
+                placeId: placeId,
                 time: time,
               })
             }
@@ -310,7 +276,8 @@ const GoogleMapScreen = ({ navigation, route }) => {
                     location.name,
                     location.longitude,
                     location.latitude,
-                    location.postalCode
+                    location.postalCode,
+                    location.placeId
                   )
                 }
                 underlayColor={"#00c6bb"}
@@ -356,6 +323,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
                   addressComponent.types.includes("postal_code")
               )?.short_name;
               setPostalCode(postalNum);
+              setPlaceId(details.place_id);
             }}
             query={{
               key: GOOGLE_PLACES_API_KEY,
@@ -420,8 +388,9 @@ const GoogleMapScreen = ({ navigation, route }) => {
         </FooterTab>
       </Footer>
     </Container>
-  );
-};
+  )
+        }
+  
 
 const styles = StyleSheet.create({
   container: {

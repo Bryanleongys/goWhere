@@ -32,7 +32,11 @@ console.log(GOOGLE_PLACES_API_KEY);
 const EditMemberLocationScreen = ({ route, navigation }) => {
   GLOBAL = require("../global");
   const [location, setLocation] = useState("");
-  const [postalCode, setPostalCode] = useState("");
+  const [postalCode, setPostalCode] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [latitude, setLatitude] = useState(null);
+  const [placeId, setPlaceId] = useState(null);
+
   const [buttonWord, setButtonWord] = React.useState(
     <Text>Edit Location</Text>
   );
@@ -70,6 +74,9 @@ const EditMemberLocationScreen = ({ route, navigation }) => {
       name: route.params.paramKey.name,
       locationName: location,
       postalCode: postalCode,
+      latitude: latitude,
+      longitude: longitude,
+      placeId: placeId
     };
 
     console.log("adding");
@@ -80,6 +87,9 @@ const EditMemberLocationScreen = ({ route, navigation }) => {
           console.log("Location added!");
           setLocation("");
           setPostalCode("");
+          setLatitude(null);
+          setLongitude(null);
+          setPlaceId(null);
           setButtonWord(<Text>Add Location</Text>);
           return Alert.alert("Changes Successful!");
         }
@@ -113,13 +123,20 @@ const EditMemberLocationScreen = ({ route, navigation }) => {
         </Item>
         <Item style={styles.searchBarContainer}>
           <GooglePlacesAutocomplete
-            GooglePlacesDetailsQuery={{ fields: "geometry" }}
             enablePoweredByContainer={false}
+            fetchDetails={true}
             ref={ref}
             placeholder="Name/Postal"
             onPress={(data, details = null) => {
               // 'details' is provided when fetchDetails = true
-              console.log(details);
+              setLongitude(details.geometry.location.lng);
+              setLatitude(details.geometry.location.lat);
+              const postalNum = details?.address_components.find(
+                (addressComponent) =>
+                  addressComponent.types.includes("postal_code")
+              )?.short_name;
+              setPostalCode(postalNum);
+              setPlaceId(details.place_id);
             }}
             query={{
               key: GOOGLE_PLACES_API_KEY,

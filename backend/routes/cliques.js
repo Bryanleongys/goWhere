@@ -134,6 +134,7 @@ router.patch("/addlocation/:id", async (req, res) => {
         postalCode: req.body.postalCode,
         longitude: req.body.longitude,
         latitude: req.body.latitude,
+        placeId: req.body.placeId
       },
     },
   });
@@ -316,6 +317,7 @@ router.patch("/addlog/:id", async (req, res) => {
           postalCode: req.body.postalCode,
           longitude: req.body.longitude,
           latitude: req.body.latitude,
+          placeId: req.body.placeId
         },
       },
     });
@@ -339,6 +341,7 @@ router.patch("/addlog/:id", async (req, res) => {
               postalCode: req.body.postalCode,
               longitude: req.body.longitude,
               latitude: req.body.latitude,
+              placeId: req.body.placeId
             },
           },
         },
@@ -433,6 +436,7 @@ router.patch("/addfavourite/:id", async (req, res) => {
         postalCode: req.body.postalCode,
         longitude: req.body.longitude,
         latitude: req.body.latitude,
+        placeId: req.body.placeId
       },
     },
   });

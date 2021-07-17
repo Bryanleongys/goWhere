@@ -41,6 +41,7 @@ const SwipeListElement = ({ inputArray, date }) => {
       postalCode: inputArray[rowKey].postalCode,
       longitude: inputArray[rowKey].longitude,
       latitude: inputArray[rowKey].latitude,
+      placeId: inputArray[rowKey].placeId
     };
 
     axios

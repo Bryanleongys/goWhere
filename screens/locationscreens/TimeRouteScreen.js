@@ -24,7 +24,7 @@ import getTransitTime from "../../algorithm/getTransitTime";
 import getDrivingTime from "../../algorithm/getDrivingTime";
 
 const TimeRouteScreen = ({ navigation, route }) => {
-  const { objectArray, markerLat, markerLong, locationName, time } =
+  const { objectArray, markerLat, markerLong, locationName, placeId, time } =
     route.params;
   const [currData, setData] = React.useState([]);
   const [transitArray, setTransitArray] = React.useState([]);
@@ -33,10 +33,10 @@ const TimeRouteScreen = ({ navigation, route }) => {
   var startLoc = ``;
   for (var i = 0; i < objectArray.length; i++) {
     startLoc =
-      startLoc + `${objectArray[i].latitude},${objectArray[i].longitude}|`;
+      startLoc + `place_id:${objectArray[i].placeId}|`;
   }
 
-  var endLoc = `${markerLat},${markerLong}`;
+  var endLoc = `place_id:${placeId}`;
 
   useEffect(() => {
     getTransitTime(startLoc, endLoc, time).then((data) => {
