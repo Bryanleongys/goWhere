@@ -9,7 +9,8 @@ async function getNearbyLocations(
   travelLog,
   rtngs,
   priceLvl,
-  locationType
+  locationType,
+  includeLog
 ) {
   var objectArray = [];
   try {
@@ -18,23 +19,15 @@ async function getNearbyLocations(
     )
       .then((response) => response.json())
       .then((responseJson) => {
-        var i = 0;
-        var j = 0;
         var testArray = [];
-
-        // console.log(
-        //   travelLog.includes(
-        //     (a) => a[6].locations.placeId == "ChIJwSNJ77oZ2jERuX8Bl5bU2tI"
-        //   ) == undefined
-        // );
-
         for (var i = 0; i < travelLog.length; i++) {
           for (var j = 0; j < travelLog[i].locations.length; j++) {
             testArray.push(travelLog[i].locations[j].placeId);
           }
         }
 
-        console.log(testArray);
+        var i = 0;
+        var j = 0;
         while (j < 3 && i < responseJson.results.length) {
           // console.log(`conditional ${i}: `, travelLog.find((a) => a.latitude == responseJson.results[i].geometry.location.lat && a.longitude == responseJson.results[i].geometry.location.lng));
           if (responseJson.results[i]) {
@@ -46,7 +39,8 @@ async function getNearbyLocations(
               continue;
             }
             if (
-              testArray.includes(responseJson.results[i].place_id) ||
+              (includeLog &&
+                testArray.includes(responseJson.results[i].place_id)) ||
               responseJson.results[i].rating <= rtngs[0] ||
               responseJson.results[i].rating >= rtngs[1] ||
               responseJson.results[i].price_level <= priceLvl[0] ||

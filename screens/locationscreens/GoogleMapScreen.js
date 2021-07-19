@@ -186,7 +186,8 @@ const GoogleMapScreen = ({ navigation, route }) => {
             res.data,
             ratingsValue,
             priceValue,
-            locationType
+            locationType,
+            includeLog
           ).then((data) => {
             setNearbyArray(data);
             setPostalCode(data[0].postalCode);
