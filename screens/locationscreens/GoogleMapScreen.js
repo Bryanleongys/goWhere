@@ -37,10 +37,9 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { useIsFocused } from "@react-navigation/native";
 import LoadingScreen from "../common/LoadingScreen";
 import { CommonActions } from "@react-navigation/native";
-import getNearbyLocations from "../../algorithm/getNearbyLocations";
-import getTransitTime from "../../algorithm/getTransitTime";
+import getNearbyLocations2 from "../../algorithm/getNearbyLocations2";
 import getPostalCode2 from "../../algorithm/getPostalCode2";
-import minTime from "../../algorithm/minTime";
+import filterLocations from "../../algorithm/filterLocations";
 import config from "../../config";
 
 import axios from "axios";
@@ -62,16 +61,14 @@ const GoogleMapScreen = ({ navigation, route }) => {
       }
     }
   }
-  var { ratingsValue, priceValue, locationType, includeLog } = route.params;
+  var { ratingsValue, locationType, includeLog } = route.params;
 
   if (
     ratingsValue == undefined ||
-    priceValue == undefined ||
     locationType == undefined ||
     includeLog == undefined
   ) {
     ratingsValue = [0, 5];
-    priceValue = [0, 4];
     locationType = "restaurant";
     includeLog = false;
   }
@@ -82,16 +79,19 @@ const GoogleMapScreen = ({ navigation, route }) => {
   //console.log("travelLog array: ", travelLogArray);
 
   const handlePress = () => {
+    if (postalCode == null || placeId == null || markerName == "N/A") {
+      return Alert.alert("No location selected! Please select a location.");
+    }
     let locationDetails = {
       date: dateString,
       dateNum: dateNum,
       locationName: markerName,
-      postalCode: postalCode, // figure out how to get from google api
+      postalCode: postalCode,
       longitude: markerLong,
       latitude: markerLat,
       placeId: placeId,
     };
-
+    console.log(locationDetails);
     axios
       .patch(
         `${baseURL}cliques/addlog/${GLOBAL.USER.cliqueID}`,
@@ -171,6 +171,10 @@ const GoogleMapScreen = ({ navigation, route }) => {
   const ref = useRef();
 
   React.useEffect(() => {
+    setNearbyArray([]);
+    setPostalCode(null);
+    setPlaceId(null);
+    setMarkerName("N/A");
     setInit(0);
     const unsubscribe = navigation.addListener("focus", () => {
       console.log("Refreshed");
@@ -179,22 +183,29 @@ const GoogleMapScreen = ({ navigation, route }) => {
         .then((res) => {
           console.log("Successfully GET request");
           setTravelLogArray(res.data);
-          setInit(1);
           ref.current?.setAddressText("");
-          getNearbyLocations(
-            centralLoc,
-            res.data,
-            ratingsValue,
-            priceValue,
-            locationType,
-            includeLog
-          ).then((data) => {
-            setNearbyArray(data);
-            setPostalCode(data[0].postalCode);
-            setMarkerName(data[0].name);
-            setMarkerLat(data[0].latitude);
-            setMarkerLong(data[0].longitude);
-            setPlaceId(data[0].placeId);
+          getNearbyLocations2(centralLoc, locationType).then((data) => {
+            getPostalCode2(data).then((data2) => {
+              var data3 = filterLocations(
+                data2,
+                res.data,
+                ratingsValue,
+                includeLog
+              );
+              if (!data3.length) {
+                Alert.alert(
+                  "No location available. Please select other filters."
+                );
+                return setInit(1);
+              }
+              setNearbyArray(data3);
+              setPostalCode(data3[0].postalCode);
+              setMarkerName(data3[0].name);
+              setMarkerLat(data3[0].latitude);
+              setMarkerLong(data3[0].longitude);
+              setPlaceId(data3[0].placeId);
+              setInit(1);
+            });
           });
         })
         .catch((error) => {
@@ -264,37 +275,38 @@ const GoogleMapScreen = ({ navigation, route }) => {
             </Text>
           </ListItem>
         </List>
-        {nearbyArray.map((location, index) => {
-          if (!nearbyArray.length) {
-            return <LoadingScreen />;
-          }
-          return (
-            <List>
-              <ListItem
-                onPress={() =>
-                  changeMarkerPosition(
-                    location.name,
-                    location.longitude,
-                    location.latitude,
-                    location.postalCode,
-                    location.placeId
-                  )
-                }
-                underlayColor={"#00c6bb"}
-              >
-                <Text>
-                  {index + 1}. {location.name}
-                </Text>
-              </ListItem>
-            </List>
-          );
-        })}
+        {init ? (
+          nearbyArray.map((location, index) => {
+            return (
+              <List>
+                <ListItem
+                  onPress={() =>
+                    changeMarkerPosition(
+                      location.name,
+                      location.longitude,
+                      location.latitude,
+                      location.postalCode,
+                      location.placeId
+                    )
+                  }
+                  underlayColor={"#00c6bb"}
+                >
+                  <Text>
+                    {index + 1}. {location.name}
+                  </Text>
+                </ListItem>
+              </List>
+            );
+          })
+        ) : (
+          <LoadingScreen />
+        )}
+
         <Content style={{ paddingTop: 20 }}>
           <Button
             onPress={() =>
               navigation.navigate("Filter", {
                 inputRatingsValue: ratingsValue,
-                inputPriceValue: priceValue,
                 inputLocationType: locationType,
                 inputIncludeLog: includeLog,
               })

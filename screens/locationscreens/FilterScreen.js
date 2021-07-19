@@ -34,19 +34,16 @@ import { Picker } from "@react-native-picker/picker";
 const FilterScreen = ({ navigation, route }) => {
   // min value - ratingsValue[0], max value - ratingsValue[1]
   const [ratingsValue, setRatingsValue] = React.useState([0, 5]);
-  const [priceValue, setPriceValue] = React.useState([0, 4]);
   const [locationType, setLocationType] = React.useState("restaurant");
   const [includeLog, setIncludeLog] = React.useState(false);
   const {
     inputRatingsValue,
-    inputPriceValue,
     inputLocationType,
     inputIncludeLog,
   } = route.params;
 
   useEffect(() => {
     setRatingsValue(inputRatingsValue);
-    setPriceValue(inputPriceValue);
     setLocationType(inputLocationType);
     setIncludeLog(inputIncludeLog);
   }, []);
@@ -60,7 +57,6 @@ const FilterScreen = ({ navigation, route }) => {
             onPress={() =>
               navigation.navigate("GoogleMap", {
                 ratingsValue: ratingsValue,
-                priceValue: priceValue,
                 locationType: locationType,
                 includeLog: includeLog,
               })
@@ -85,11 +81,13 @@ const FilterScreen = ({ navigation, route }) => {
             selectedValue={locationType}
             onValueChange={(itemValue, itemIndex) => setLocationType(itemValue)}
           >
-            <Picker.Item label="Restaurant" value="restaurant" />
-            <Picker.Item label="Cafe" value="cafe" />
-            <Picker.Item label="Shopping Mall" value="shopping_mall" />
-            <Picker.Item label="Bar" value="bar" />
-            <Picker.Item label="Clothing" value="clothing_store" />
+            <Picker.Item label="Dining" value="restaurant|cafe" />
+            <Picker.Item label="Bar" value="bar|night_club" />
+            <Picker.Item label="Shopping Mall" value="shopping_mall|department_store" />
+            <Picker.Item label="Museum" value="museum|art_gallery" />
+            <Picker.Item label="Park" value="park" />
+            <Picker.Item label="Clothing Store" value="clothing_store" />
+            <Picker.Item label="Gym" value="gym" />
           </Picker>
           <ListItem></ListItem>
           <ListItem>
@@ -134,29 +132,6 @@ const FilterScreen = ({ navigation, route }) => {
                 min={0}
                 max={5}
                 step={0.5}
-                allowOverlap={true}
-                enableLabel={true}
-              />
-            </View>
-            <View
-              style={{
-                paddingTop: 40,
-                flexDirection: "row",
-                alignItems: "center",
-                flex: 1,
-                justifyContent: "flex-start",
-              }}
-            >
-              <Text style={{ paddingRight: 40 }}>Price </Text>
-              <MultiSlider
-                values={[priceValue[0], priceValue[1]]}
-                sliderLength={250}
-                onValuesChange={(values) => {
-                  setPriceValue(values);
-                }}
-                min={0}
-                max={4}
-                step={1}
                 allowOverlap={true}
                 enableLabel={true}
               />
