@@ -4,14 +4,17 @@ import getPostalCode2 from "./getPostalCode2";
 import getPostalCode from "./getPostalCode";
 const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 
-async function getNearbyLocations(
+const getNearbyLocations2 = async (
   loc,
   travelLog,
   rtngs,
   priceLvl,
   locationType
-) {
+) => {
   var objectArray = [];
+  var postalArray = [];
+  const [postalCode, setPostalCode] = React.useState(null);
+  console.log(travelLog);
   try {
     const resp = await fetch(
       `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc}&type=${locationType}&rankby=distance&key=${GOOGLE_PLACES_API_KEY}`
@@ -20,33 +23,27 @@ async function getNearbyLocations(
       .then((responseJson) => {
         var i = 0;
         var j = 0;
-        var testArray = [];
-
-        // console.log(
-        //   travelLog.includes(
-        //     (a) => a[6].locations.placeId == "ChIJwSNJ77oZ2jERuX8Bl5bU2tI"
-        //   ) == undefined
-        // );
-
-        for (var i = 0; i < travelLog.length; i++) {
-          for (var j = 0; j < travelLog[i].locations.length; j++) {
-            testArray.push(travelLog[i].locations[j].placeId);
-          }
-        }
-
-        console.log(testArray);
         while (j < 3 && i < responseJson.results.length) {
           // console.log(`conditional ${i}: `, travelLog.find((a) => a.latitude == responseJson.results[i].geometry.location.lat && a.longitude == responseJson.results[i].geometry.location.lng));
+
           if (responseJson.results[i]) {
+            // if ((rtngs != [0, 5] && responseJson.results[i].rating == undefined) || ( priceLvl != [0, 4] && responseJson.results[i].price_level == undefined)) {
+            // i++;
+            // continue;
+            // }
+            // console.log(postalCode.then((data) => data))
+            var postalCode = getPostalCode(
+              responseJson.results[i].geometry.location.lat,
+              responseJson.results[i].geometry.location.lng
+            );
+            postalCode.then((data) => setPostalCode(data));
+
             if (
-              !(rtngs[0] == 0 && rtngs[1] == 5) &&
-              responseJson.results[i].rating == undefined
-            ) {
-              i++;
-              continue;
-            }
-            if (
-              testArray.includes(responseJson.results[i].place_id) ||
+              travelLog.find(
+                (a) =>
+                  a.latitude == responseJson.results[i].geometry.location.lat &&
+                  a.longitude == responseJson.results[i].geometry.location.lng
+              ) != undefined ||
               responseJson.results[i].rating <= rtngs[0] ||
               responseJson.results[i].rating >= rtngs[1] ||
               responseJson.results[i].price_level <= priceLvl[0] ||
@@ -54,6 +51,7 @@ async function getNearbyLocations(
             ) {
               i++;
             } else {
+              // postalCode.then((data) => {
               objectArray.push({
                 name: responseJson.results[i].name,
                 latitude: responseJson.results[i].geometry.location.lat,
@@ -61,8 +59,9 @@ async function getNearbyLocations(
                 placeId: responseJson.results[i].place_id,
                 rating: responseJson.results[i].rating,
                 price_level: responseJson.results[i].price_level,
-                postalCode: null,
+                postalCode: postalCode,
               });
+
               i++;
               j++;
             }
@@ -73,6 +72,6 @@ async function getNearbyLocations(
     console.log("Error: ", error);
   }
   return objectArray;
-}
+};
 
-export default getNearbyLocations;
+export default getNearbyLocations2;

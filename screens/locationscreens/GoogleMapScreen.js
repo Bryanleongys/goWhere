@@ -89,7 +89,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
       postalCode: postalCode, // figure out how to get from google api
       longitude: markerLong,
       latitude: markerLat,
-      placeId: placeId
+      placeId: placeId,
     };
 
     axios
@@ -175,31 +175,36 @@ const GoogleMapScreen = ({ navigation, route }) => {
     const unsubscribe = navigation.addListener("focus", () => {
       console.log("Refreshed");
       axios
-      .get(`${baseURL}cliques/getlogs/${GLOBAL.USER.cliqueID}`)
-      .then((res) => {
-        console.log("Successfully GET request");
-        setTravelLogArray(res.data);
-        setInit(1);
-        ref.current?.setAddressText("");
-        getNearbyLocations(centralLoc, res.data, ratingsValue, priceValue, locationType).then((data) =>{
-          setNearbyArray(data);
-          setPostalCode(data[0].postalCode);
-          setMarkerName(data[0].name);
-          setMarkerLat(data[0].latitude);
-          setMarkerLong(data[0].longitude);
-          setPlaceId(data[0].placeId);
-        }
-        )
-      })
-      .catch((error) => {
-        console.log("GET request failed");
-      });
+        .get(`${baseURL}cliques/getlogs/${GLOBAL.USER.cliqueID}`)
+        .then((res) => {
+          console.log("Successfully GET request");
+          setTravelLogArray(res.data);
+          setInit(1);
+          ref.current?.setAddressText("");
+          getNearbyLocations(
+            centralLoc,
+            res.data,
+            ratingsValue,
+            priceValue,
+            locationType
+          ).then((data) => {
+            setNearbyArray(data);
+            setPostalCode(data[0].postalCode);
+            setMarkerName(data[0].name);
+            setMarkerLat(data[0].latitude);
+            setMarkerLong(data[0].longitude);
+            setPlaceId(data[0].placeId);
+          });
+        })
+        .catch((error) => {
+          console.log("GET request failed");
+        });
     });
 
     // });
     return unsubscribe;
   }, [isFocused]);
-// console.log(nearbyArray);
+  // console.log(nearbyArray);
 
   // Marker position - select top 3 locations
   var locationsArray = [];
@@ -209,7 +214,13 @@ const GoogleMapScreen = ({ navigation, route }) => {
     }
   }
 
-  const changeMarkerPosition = (name, longitude, latitude, postalCode, placeId) => {
+  const changeMarkerPosition = (
+    name,
+    longitude,
+    latitude,
+    postalCode,
+    placeId
+  ) => {
     setMarkerLong(longitude);
     setMarkerLat(latitude);
     setMarkerName(name);
@@ -221,23 +232,11 @@ const GoogleMapScreen = ({ navigation, route }) => {
     <Container>
       <Header style={{ height: 50, backgroundColor: "#bff6eb" }}>
         <Left />
+
         <Body style={{ flex: 3 }}>
           <Title>Central Locations</Title>
         </Body>
         <Right>
-          <Button
-            transparent
-            onPress={() =>
-              navigation.navigate("Filter", {
-                inputRatingsValue: ratingsValue,
-                inputPriceValue: priceValue,
-                inputLocationType: locationType,
-                inputIncludeLog: includeLog,
-              })
-            }
-          >
-            <Icon name="ios-list" />
-          </Button>
           <Button
             transparent
             onPress={() =>
@@ -289,6 +288,21 @@ const GoogleMapScreen = ({ navigation, route }) => {
             </List>
           );
         })}
+        <Content style={{ paddingTop: 20 }}>
+          <Button
+            onPress={() =>
+              navigation.navigate("Filter", {
+                inputRatingsValue: ratingsValue,
+                inputPriceValue: priceValue,
+                inputLocationType: locationType,
+                inputIncludeLog: includeLog,
+              })
+            }
+            style={{ alignSelf: "center", height: 35 }}
+          >
+            <Text>Change Filters</Text>
+          </Button>
+        </Content>
       </Content>
       <Content style={{ backgroundColor: "#bff6eb" }} scrollEnabled={false}>
         <Item style={styles.searchBarContainer}>
@@ -388,9 +402,8 @@ const GoogleMapScreen = ({ navigation, route }) => {
         </FooterTab>
       </Footer>
     </Container>
-  )
-        }
-  
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

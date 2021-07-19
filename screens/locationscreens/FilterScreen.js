@@ -75,55 +75,12 @@ const FilterScreen = ({ navigation, route }) => {
         <Right />
       </Header>
       <Content>
-        <View
-          style={{
-            paddingTop: 40,
-            paddingLeft: 20,
-            flexDirection: "row",
-            alignItems: "center",
-            flex: 1,
-            justifyContent: "flex-start",
-          }}
-        >
-          <Text style={{ paddingRight: 23 }}>Ratings </Text>
-          <MultiSlider
-            values={[ratingsValue[0], ratingsValue[1]]}
-            sliderLength={250}
-            onValuesChange={(values) => {
-              setRatingsValue(values);
-            }}
-            min={0}
-            max={5}
-            step={0.5}
-            allowOverlap={true}
-            enableLabel={true}
-          />
-        </View>
-        <View
-          style={{
-            paddingTop: 40,
-            paddingLeft: 20,
-            flexDirection: "row",
-            alignItems: "center",
-            flex: 1,
-            justifyContent: "flex-start",
-          }}
-        >
-          <Text style={{ paddingRight: 40 }}>Price </Text>
-          <MultiSlider
-            values={[priceValue[0], priceValue[1]]}
-            sliderLength={250}
-            onValuesChange={(values) => {
-              setPriceValue(values);
-            }}
-            min={0}
-            max={4}
-            step={1}
-            allowOverlap={true}
-            enableLabel={true}
-          />
-        </View>
         <List>
+          <ListItem>
+            <Text style={{ fontWeight: "bold", alignSelf: "center" }}>
+              Type of Place
+            </Text>
+          </ListItem>
           <Picker
             selectedValue={locationType}
             onValueChange={(itemValue, itemIndex) => setLocationType(itemValue)}
@@ -134,8 +91,12 @@ const FilterScreen = ({ navigation, route }) => {
             <Picker.Item label="Bar" value="bar" />
             <Picker.Item label="Clothing" value="clothing_store" />
           </Picker>
-        </List>
-        <List>
+          <ListItem></ListItem>
+          <ListItem>
+            <Text style={{ fontWeight: "bold", alignSelf: "center" }}>
+              Travel History
+            </Text>
+          </ListItem>
           <ListItem
             button
             onPress={() => setIncludeLog(!includeLog)}
@@ -149,6 +110,57 @@ const FilterScreen = ({ navigation, route }) => {
             <Body>
               <Text style={styles.text}>Consider Travel Log</Text>
             </Body>
+          </ListItem>
+          <ListItem>
+            <Text style={{ fontWeight: "bold" }}>Range Selections</Text>
+          </ListItem>
+          <ListItem style={{ flexDirection: "column", alignItems: "center" }}>
+            <View
+              style={{
+                paddingTop: 40,
+                flexDirection: "row",
+                alignItems: "center",
+                flex: 1,
+                justifyContent: "flex-start",
+              }}
+            >
+              <Text style={{ paddingRight: 23 }}>Ratings </Text>
+              <MultiSlider
+                values={[ratingsValue[0], ratingsValue[1]]}
+                sliderLength={250}
+                onValuesChange={(values) => {
+                  setRatingsValue(values);
+                }}
+                min={0}
+                max={5}
+                step={0.5}
+                allowOverlap={true}
+                enableLabel={true}
+              />
+            </View>
+            <View
+              style={{
+                paddingTop: 40,
+                flexDirection: "row",
+                alignItems: "center",
+                flex: 1,
+                justifyContent: "flex-start",
+              }}
+            >
+              <Text style={{ paddingRight: 40 }}>Price </Text>
+              <MultiSlider
+                values={[priceValue[0], priceValue[1]]}
+                sliderLength={250}
+                onValuesChange={(values) => {
+                  setPriceValue(values);
+                }}
+                min={0}
+                max={4}
+                step={1}
+                allowOverlap={true}
+                enableLabel={true}
+              />
+            </View>
           </ListItem>
         </List>
       </Content>
@@ -177,6 +189,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     alignSelf: "center",
     alignItems: "center",
+  },
+  listItem: {
+    backgroundColor: "#bff6eb",
   },
 });
 

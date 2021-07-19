@@ -17,6 +17,7 @@ async function getPostalCode(latitude, longitude) {
   } catch (error) {
     console.log("Error: ", error);
   }
+  // console.log(postalCode);
   return postalCode;
 }
 
