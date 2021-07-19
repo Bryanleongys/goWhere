@@ -16,13 +16,18 @@ import {
 } from "native-base";
 import { Alert, ActivityIndicator, StyleSheet, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import BoxContainer from "../travelscreens/BoxContainer";
 
 import config from "../../config";
 
 const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 
-const GoogleSearchBar = () => {
-  const [location, setLocation] = useState("");
+const GoogleSearchBar = ({ parentCallback, index }) => {
+  const [locationName, setLocationName] = React.useState("");
+  const [postalCode, setPostalCode] = React.useState("");
+  const [latitude, setLatitude] = React.useState(null);
+  const [longitude, setLongitude] = React.useState(null);
+  const [placeId, setPlaceId] = React.useState(null);
 
   const ref = useRef();
 
@@ -30,39 +35,64 @@ const GoogleSearchBar = () => {
     ref.current?.setAddressText("");
   }, []);
 
+  var objectPass = {
+    personName: "Person " + (index + 1),
+    locationName: locationName,
+    postalCode: postalCode,
+    latitude: latitude,
+    longitude: longitude,
+    placeId: placeId,
+  };
+
+  const onTrigger = () => {
+    parentCallback(objectPass, index);
+  };
+
   return (
-    <Item style={styles.searchBarContainer}>
-      <GooglePlacesAutocomplete
-        enablePoweredByContainer={false}
-        ref={ref}
-        placeholder="Name/Postal"
-        fetchDetails={true}
-        onPress={(data, details = null) => {
-          // 'details' is provided when fetchDetails = true
-          // setLocation(data.structured_formatting.main_text);
-          console.log(details.geometry.location.lat);
-        }}
-        query={{
-          key: GOOGLE_PLACES_API_KEY,
-          language: "en",
-          components: "country:sg",
-        }}
-        styles={autoCompleteStyles}
-      />
-      {/* <Input value={location} onChangeText={setLocation} /> */}
-    </Item>
+    <Content contentContainerStyle={{ paddingBottom: 30 }}>
+      <BoxContainer style={styles.container}>
+        <Text> Person {index + 1}</Text>
+        <GooglePlacesAutocomplete
+          enablePoweredByContainer={false}
+          fetchDetails={true}
+          ref={ref}
+          placeholder="Name/Postal"
+          onPress={(data, details = null) => {
+            // 'details' is provided when fetchDetails = true
+            setLatitude(details.geometry.location.lat);
+            setLongitude(details.geometry.location.lng);
+            setLocationName(data.structured_formatting.main_text);
+            const postalNum = details?.address_components.find(
+              (addressComponent) =>
+                addressComponent.types.includes("postal_code")
+            )?.short_name;
+            setPostalCode(postalNum);
+            setPlaceId(details.place_id);
+          }}
+          query={{
+            key: GOOGLE_PLACES_API_KEY,
+            language: "en",
+            components: "country:sg",
+          }}
+          styles={autoCompleteStyles}
+        />
+        {onTrigger()}
+      </BoxContainer>
+    </Content>
   );
 };
 
 const styles = StyleSheet.create({
   searchBarContainer: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    position: "absolute",
-    bottom: 0,
     zIndex: 1,
     width: "90%",
+  },
+  container: {
+    backgroundColor: "#8AEEDA",
+    height: 210,
+    width: 350,
   },
 });
 
@@ -75,6 +105,7 @@ const autoCompleteStyles = StyleSheet.create({
     borderColor: "#c8c7cc",
     borderWidth: 1,
     borderRadius: 2,
+    height: 90,
   },
 });
 

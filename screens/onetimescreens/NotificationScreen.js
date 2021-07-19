@@ -13,11 +13,19 @@ import {
 } from "native-base";
 import { CommonActions } from "@react-navigation/native";
 
-const NotificationScreen = ({ navigation }) => {
+const NotificationScreen = ({ navigation, route }) => {
+  const { markerName, dateString, timeString, postalCode } = route.params;
   const GLOBAL = require("../global");
-  const dateString = GLOBAL.OUTING_TIME.date;
-  const timeString = GLOBAL.OUTING_TIME.time;
-  const MESSAGE = "Meet at Far East Plaza on " + dateString + ", " + timeString;
+  const MESSAGE =
+    "Meet at " +
+    markerName +
+    " (S" +
+    postalCode +
+    "), " +
+    dateString +
+    ", " +
+    timeString +
+    ".";
   const [messageInput, setText] = useState(MESSAGE);
 
   const onShare = async () => {

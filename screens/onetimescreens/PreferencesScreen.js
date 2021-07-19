@@ -1,122 +1,84 @@
-import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import React, { Component, useState } from "react";
+import { Alert, StyleSheet, ScrollView } from "react-native";
 import {
   Container,
   Header,
   Title,
   Content,
   Button,
-  Icon,
-  ListItem,
-  CheckBox,
-  Text,
+  Item,
+  Label,
+  Input,
+  Body,
   Left,
   Right,
-  Body,
+  Icon,
+  Form,
+  Text,
   Footer,
   FooterTab,
 } from "native-base";
-import { useNavigation } from "@react-navigation/native";
+import GoogleSearchBar from "../common/GoogleSearchBar";
 
-function GoToButton() {
-  const navigation = useNavigation();
-  return navigation.navigate.goBack();
-}
+const PreferencesScreen = ({ navigation, route }) => {
+  const { pax } = route.params;
+  var inputs = [];
+  var objectArray = new Array(pax);
 
-class PreferencesScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checkbox1: false,
-      checkbox2: false,
-    };
-  }
-  toggleSwitch1() {
-    this.setState({
-      checkbox1: !this.state.checkbox1,
-    });
-  }
+  const handleCallback = (data, index) => {
+    objectArray[index] = data;
+  };
 
-  toggleSwitch2() {
-    this.setState({
-      checkbox2: !this.state.checkbox2,
-    });
-  }
-
-  render() {
-    return (
-      <Container style={styles.container}>
-        <Content padder contentContainerStyle={styles.contentContainer}>
-          <Text style={styles.question}>
-            Pick your preferred type of location:
-          </Text>
-          <ListItem
-            button
-            onPress={() => this.toggleSwitch1()}
-            style={styles.button}
-          >
-            <CheckBox
-              checked={this.state.checkbox1}
-              onPress={() => this.toggleSwitch1()}
-              style={styles.button}
-            />
-            <Body>
-              <Text style={styles.text}>Lower crowd levels</Text>
-            </Body>
-          </ListItem>
-          <ListItem
-            button
-            onPress={() => this.toggleSwitch2()}
-            style={styles.button}
-          >
-            <CheckBox
-              color="red"
-              checked={this.state.checkbox2}
-              onPress={() => this.toggleSwitch2()}
-              style={styles.button}
-            />
-            <Body>
-              <Text style={styles.text}>Higher ratings</Text>
-            </Body>
-          </ListItem>
-        </Content>
-        <Footer style={styles.container}>
-          <FooterTab>
-            <Button onPress={() => this.props.navigation.goBack()}>
-              <Icon name="caret-back-outline" />
-            </Button>
-            <Button onPress={() => this.props.navigation.push("Timing")}>
-              <Icon name="caret-forward-outline" />
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
+  for (var i = 0; i < pax; i++) {
+    inputs.push(
+      <GoogleSearchBar key={i} index={i} parentCallback={handleCallback} />
     );
   }
-}
+
+  const handlePress = () => {
+    for (var i = 0; i < objectArray.length; i++) {
+      if (
+        objectArray[i] &&
+        (objectArray[i].latitude == null || objectArray[i].longitude == null)
+      ) {
+        return Alert.alert("Please fill in missing fields!");
+      }
+    }
+    return navigation.navigate("Timing", { objectArray: objectArray });
+  };
+
+  return (
+    <Container style={styles.container} scrollEnabled={true}>
+      <ScrollView keyboardShouldPersistTaps="always" listViewDisplayed={false}>
+        <Content contentContainerStyle={styles.content} scrollEnabled={true}>
+          <Text style={{ alignSelf: "center", paddingBottom: 20 }}>
+            Please input their respective locations.
+          </Text>
+          {inputs}
+        </Content>
+      </ScrollView>
+      <Footer style={styles.container}>
+        <FooterTab>
+          <Button onPress={() => navigation.goBack()}>
+            <Icon name="caret-back-sharp" />
+          </Button>
+          <Button onPress={handlePress}>
+            <Icon name="caret-forward-sharp" />
+          </Button>
+        </FooterTab>
+      </Footer>
+    </Container>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#bff6eb",
   },
-  contentContainer: {
-    backgroundColor: "#bff6eb",
-    padding: 20,
+  content: {
     flex: 1,
     justifyContent: "center",
-  },
-  question: {
-    marginBottom: 15,
-    alignSelf: "center",
     alignItems: "center",
-  },
-  button: {
-    marginBottom: 5,
-    alignSelf: "center",
-    alignItems: "center",
-  },
-  text: {
-    marginBottom: 5,
   },
 });
 

@@ -5,9 +5,11 @@ const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 function filterLocations(locationsArray, travelLog, rtngs, includeLog) {
   var confirmedArray = [];
   var testArray = [];
-  for (var i = 0; i < travelLog.length; i++) {
-    for (var j = 0; j < travelLog[i].locations.length; j++) {
-      testArray.push(travelLog[i].locations[j].postalCode);
+  if (includeLog) {
+    for (var i = 0; i < travelLog.length; i++) {
+      for (var j = 0; j < travelLog[i].locations.length; j++) {
+        testArray.push(travelLog[i].locations[j].postalCode);
+      }
     }
   }
   var j = 0;

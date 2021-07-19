@@ -71,6 +71,8 @@ const OneTimeStackScreen = () => {
       <OneTimeStack.Screen name="Timing" component={Timing} />
       <OneTimeStack.Screen name="GoogleMap" component={OneGoogleMap} />
       <OneTimeStack.Screen name="Notification" component={OneNotification} />
+      <LocationStack.Screen name="Filter" component={Filter} />
+      <LocationStack.Screen name="TimeRoute" component={TimeRoute} />
     </OneTimeStack.Navigator>
   );
 };
