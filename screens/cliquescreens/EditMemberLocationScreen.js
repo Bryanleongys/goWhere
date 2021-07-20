@@ -31,6 +31,7 @@ console.log(GOOGLE_PLACES_API_KEY);
 
 const EditMemberLocationScreen = ({ route, navigation }) => {
   GLOBAL = require("../global");
+  const locationName = route.params.paramKey.locationName;
   const [location, setLocation] = useState("");
   const [postalCode, setPostalCode] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -72,7 +73,7 @@ const EditMemberLocationScreen = ({ route, navigation }) => {
 
     let loc = {
       name: route.params.paramKey.name,
-      locationName: location,
+      locationName: route.params.paramKey.locationName,
       postalCode: postalCode,
       latitude: latitude,
       longitude: longitude,
@@ -81,7 +82,7 @@ const EditMemberLocationScreen = ({ route, navigation }) => {
 
     console.log("adding");
     axios
-      .patch(`${baseURL}cliques/addlocation/${GLOBAL.USER.cliqueID}`, loc)
+      .patch(`${baseURL}cliques/addlocation2/${GLOBAL.USER.cliqueID}`, loc)
       .then((res) => {
         if (res.status == 200) {
           console.log("Location added!");
@@ -116,11 +117,15 @@ const EditMemberLocationScreen = ({ route, navigation }) => {
         </Body>
         <Right />
       </Header>
-      <Content contentContainerStyle={{ paddingLeft: 10, paddingTop: 10 }}>
-        <Item floatingLabel>
+      <Content contentContainerStyle={{ paddingLeft: 10, paddingTop: 40 }}>
+        {/* <Item floatingLabel>
           <Label>Location Name</Label>
           <Input value={location} onChangeText={setLocation} />
-        </Item>
+        </Item> */}
+        <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+              {" "}
+              Selected Location: {locationName}
+            </Text>
         <Item style={styles.searchBarContainer}>
           <GooglePlacesAutocomplete
             enablePoweredByContainer={false}

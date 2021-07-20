@@ -49,20 +49,23 @@ const EditMemberScreen = ({ route, navigation }) => {
   React.useEffect(() => {
     setInit(0);
     console.log("Refreshed");
-    axios
-      .get(`${baseURL}cliques/getfriendlocation/${GLOBAL.USER.cliqueID}`, {
-        params: friend,
-      })
-      .then((res) => {
-        //console.log(res.data);
-        console.log("Successfully GET request");
-        setCurrData(res.data);
-        setInit({ init: 1 });
-      })
-      .catch((error) => {
-        console.error(error.message);
-        console.log("GET request failed");
-      });
+    const unsubscribe = navigation.addListener("focus", () => {
+      axios
+        .get(`${baseURL}cliques/getfriendlocation/${GLOBAL.USER.cliqueID}`, {
+          params: friend,
+        })
+        .then((res) => {
+          //console.log(res.data);
+          console.log("Successfully GET request");
+          setCurrData(res.data);
+          setInit({ init: 1 });
+        })
+        .catch((error) => {
+          console.error(error.message);
+          console.log("GET request failed");
+        });
+    });
+      return unsubscribe;
   }, [isFocused]);
 
   const handlePress = () => {
@@ -105,18 +108,17 @@ const EditMemberScreen = ({ route, navigation }) => {
           />
           </Item>
         </Body>
-        <Right />
+        <Right>
+          <Button
+            transparent
+            onPress={handlePress}
+          >
+            <Icon name="ios-add" />
+          </Button>
+        </Right>
       </Header>
 
       <Content>
-        <Button
-          block
-          style={{ margin: 15, marginTop: 50 }}
-          onPress={handlePress}
-        >
-          {buttonWord}
-        </Button>
-
         <SwipeEditMemberElement
           inputArray={currData}
           navi={navigation}
@@ -125,7 +127,7 @@ const EditMemberScreen = ({ route, navigation }) => {
       </Content>
     </Container>
   ) : (
-    <Text>Loading...</Text>
+    <LoadingScreen />
   );
 };
 

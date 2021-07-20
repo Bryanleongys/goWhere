@@ -67,11 +67,11 @@ const SwipeEditMemberElement = ({ inputArray, navi, name }) => {
     setListData(newData);
   };
 
-  const editRow = (rowMap, rowKey) => {
-    closeRow(rowMap, rowKey);
-    navi.navigate("CliqueScreen5", { paramKey: { name: name,
-      locationName: inputArray[rowKey].locationName } })
-  };
+  // const editRow = (rowMap, rowKey) => {
+  //   closeRow(rowMap, rowKey);
+  //   navi.navigate("CliqueScreen5", { paramKey: { name: name,
+  //     locationName: inputArray[rowKey].locationName } })
+  // };
 
   const onRowDidOpen = (rowKey) => {
     console.log("This row opened", rowKey);
@@ -92,12 +92,12 @@ const SwipeEditMemberElement = ({ inputArray, navi, name }) => {
   const renderHiddenItem = (data, rowMap) => (
     <View style={styles.rowBack}>
       <Text></Text>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnLeft]}
         onPress={() => editRow(rowMap, data.item.key)}
       >
         <Text style={styles.backTextWhite}>Edit</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnRight]}
         onPress={() => deleteRow(rowMap, data.item.key)}
@@ -114,7 +114,7 @@ const SwipeEditMemberElement = ({ inputArray, navi, name }) => {
       renderItem={renderItem}
       renderHiddenItem={renderHiddenItem}
       leftOpenValue={75}
-      rightOpenValue={-150}
+      rightOpenValue={-75}
       // rightOpenValue={-75}
       previewRowKey={"0"}
       previewOpenValue={-40}
