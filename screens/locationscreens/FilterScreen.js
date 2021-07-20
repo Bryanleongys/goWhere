@@ -67,16 +67,14 @@ const FilterScreen = ({ navigation, route }) => {
           </Button>
         </Left>
         <Body style={{ alignSelf: "center", flex: 3 }}>
-          <Title>Filters</Title>
+          <Title style={{ fontFamily: "Avenir" }}>Filters</Title>
         </Body>
         <Right />
       </Header>
       <Content>
         <List>
           <ListItem>
-            <Text style={{ fontWeight: "bold", alignSelf: "center" }}>
-              Type of Place
-            </Text>
+            <Text style={styles.textHeader}>Type of Place</Text>
           </ListItem>
           <Picker
             selectedValue={locationType}
@@ -96,9 +94,7 @@ const FilterScreen = ({ navigation, route }) => {
           <ListItem></ListItem>
           {includeLogOption ? (
             <ListItem>
-              <Text style={{ fontWeight: "bold", alignSelf: "center" }}>
-                Travel History
-              </Text>
+              <Text style={styles.textHeader}>Travel History</Text>
             </ListItem>
           ) : null}
           {includeLogOption ? (
@@ -119,7 +115,7 @@ const FilterScreen = ({ navigation, route }) => {
           ) : null}
 
           <ListItem>
-            <Text style={{ fontWeight: "bold" }}>Range Selections</Text>
+            <Text style={styles.textHeader}>Range Selections</Text>
           </ListItem>
           <ListItem style={{ flexDirection: "column", alignItems: "center" }}>
             <View
@@ -131,7 +127,9 @@ const FilterScreen = ({ navigation, route }) => {
                 justifyContent: "flex-start",
               }}
             >
-              <Text style={{ paddingRight: 23 }}>Ratings </Text>
+              <Text style={{ paddingRight: 23, fontFamily: "Avenir" }}>
+                Ratings{" "}
+              </Text>
               <MultiSlider
                 values={[ratingsValue[0], ratingsValue[1]]}
                 sliderLength={250}
@@ -168,6 +166,12 @@ const styles = StyleSheet.create({
   },
   text: {
     marginBottom: 5,
+    fontFamily: "Avenir",
+  },
+  textHeader: {
+    fontWeight: "bold",
+    fontFamily: "Avenir",
+    alignSelf: "center",
   },
   button: {
     marginBottom: 5,

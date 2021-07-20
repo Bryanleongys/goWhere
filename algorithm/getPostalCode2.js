@@ -20,7 +20,6 @@ async function getPostalCode2(locationArray) {
       console.log("Error: ", error);
     }
   }
-  console.log(locationArray);
   return locationArray;
 }
 

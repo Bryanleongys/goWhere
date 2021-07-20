@@ -27,20 +27,18 @@ const HomeScreen = ({ navigation }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 20 }}>{GLOBAL.USER.name}</Title>
+          <Title style={styles.header}>{GLOBAL.USER.name}</Title>
         </Body>
         <Right />
       </Header>
       <Content padder contentContainerStyle={styles.contentContainer}>
-        <Text style={{ marginBottom: 20, alignSelf: "center" }}>
-          What would you like to do today?
-        </Text>
+        <Text style={styles.textHead}>What would you like to do today?</Text>
         <Button
           rounded
           style={styles.startButton}
           onPress={() => navigation.navigate("Location")}
         >
-          <Text style={{ color: "#000000" }}>Choose Location</Text>
+          <Text style={styles.text}>Choose Location</Text>
         </Button>
         <Button
           rounded
@@ -48,7 +46,7 @@ const HomeScreen = ({ navigation }) => {
           style={styles.cliqueButton}
           onPress={() => navigation.navigate("Clique")}
         >
-          <Text style={{ color: "#000000" }}>Change Clique Settings</Text>
+          <Text style={styles.text}>Change Clique Settings</Text>
         </Button>
         <Button
           rounded
@@ -56,7 +54,7 @@ const HomeScreen = ({ navigation }) => {
           style={styles.preferencesButton}
           onPress={() => navigation.navigate("Travel")}
         >
-          <Text style={{ color: "#000000" }}>Update Travel Log</Text>
+          <Text style={styles.text}>Update Travel Log</Text>
         </Button>
       </Content>
     </Container>
@@ -75,18 +73,32 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
   },
+  header: {
+    fontSize: 20,
+    fontFamily: "Marker Felt",
+  },
+  textHead: {
+    marginBottom: 20,
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontFamily: "Avenir",
+  },
+  text: {
+    fontFamily: "Avenir",
+    color: "#000",
+  },
   startButton: {
-    backgroundColor: "#47d702",
+    backgroundColor: "#E9C46A",
     marginBottom: 20,
     alignSelf: "center",
   },
   cliqueButton: {
-    backgroundColor: "#ffc002",
+    backgroundColor: "#F4A261",
     marginBottom: 20,
     alignSelf: "center",
   },
   preferencesButton: {
-    backgroundColor: "#fe7461",
+    backgroundColor: "#E76F51",
     marginBottom: 20,
     alignSelf: "center",
   },

@@ -77,7 +77,7 @@ const TimingScreen = ({ navigation, route }) => {
   return (
     <Container style={styles.container}>
       <Content contentContainerStyle={styles.content}>
-        <Text style={styles.text}> Set date and time of your outing!</Text>
+        <Text style={styles.text}> Select date and time of your outing!</Text>
         <DateTimePicker
           testID="dateTimePicker"
           value={date}
@@ -136,9 +136,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontSize: 18,
-    color: "#000000",
-    paddingBottom: 15,
+    marginBottom: 20,
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontFamily: "Avenir",
   },
 });
 

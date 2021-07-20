@@ -246,7 +246,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
         <Left />
 
         <Body style={{ flex: 3 }}>
-          <Title>Central Locations</Title>
+          <Title style={{ fontFamily: "Avenir" }}>Central Locations</Title>
         </Body>
         <Right>
           <Button
@@ -269,7 +269,13 @@ const GoogleMapScreen = ({ navigation, route }) => {
       <Content style={styles.content2} scrollEnabled={true}>
         <List style={{ alignItems: "center" }}>
           <ListItem style={{ height: 100 }}>
-            <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+            <Text
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                fontFamily: "Avenir",
+              }}
+            >
               {" "}
               Selected Location: {markerName}
             </Text>
@@ -291,7 +297,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
                   }
                   underlayColor={"#00c6bb"}
                 >
-                  <Text>
+                  <Text style={{ fontFamily: "Avenir" }}>
                     {index + 1}. {location.name}
                   </Text>
                 </ListItem>
@@ -312,9 +318,13 @@ const GoogleMapScreen = ({ navigation, route }) => {
                 includeLogOption: true,
               })
             }
-            style={{ alignSelf: "center", height: 35 }}
+            style={{
+              alignSelf: "center",
+              height: 35,
+              backgroundColor: "#17A488",
+            }}
           >
-            <Text>Change Filters</Text>
+            <Text style={{ fontFamily: "Avenir" }}>Change Filters</Text>
           </Button>
         </Content>
       </Content>
@@ -444,6 +454,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     zIndex: 1,
+  },
+  button: {
+    backgroundColor: "#17A488",
   },
 });
 
