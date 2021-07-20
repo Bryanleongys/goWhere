@@ -309,6 +309,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
                 inputRatingsValue: ratingsValue,
                 inputLocationType: locationType,
                 inputIncludeLog: includeLog,
+                includeLogOption: true,
               })
             }
             style={{ alignSelf: "center", height: 35 }}

@@ -30,7 +30,7 @@ const PaxScreen = ({ navigation }) => {
     if (pax < 2 || pax == null) {
       return Alert.alert("Too little people!");
     }
-    return navigation.navigate("PreferencesScreen", {
+    return navigation.navigate("InputLocation", {
       pax: pax,
     });
   };

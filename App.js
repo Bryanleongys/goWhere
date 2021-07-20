@@ -26,7 +26,7 @@ import WelcomeScreen from "./screens/homescreens/WelcomeScreen";
 import AccountScreen from "./screens/accountscreens/AccountScreen";
 import ResetPasswordScreen from "./screens/homescreens/ResetPasswordScreen";
 import PaxScreen from "./screens/onetimescreens/PaxScreen";
-import OnePreferences from "./screens/onetimescreens/PreferencesScreen";
+import OneInputLocation from "./screens/onetimescreens/InputLocationScreen";
 import OneGoogleMap from "./screens/onetimescreens/GoogleMapScreen";
 import OneNotification from "./screens/onetimescreens/NotificationScreen";
 import ChangePassword from "./screens/accountscreens/ChangePassword";
@@ -64,10 +64,7 @@ const OneTimeStackScreen = () => {
       screenOptions={{ headerShown: false }}
     >
       <OneTimeStack.Screen name="PaxScreen" component={PaxScreen} />
-      <OneTimeStack.Screen
-        name="PreferencesScreen"
-        component={OnePreferences}
-      />
+      <OneTimeStack.Screen name="InputLocation" component={OneInputLocation} />
       <OneTimeStack.Screen name="Timing" component={Timing} />
       <OneTimeStack.Screen name="GoogleMap" component={OneGoogleMap} />
       <OneTimeStack.Screen name="Notification" component={OneNotification} />

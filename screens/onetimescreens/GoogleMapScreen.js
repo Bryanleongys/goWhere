@@ -49,7 +49,6 @@ const GoogleMapScreen = ({ navigation, route }) => {
   const [postalCode, setPostalCode] = React.useState(null);
   const [placeId, setPlaceId] = React.useState(null);
   const { dateString, timeString, dateNum, objectArray, time } = route.params;
-  console.log(objectArray);
 
   // Solve react navigation repeat bug
   for (var i = 0; i < objectArray.length; i++) {
@@ -76,7 +75,8 @@ const GoogleMapScreen = ({ navigation, route }) => {
   //console.log("travelLog array: ", travelLogArray);
 
   const handlePress = () => {
-    if (postalCode == null || placeId == null || markerName == "N/A") {
+    if (placeId == null || markerName == "N/A") {
+      // did not include postalCode as some places does not have
       return Alert.alert("No location selected! Please select a location.");
     }
 
@@ -100,7 +100,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
             navigation.dispatch(
               CommonActions.reset({
                 index: 1,
-                routes: [{ name: "Home" }],
+                routes: [{ name: "Welcome" }],
               })
             ),
         },
@@ -259,6 +259,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
                 inputRatingsValue: ratingsValue,
                 inputLocationType: locationType,
                 inputIncludeLog: includeLog,
+                includeLogOption: false,
               })
             }
             style={{ alignSelf: "center", height: 35 }}

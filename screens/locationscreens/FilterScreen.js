@@ -40,6 +40,7 @@ const FilterScreen = ({ navigation, route }) => {
     inputRatingsValue,
     inputLocationType,
     inputIncludeLog,
+    includeLogOption,
   } = route.params;
 
   useEffect(() => {
@@ -83,32 +84,40 @@ const FilterScreen = ({ navigation, route }) => {
           >
             <Picker.Item label="Dining" value="restaurant|cafe" />
             <Picker.Item label="Bar" value="bar|night_club" />
-            <Picker.Item label="Shopping Mall" value="shopping_mall|department_store" />
+            <Picker.Item
+              label="Shopping Mall"
+              value="shopping_mall|department_store"
+            />
             <Picker.Item label="Museum" value="museum|art_gallery" />
             <Picker.Item label="Park" value="park" />
             <Picker.Item label="Clothing Store" value="clothing_store" />
             <Picker.Item label="Gym" value="gym" />
           </Picker>
           <ListItem></ListItem>
-          <ListItem>
-            <Text style={{ fontWeight: "bold", alignSelf: "center" }}>
-              Travel History
-            </Text>
-          </ListItem>
-          <ListItem
-            button
-            onPress={() => setIncludeLog(!includeLog)}
-            style={styles.button}
-          >
-            <CheckBox
-              checked={includeLog}
+          {includeLogOption ? (
+            <ListItem>
+              <Text style={{ fontWeight: "bold", alignSelf: "center" }}>
+                Travel History
+              </Text>
+            </ListItem>
+          ) : null}
+          {includeLogOption ? (
+            <ListItem
+              button
               onPress={() => setIncludeLog(!includeLog)}
               style={styles.button}
-            />
-            <Body>
-              <Text style={styles.text}>Consider Travel Log</Text>
-            </Body>
-          </ListItem>
+            >
+              <CheckBox
+                checked={includeLog}
+                onPress={() => setIncludeLog(!includeLog)}
+                style={styles.button}
+              />
+              <Body>
+                <Text style={styles.text}>Consider Travel Log</Text>
+              </Body>
+            </ListItem>
+          ) : null}
+
           <ListItem>
             <Text style={{ fontWeight: "bold" }}>Range Selections</Text>
           </ListItem>

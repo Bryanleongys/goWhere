@@ -18,9 +18,9 @@ import {
   Footer,
   FooterTab,
 } from "native-base";
-import GoogleSearchBar from "../common/GoogleSearchBar";
+import GoogleSearchBar from "./GoogleSearchBar";
 
-const PreferencesScreen = ({ navigation, route }) => {
+const InputLocationScreen = ({ navigation, route }) => {
   const { pax } = route.params;
   var inputs = [];
   var objectArray = new Array(pax);
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PreferencesScreen;
+export default InputLocationScreen;
