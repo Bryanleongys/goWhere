@@ -78,7 +78,6 @@ const InputLocationScreen = ({ navigation, route }) => {
   };
 
   const handlePress = () => {
-    console.log(objectArray);
     for (var i = 0; i < objectArray.length; i++) {
       if (
         objectArray[i] &&

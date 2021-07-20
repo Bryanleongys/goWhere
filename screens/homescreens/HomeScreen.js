@@ -88,17 +88,17 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   startButton: {
-    backgroundColor: "#E9C46A",
+    backgroundColor: "#8AEEDA",
     marginBottom: 20,
     alignSelf: "center",
   },
   cliqueButton: {
-    backgroundColor: "#F4A261",
+    backgroundColor: "#53E6C9",
     marginBottom: 20,
     alignSelf: "center",
   },
   preferencesButton: {
-    backgroundColor: "#E76F51",
+    backgroundColor: "#1FDBB6",
     marginBottom: 20,
     alignSelf: "center",
   },

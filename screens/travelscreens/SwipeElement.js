@@ -64,7 +64,7 @@ const SwipeMemberElement = ({ inputArray }) => {
       underlayColor={"#fff"}
     >
       <View>
-        <Text>{data.item.text}</Text>
+        <Text style={{ fontFamily: "Avenir" }}>{data.item.text}</Text>
       </View>
     </TouchableHighlight>
   );
@@ -91,6 +91,7 @@ const SwipeMemberElement = ({ inputArray }) => {
       previewOpenValue={-40}
       previewOpenDelay={3000}
       onRowDidOpen={onRowDidOpen}
+      style={{ fontFamily: "Avenir" }}
     />
   );
 };

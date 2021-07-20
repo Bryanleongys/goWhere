@@ -51,7 +51,14 @@ const InputLocationScreen = ({ navigation, route }) => {
     <Container style={styles.container} scrollEnabled={true}>
       <ScrollView keyboardShouldPersistTaps="always" listViewDisplayed={false}>
         <Content contentContainerStyle={styles.content} scrollEnabled={true}>
-          <Text style={{ alignSelf: "center", paddingBottom: 20 }}>
+          <Text
+            style={{
+              alignSelf: "center",
+              paddingBottom: 20,
+              fontFamily: "Avenir",
+              fontWeight: "bold",
+            }}
+          >
             Please input their respective locations.
           </Text>
           {inputs}

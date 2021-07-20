@@ -51,7 +51,10 @@ const GoogleSearchBar = ({ parentCallback, index }) => {
   return (
     <Content contentContainerStyle={{ paddingBottom: 30 }}>
       <BoxContainer style={styles.container}>
-        <Text> Person {index + 1}</Text>
+        <Text style={{ fontFamily: "Avenir", fontWeight: "bold" }}>
+          {" "}
+          Person {index + 1}
+        </Text>
         <GooglePlacesAutocomplete
           enablePoweredByContainer={false}
           fetchDetails={true}

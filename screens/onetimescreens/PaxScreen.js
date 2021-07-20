@@ -37,7 +37,14 @@ const PaxScreen = ({ navigation }) => {
   return (
     <Container style={styles.container}>
       <Content contentContainerStyle={styles.content}>
-        <Text style={{ alignSelf: "center", paddingBottom: 20 }}>
+        <Text
+          style={{
+            alignSelf: "center",
+            paddingBottom: 20,
+            fontFamily: "Avenir",
+            fontWeight: "bold",
+          }}
+        >
           How many people will be going?
         </Text>
         <Form
@@ -47,7 +54,10 @@ const PaxScreen = ({ navigation }) => {
             paddingBottom: 20,
           }}
         >
-          <Text style={{ alignSelf: "center" }}> Number of Pax:</Text>
+          <Text style={{ alignSelf: "center", fontFamily: "Avenir" }}>
+            {" "}
+            Number of Pax:
+          </Text>
           <Item fixedLabel style={{ width: 50, alignSelf: "center" }}>
             <Label style={{ alignSelf: "center" }} />
             <Input
