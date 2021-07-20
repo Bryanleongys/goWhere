@@ -96,7 +96,7 @@ const InputLocationScreen = ({ navigation, route }) => {
     <Container style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always" listViewDisplayed={false}>
         <Content contentContainerStyle={styles.content}>
-          <Text style={{ alignSelf: "center", paddingBottom: 20 }}>
+          <Text style={styles.question}>
             {" "}
             Where will y'all be before the outing?{" "}
           </Text>
@@ -147,9 +147,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   question: {
-    marginBottom: 15,
+    marginBottom: 20,
     alignSelf: "center",
-    alignItems: "center",
+    fontWeight: "bold",
+    fontFamily: "Avenir",
   },
   text: {
     marginBottom: 5,

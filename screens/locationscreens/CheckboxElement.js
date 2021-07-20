@@ -29,7 +29,12 @@ const CheckboxElement = ({ name, color, parentCallback, index }) => {
     parentCallback(data, index);
   };
   return (
-    <ListItem button onPress={() => toggleSwitch()} style={styles.button}>
+    <ListItem
+      underlayColor={color}
+      button
+      onPress={() => toggleSwitch()}
+      style={styles.button}
+    >
       <CheckBox
         color={color}
         checked={check}
@@ -48,6 +53,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     alignSelf: "center",
     alignItems: "center",
+  },
+  text: {
+    fontFamily: "Avenir",
+    color: "#000",
   },
 });
 

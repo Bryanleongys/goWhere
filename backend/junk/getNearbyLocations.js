@@ -1,7 +1,5 @@
 import React from "react";
 import config from "../config";
-import getPostalCode2 from "./getPostalCode2";
-import getPostalCode from "./getPostalCode";
 const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 
 async function getNearbyLocations(

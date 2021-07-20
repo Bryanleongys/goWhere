@@ -25,7 +25,9 @@ const AccountScreen = ({ navigation }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 20 }}>Account Settings</Title>
+          <Title style={{ fontSize: 20, fontFamily: "Avenir" }}>
+            Account Settings
+          </Title>
         </Body>
         <Right />
       </Header>
@@ -35,7 +37,7 @@ const AccountScreen = ({ navigation }) => {
           style={styles.startButton}
           onPress={() => navigation.push("ChangePassword")}
         >
-          <Text style={{ color: "#000000" }}>Change Password</Text>
+          <Text style={styles.text}>Change Password</Text>
         </Button>
         <Button
           rounded
@@ -43,7 +45,7 @@ const AccountScreen = ({ navigation }) => {
           style={styles.cliqueButton}
           onPress={() => navigation.push("ChangeEmail")}
         >
-          <Text style={{ color: "#000000" }}>Change Email Address</Text>
+          <Text style={styles.text}>Change Email Address</Text>
         </Button>
         <Button
           rounded
@@ -51,7 +53,7 @@ const AccountScreen = ({ navigation }) => {
           style={styles.preferencesButton}
           onPress={() => navigation.push("DeleteClique")}
         >
-          <Text style={{ color: "#000000" }}>Delete Clique</Text>
+          <Text style={styles.text}>Delete Clique</Text>
         </Button>
       </Content>
     </Container>
@@ -69,6 +71,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
+  },
+  text: {
+    fontFamily: "Avenir",
+    color: "#000",
   },
   startButton: {
     backgroundColor: "#47d702",

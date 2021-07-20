@@ -43,7 +43,9 @@ const AddTravelScreen = ({ navigation, route }) => {
   console.log(postalCode);
 
   const [buttonWord, setButtonWord] = useState(
-    <Text style={{ color: "#000000" }}>Update Travel Log</Text>
+    <Text style={{ color: "#000000", fontFamily: "Avenir" }}>
+      Update Travel Log
+    </Text>
   );
 
   const [date, setDate] = useState(new Date());
@@ -117,7 +119,9 @@ const AddTravelScreen = ({ navigation, route }) => {
       })
       .catch((error) => {
         setButtonWord(
-          <Text style={{ color: "#000000" }}>Update Travel Log</Text>
+          <Text style={{ color: "#000000", fontFamily: "Avenir" }}>
+            Update Travel Log
+          </Text>
         );
         if (error.message == "Request failed with status code 404") {
           return Alert.alert("Location already exists!");
@@ -135,7 +139,7 @@ const AddTravelScreen = ({ navigation, route }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title>Add Location</Title>
+          <Title style={{ fontFamily: "Avenir" }}>Add Location</Title>
         </Body>
         <Right></Right>
       </Header>
@@ -148,7 +152,7 @@ const AddTravelScreen = ({ navigation, route }) => {
             width: "100%",
           }}
         >
-          <Text>Name of Location</Text>
+          <Text style={{ fontFamily: "Avenir" }}>Name of Location</Text>
         </Item>
         <Item style={styles.searchBarContainer}>
           <GooglePlacesAutocomplete
@@ -179,7 +183,7 @@ const AddTravelScreen = ({ navigation, route }) => {
         <Item
           style={{ position: "absolute", top: 85, height: 55, width: "100%" }}
         >
-          <Text> Date of Outing </Text>
+          <Text style={{ fontFamily: "Avenir" }}> Date of Outing </Text>
           <DateTimePicker
             testID="dateTimePicker"
             value={date}

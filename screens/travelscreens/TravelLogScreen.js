@@ -82,7 +82,7 @@ const TravelLogScreen = ({ navigation, route }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title>Travel Log</Title>
+          <Title style={{ fontFamily: "Avenir" }}>Travel Log</Title>
         </Body>
         <Right>
           <Button transparent onPress={() => navigation.push("Favourite")}>

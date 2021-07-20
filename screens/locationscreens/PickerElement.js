@@ -127,7 +127,7 @@ const PickerElement = ({
   return init ? (
     <View style={{ paddingBottom: 20 }}>
       <BoxContainer style={styles.container}>
-        <Text style={{ position: "absolute", top: 20 }}> {name}: </Text>
+        <Text style={styles2.text}> {name}: </Text>
         <Picker
           style={{
             width: 300,
@@ -168,7 +168,7 @@ const PickerElement = ({
                     addressComponent.types.includes("postal_code")
                 )?.short_name;
                 setPostalCode(postalNum);
-                setPlaceId(details.place_id)
+                setPlaceId(details.place_id);
               }}
               query={{
                 key: GOOGLE_PLACES_API_KEY,
@@ -194,6 +194,13 @@ const styles2 = StyleSheet.create({
     top: 250,
     zIndex: 1,
     width: "90%%",
+  },
+  text: {
+    fontFamily: "Avenir",
+    color: "#000",
+    position: "absolute",
+    top: 20,
+    fontWeight: "bold",
   },
 });
 

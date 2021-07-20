@@ -41,7 +41,7 @@ const SwipeListElement = ({ inputArray, date }) => {
       postalCode: inputArray[rowKey].postalCode,
       longitude: inputArray[rowKey].longitude,
       latitude: inputArray[rowKey].latitude,
-      placeId: inputArray[rowKey].placeId
+      placeId: inputArray[rowKey].placeId,
     };
 
     axios
@@ -128,7 +128,9 @@ const SwipeListElement = ({ inputArray, date }) => {
   return (
     <Content>
       <Separator bordered style={{ height: 35 }}>
-        <Text style={{ color: "#646464", fontSize: 12 }}>{date}</Text>
+        <Text style={{ color: "#646464", fontSize: 12, fontFamily: "Avenir" }}>
+          {date}
+        </Text>
       </Separator>
       <SwipeListView
         data={listData}

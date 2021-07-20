@@ -32,8 +32,7 @@ const TimeRouteScreen = ({ navigation, route }) => {
 
   var startLoc = ``;
   for (var i = 0; i < objectArray.length; i++) {
-    startLoc =
-      startLoc + `place_id:${objectArray[i].placeId}|`;
+    startLoc = startLoc + `place_id:${objectArray[i].placeId}|`;
   }
 
   var endLoc = `place_id:${placeId}`;
@@ -56,7 +55,7 @@ const TimeRouteScreen = ({ navigation, route }) => {
           </Button>
         </Left>
         <Body style={{ alignSelf: "center", flex: 3 }}>
-          <Title>To: {locationName}</Title>
+          <Title style={styles.text}>To: {locationName}</Title>
         </Body>
         <Right />
       </Header>
@@ -78,16 +77,23 @@ const TimeRouteScreen = ({ navigation, route }) => {
             <List>
               <ListItem>
                 <Left>
-                  <Text>{objectArray[index].personName}</Text>
+                  <Text style={styles.text}>
+                    {objectArray[index].personName}
+                  </Text>
                 </Left>
                 <Right style={{ alignItems: "center" }}>
-                  <Text style={{ alignSelf: "center" }}>
+                  <Text style={{ alignSelf: "center", fontFamily: "Avenir" }}>
                     {drivingArray[index]}
                   </Text>
                 </Right>
                 <Right />
-                <Right key={index} style={{ alignItems: "center" }}>
-                  <Text style={{ alignSelf: "center" }}>{time}</Text>
+                <Right
+                  key={index}
+                  style={{ alignItems: "center", fontFamily: "Avenir" }}
+                >
+                  <Text style={{ alignSelf: "center", fontFamily: "Avenir" }}>
+                    {time}
+                  </Text>
                 </Right>
               </ListItem>
             </List>
@@ -113,7 +119,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    marginBottom: 5,
+    fontFamily: "Avenir",
   },
 });
 

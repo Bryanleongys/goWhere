@@ -21,33 +21,30 @@ import {
 import LocationElement from "./LocationElement";
 
 const PaxScreen = ({ navigation }) => {
-  // const [text, setText] = useState();
-  // const [list, setList] = useState(["Hello World"]);
-
-  // const addItem = () => {
-  //   const updatedList = list;
-  //   updatedList.push(text);
-  //   setList(updatedList);
-  //   setText("");
-  // };
-
   var [pax, onChangePax] = React.useState(null);
 
-  var inputs = [];
-  for (let i = 1; i <= pax; i++) {
-    inputs.push(<LocationElement index={i} />);
-  }
-
   const handlePress = () => {
+    if (/^[A-Za-z ]+$/.test(pax)) {
+      return Alert.alert("Please enter valid input.");
+    }
     if (pax < 2 || pax == null) {
       return Alert.alert("Too little people!");
     }
-    navigation.navigate("PreferencesScreen");
+    return navigation.navigate("InputLocation", {
+      pax: pax,
+    });
   };
   return (
     <Container style={styles.container}>
       <Content contentContainerStyle={styles.content}>
-        <Text style={{ alignSelf: "center", paddingBottom: 20 }}>
+        <Text
+          style={{
+            alignSelf: "center",
+            paddingBottom: 20,
+            fontFamily: "Avenir",
+            fontWeight: "bold",
+          }}
+        >
           How many people will be going?
         </Text>
         <Form
@@ -57,7 +54,10 @@ const PaxScreen = ({ navigation }) => {
             paddingBottom: 20,
           }}
         >
-          <Text style={{ alignSelf: "center" }}> Number of Pax:</Text>
+          <Text style={{ alignSelf: "center", fontFamily: "Avenir" }}>
+            {" "}
+            Number of Pax:
+          </Text>
           <Item fixedLabel style={{ width: 50, alignSelf: "center" }}>
             <Label style={{ alignSelf: "center" }} />
             <Input
@@ -67,7 +67,6 @@ const PaxScreen = ({ navigation }) => {
             />
           </Item>
         </Form>
-        {inputs}
       </Content>
       <Footer style={styles.container}>
         <FooterTab>

@@ -52,7 +52,7 @@ const SelectPersonScreen2 = ({ navigation }) => {
       });
   }, []);
 
-  const colorArray = ["#053225", "#E2C044", "#56CBF9", "#FF729F", "#4E4B5C"];
+  const colorArray = ["#E9C46A", "#F4A261", "#E76F51", "#2A9D8F", "#264653"];
 
   let initArray = new Array(currData.length).fill(false);
 
@@ -117,12 +117,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   question: {
-    marginBottom: 15,
+    marginBottom: 20,
     alignSelf: "center",
-    alignItems: "center",
+    fontWeight: "bold",
+    fontFamily: "Avenir",
   },
   text: {
-    marginBottom: 5,
+    fontFamily: "Avenir",
+    color: "#000",
   },
 });
 

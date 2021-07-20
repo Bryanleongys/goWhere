@@ -34,19 +34,17 @@ import { Picker } from "@react-native-picker/picker";
 const FilterScreen = ({ navigation, route }) => {
   // min value - ratingsValue[0], max value - ratingsValue[1]
   const [ratingsValue, setRatingsValue] = React.useState([0, 5]);
-  const [priceValue, setPriceValue] = React.useState([0, 4]);
   const [locationType, setLocationType] = React.useState("restaurant");
   const [includeLog, setIncludeLog] = React.useState(false);
   const {
     inputRatingsValue,
-    inputPriceValue,
     inputLocationType,
     inputIncludeLog,
+    includeLogOption,
   } = route.params;
 
   useEffect(() => {
     setRatingsValue(inputRatingsValue);
-    setPriceValue(inputPriceValue);
     setLocationType(inputLocationType);
     setIncludeLog(inputIncludeLog);
   }, []);
@@ -60,7 +58,6 @@ const FilterScreen = ({ navigation, route }) => {
             onPress={() =>
               navigation.navigate("GoogleMap", {
                 ratingsValue: ratingsValue,
-                priceValue: priceValue,
                 locationType: locationType,
                 includeLog: includeLog,
               })
@@ -70,49 +67,55 @@ const FilterScreen = ({ navigation, route }) => {
           </Button>
         </Left>
         <Body style={{ alignSelf: "center", flex: 3 }}>
-          <Title>Filters</Title>
+          <Title style={{ fontFamily: "Avenir" }}>Filters</Title>
         </Body>
         <Right />
       </Header>
       <Content>
         <List>
           <ListItem>
-            <Text style={{ fontWeight: "bold", alignSelf: "center" }}>
-              Type of Place
-            </Text>
+            <Text style={styles.textHeader}>Type of Place</Text>
           </ListItem>
           <Picker
             selectedValue={locationType}
             onValueChange={(itemValue, itemIndex) => setLocationType(itemValue)}
           >
-            <Picker.Item label="Restaurant" value="restaurant" />
-            <Picker.Item label="Cafe" value="cafe" />
-            <Picker.Item label="Shopping Mall" value="shopping_mall" />
-            <Picker.Item label="Bar" value="bar" />
-            <Picker.Item label="Clothing" value="clothing_store" />
+            <Picker.Item label="Dining" value="restaurant|cafe" />
+            <Picker.Item label="Bar" value="bar|night_club" />
+            <Picker.Item
+              label="Shopping Mall"
+              value="shopping_mall|department_store"
+            />
+            <Picker.Item label="Museum" value="museum|art_gallery" />
+            <Picker.Item label="Park" value="park" />
+            <Picker.Item label="Clothing Store" value="clothing_store" />
+            <Picker.Item label="Gym" value="gym" />
           </Picker>
           <ListItem></ListItem>
-          <ListItem>
-            <Text style={{ fontWeight: "bold", alignSelf: "center" }}>
-              Travel History
-            </Text>
-          </ListItem>
-          <ListItem
-            button
-            onPress={() => setIncludeLog(!includeLog)}
-            style={styles.button}
-          >
-            <CheckBox
-              checked={includeLog}
+          {includeLogOption ? (
+            <ListItem>
+              <Text style={styles.textHeader}>Travel History</Text>
+            </ListItem>
+          ) : null}
+          {includeLogOption ? (
+            <ListItem
+              button
               onPress={() => setIncludeLog(!includeLog)}
               style={styles.button}
-            />
-            <Body>
-              <Text style={styles.text}>Consider Travel Log</Text>
-            </Body>
-          </ListItem>
+            >
+              <CheckBox
+                checked={includeLog}
+                onPress={() => setIncludeLog(!includeLog)}
+                style={styles.button}
+              />
+              <Body>
+                <Text style={styles.text}>Consider Travel Log</Text>
+              </Body>
+            </ListItem>
+          ) : null}
+
           <ListItem>
-            <Text style={{ fontWeight: "bold" }}>Range Selections</Text>
+            <Text style={styles.textHeader}>Range Selections</Text>
           </ListItem>
           <ListItem style={{ flexDirection: "column", alignItems: "center" }}>
             <View
@@ -124,7 +127,9 @@ const FilterScreen = ({ navigation, route }) => {
                 justifyContent: "flex-start",
               }}
             >
-              <Text style={{ paddingRight: 23 }}>Ratings </Text>
+              <Text style={{ paddingRight: 23, fontFamily: "Avenir" }}>
+                Ratings{" "}
+              </Text>
               <MultiSlider
                 values={[ratingsValue[0], ratingsValue[1]]}
                 sliderLength={250}
@@ -134,29 +139,6 @@ const FilterScreen = ({ navigation, route }) => {
                 min={0}
                 max={5}
                 step={0.5}
-                allowOverlap={true}
-                enableLabel={true}
-              />
-            </View>
-            <View
-              style={{
-                paddingTop: 40,
-                flexDirection: "row",
-                alignItems: "center",
-                flex: 1,
-                justifyContent: "flex-start",
-              }}
-            >
-              <Text style={{ paddingRight: 40 }}>Price </Text>
-              <MultiSlider
-                values={[priceValue[0], priceValue[1]]}
-                sliderLength={250}
-                onValuesChange={(values) => {
-                  setPriceValue(values);
-                }}
-                min={0}
-                max={4}
-                step={1}
                 allowOverlap={true}
                 enableLabel={true}
               />
@@ -184,6 +166,12 @@ const styles = StyleSheet.create({
   },
   text: {
     marginBottom: 5,
+    fontFamily: "Avenir",
+  },
+  textHeader: {
+    fontWeight: "bold",
+    fontFamily: "Avenir",
+    alignSelf: "center",
   },
   button: {
     marginBottom: 5,
