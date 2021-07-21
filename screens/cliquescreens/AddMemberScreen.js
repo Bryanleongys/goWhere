@@ -65,7 +65,9 @@ const AddMemberScreen = ({ navigation }) => {
       })
       .catch((error) => {
         setButtonWord(<Text style={{ fontFamily: "Avenir" }}>Add Member</Text>);
-        Alert.alert("Failed to add");
+        if (error.message == "Request failed with status code 404") {
+          return Alert.alert("Member already exists!");
+        }
         console.log(error);
       });
   };

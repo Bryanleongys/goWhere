@@ -41,7 +41,7 @@ const ChangePasswordScreen = ({ navigation }) => {
     } else if (newPassword != newPassword2) {
       return Alert.alert("Passwords mismatched. Please retype passwords.");
     }
-    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
+    setButtonWord(<ActivityIndicator size="small" color="#fff" />);
 
     const userData = {
       oldPassword: oldPassword,

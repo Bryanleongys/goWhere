@@ -82,7 +82,9 @@ const AddLocationScreen = ({ route, navigation }) => {
         setButtonWord(
           <Text style={{ fontFamily: "Avenir" }}>Add Location</Text>
         );
-        Alert.alert("Failed to add");
+        if (error.message == "Request failed with status code 404") {
+          return Alert.alert("Location Name already exists!");
+        }
         console.log(error);
       });
   };

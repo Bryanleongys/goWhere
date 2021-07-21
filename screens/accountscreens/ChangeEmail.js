@@ -44,7 +44,7 @@ const ChangeEmailScreen = ({ navigation }) => {
   }, []);
 
   const handleSubmit = () => {
-    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
+    setButtonWord(<ActivityIndicator size="small" color="#fff" />);
     axios
       .patch(`${baseURL}users/changeemail/${GLOBAL.USER.id}`, { email: email })
       .then((res) => {
