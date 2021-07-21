@@ -52,7 +52,7 @@ const AddMemberScreen = ({ navigation }) => {
     let friend = {
       name: member,
     };
-    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
+    setButtonWord(<ActivityIndicator size="small" color="#fff" />);
     axios
       .patch(`${baseURL}cliques/addmember/${GLOBAL.USER.cliqueID}`, friend)
       .then((res) => {

@@ -31,7 +31,7 @@ const DeleteCliqueScreen = ({ navigation }) => {
   );
 
   const handleSubmit = () => {
-    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
+    setButtonWord(<ActivityIndicator size="small" color="#fff" />);
     axios
       .delete(`${baseURL}users/delete/${GLOBAL.USER.id}`, {
         params: { password: password },

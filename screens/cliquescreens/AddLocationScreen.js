@@ -52,7 +52,7 @@ const AddLocationScreen = ({ route, navigation }) => {
     if (location == "" || postalCode == "") {
       return Alert.alert("Please fill in missing fields");
     }
-    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
+    setButtonWord(<ActivityIndicator size="small" color="#fff" />);
 
     let loc = {
       name: route.params.paramKey,

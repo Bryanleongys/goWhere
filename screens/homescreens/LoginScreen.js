@@ -35,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
       return Alert.alert("Please fill in missing fields.");
     }
 
-    setButtonWord(<ActivityIndicator size="small" color="#17A488" />);
+    setButtonWord(<ActivityIndicator size="small" color="#fff" />);
 
     let user = {
       email: email,

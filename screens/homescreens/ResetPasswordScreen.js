@@ -38,7 +38,7 @@ const ResetPasswordScreen = ({ navigation }) => {
     if (password != password2) {
       return Alert.alert("Passwords mismatch. Please key in again.");
     }
-    setButtonWord(<ActivityIndicator size="small" color="#17A488" />);
+    setButtonWord(<ActivityIndicator size="small" color="#fff" />);
     const userData = {
       email: email,
       password: password,

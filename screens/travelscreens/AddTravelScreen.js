@@ -91,7 +91,7 @@ const AddTravelScreen = ({ navigation, route }) => {
     if (location == "") {
       return Alert.alert("Please fill in missing fields!");
     }
-    setButtonWord(<ActivityIndicator size="small" color="#000000" />);
+    setButtonWord(<ActivityIndicator size="small" color="#000" />);
     let locationDetails = {
       date: dateString,
       dateNum: dateNum,

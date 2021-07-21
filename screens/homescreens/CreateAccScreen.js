@@ -51,7 +51,7 @@ const CreateAccount = ({ navigation }) => {
       password: password1,
       isAdmin: true,
     };
-    setButtonWord(<ActivityIndicator size="small" color="#17A488" />);
+    setButtonWord(<ActivityIndicator size="small" color="#fff" />);
 
     axios
       .post(`${baseURL}users/register`, user)
