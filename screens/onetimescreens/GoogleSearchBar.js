@@ -49,7 +49,7 @@ const GoogleSearchBar = ({ parentCallback, index }) => {
   };
 
   return (
-    <Content contentContainerStyle={{ paddingBottom: 30 }}>
+    <View style={{ paddingBottom: 30 }}>
       <BoxContainer style={styles.container}>
         <Text style={{ fontFamily: "Avenir", fontWeight: "bold" }}>
           {" "}
@@ -81,7 +81,7 @@ const GoogleSearchBar = ({ parentCallback, index }) => {
         />
         {onTrigger()}
       </BoxContainer>
-    </Content>
+    </View>
   );
 };
 
