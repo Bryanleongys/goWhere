@@ -52,7 +52,7 @@ const SelectPersonScreen2 = ({ navigation }) => {
       });
   }, []);
 
-  const colorArray = ["#E9C46A", "#F4A261", "#E76F51", "#2A9D8F", "#264653"];
+  const colorArray = ["#1BC09F", "#148972", "#0C5244", "#08372D"];
 
   let initArray = new Array(currData.length).fill(false);
 

@@ -30,7 +30,7 @@ const ChangePasswordScreen = ({ navigation }) => {
   const [newPassword, setNewPassword] = React.useState("");
   const [newPassword2, setNewPassword2] = React.useState("");
   const [buttonWord, setButtonWord] = React.useState(
-    <Text>Change Password</Text>
+    <Text style={{ fontFamily: "Avenir" }}>Change Password</Text>
   );
 
   const handleSubmit = () => {
@@ -62,7 +62,9 @@ const ChangePasswordScreen = ({ navigation }) => {
         // else if (res.status == 400)
       })
       .catch((error) => {
-        setButtonWord(<Text>Change Password</Text>);
+        setButtonWord(
+          <Text style={{ fontFamily: "Avenir" }}>Change Password</Text>
+        );
         if (error.message == "Request failed with status code 404") {
           Alert.alert("Please use another password.");
         } else if (error.message == "Request failed with status code 500") {
@@ -77,7 +79,7 @@ const ChangePasswordScreen = ({ navigation }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
@@ -126,7 +128,7 @@ const ChangePasswordScreen = ({ navigation }) => {
         </Form>
         <Button
           block
-          style={{ margin: 15, marginTop: 50 }}
+          style={{ margin: 15, marginTop: 50, backgroundColor: "#148972" }}
           onPress={handleSubmit}
         >
           {buttonWord}

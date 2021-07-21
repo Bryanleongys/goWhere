@@ -27,7 +27,7 @@ const DeleteCliqueScreen = ({ navigation }) => {
   GLOBAL = require("../global");
   const [password, setPassword] = React.useState("");
   const [buttonWord, setButtonWord] = React.useState(
-    <Text>Delete Clique</Text>
+    <Text style={{ fontFamily: "Avenir" }}>Delete Clique</Text>
   );
 
   const handleSubmit = () => {
@@ -43,7 +43,9 @@ const DeleteCliqueScreen = ({ navigation }) => {
         }
       })
       .catch((error) => {
-        setButtonWord(<Text>Delete Clique</Text>);
+        setButtonWord(
+          <Text style={{ fontFamily: "Avenir" }}>Delete Clique</Text>
+        );
         if (error.message == "Request failed with status code 404") {
           Alert.alert("Password is wrong.");
         }
@@ -57,7 +59,7 @@ const DeleteCliqueScreen = ({ navigation }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>

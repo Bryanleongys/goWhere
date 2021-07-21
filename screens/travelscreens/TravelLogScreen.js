@@ -78,7 +78,7 @@ const TravelLogScreen = ({ navigation, route }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
@@ -86,10 +86,10 @@ const TravelLogScreen = ({ navigation, route }) => {
         </Body>
         <Right>
           <Button transparent onPress={() => navigation.push("Favourite")}>
-            <Icon style={{ fontSize: 22 }} name="ios-star" />
+            <Icon style={{ fontSize: 22, color: "#148972" }} name="ios-star" />
           </Button>
           <Button transparent onPress={() => navigation.push("TravelScreen2")}>
-            <Icon name="ios-add" />
+            <Icon style={{ color: "#148972" }} name="ios-add" />
           </Button>
         </Right>
       </Header>

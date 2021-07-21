@@ -27,7 +27,7 @@ const ChangeEmailScreen = ({ navigation }) => {
   GLOBAL = require("../global");
   const [email, setEmail] = React.useState("");
   const [buttonWord, setButtonWord] = React.useState(
-    <Text>Change Email Address</Text>
+    <Text style={{ fontFamily: "Avenir" }}>Change Email Address</Text>
   );
 
   React.useEffect(() => {
@@ -60,7 +60,9 @@ const ChangeEmailScreen = ({ navigation }) => {
         // else if (res.status == 400)
       })
       .catch((error) => {
-        setButtonWord(<Text>Change Email Address</Text>);
+        setButtonWord(
+          <Text style={{ fontFamily: "Avenir" }}>Change Email Address</Text>
+        );
         if (error.message == "Request failed with status code 404") {
           Alert.alert("Please use another email.");
         } else if (error.message == "Request failed with status code 500") {
@@ -75,7 +77,7 @@ const ChangeEmailScreen = ({ navigation }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
@@ -97,7 +99,7 @@ const ChangeEmailScreen = ({ navigation }) => {
         </Form>
         <Button
           block
-          style={{ margin: 15, marginTop: 50 }}
+          style={{ margin: 15, marginTop: 50, backgroundColor: "#148972" }}
           onPress={handleSubmit}
         >
           {buttonWord}

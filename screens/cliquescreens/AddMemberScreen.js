@@ -33,7 +33,9 @@ const AddMemberScreen = ({ navigation }) => {
   const [member, setMember] = useState("");
   const [location, setLocation] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [buttonWord, setButtonWord] = useState(<Text>Add Member</Text>);
+  const [buttonWord, setButtonWord] = useState(
+    <Text style={{ fontFamily: "Avenir" }}>Add Member</Text>
+  );
 
   // const alertPress = () => {
   //   console.log(Object.keys(GLOBAL.MEMBERSARRAY1).length)
@@ -62,7 +64,7 @@ const AddMemberScreen = ({ navigation }) => {
         return Alert.alert("Member added!");
       })
       .catch((error) => {
-        setButtonWord(<Text>Add Member</Text>);
+        setButtonWord(<Text style={{ fontFamily: "Avenir" }}>Add Member</Text>);
         Alert.alert("Failed to add");
         console.log(error);
       });
@@ -73,11 +75,13 @@ const AddMemberScreen = ({ navigation }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 17 }}>Member details</Title>
+          <Title style={{ fontSize: 17, fontFamily: "Avenir" }}>
+            Member Details
+          </Title>
         </Body>
         <Right />
       </Header>
@@ -98,7 +102,7 @@ const AddMemberScreen = ({ navigation }) => {
         </Button> */}
         <Button
           block
-          style={{ margin: 15, marginTop: 50 }}
+          style={{ margin: 15, marginTop: 50, backgroundColor: "#148972" }}
           onPress={handleSubmit}
         >
           {buttonWord}

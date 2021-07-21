@@ -31,7 +31,7 @@ const CreateAccount = ({ navigation }) => {
   const [password2, onChangePassword2] = React.useState("");
   const [email, onChangeEmail] = React.useState("");
   const [buttonWord, setButtonWord] = React.useState(
-    <Text>Create Account</Text>
+    <Text style={{ fontFamily: "Avenir" }}>Create Account</Text>
   );
 
   // Alert if account created successfully
@@ -66,7 +66,9 @@ const CreateAccount = ({ navigation }) => {
         }
       })
       .catch((error) => {
-        setButtonWord(<Text>Create Account</Text>);
+        setButtonWord(
+          <Text style={{ fontFamily: "Avenir" }}>Create Account</Text>
+        );
         if (error.message == "Request failed with status code 400") {
           // try to find better code?
           return Alert.alert("Email is already in use.");
@@ -80,7 +82,7 @@ const CreateAccount = ({ navigation }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
@@ -124,7 +126,7 @@ const CreateAccount = ({ navigation }) => {
         </Form>
         <Button
           block
-          style={{ margin: 15, marginTop: 50 }}
+          style={{ margin: 15, marginTop: 50, backgroundColor: "#148972" }}
           onPress={handlePress}
         >
           {buttonWord}

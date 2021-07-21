@@ -74,20 +74,20 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Avenir",
-    color: "#000",
+    color: "#fff",
   },
   startButton: {
-    backgroundColor: "#47d702",
+    backgroundColor: "#1BC09F",
     marginBottom: 20,
     alignSelf: "center",
   },
   cliqueButton: {
-    backgroundColor: "#ffc002",
+    backgroundColor: "#148972",
     marginBottom: 20,
     alignSelf: "center",
   },
   preferencesButton: {
-    backgroundColor: "#fe7461",
+    backgroundColor: "#0C5244",
     marginBottom: 20,
     alignSelf: "center",
   },

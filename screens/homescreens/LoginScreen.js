@@ -26,7 +26,9 @@ const LoginScreen = ({ navigation }) => {
   GLOBAL = require("../global");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [buttonWord, setButtonWord] = useState(<Text>Sign in</Text>);
+  const [buttonWord, setButtonWord] = useState(
+    <Text style={{ fontFamily: "Avenir" }}>Sign In</Text>
+  );
 
   const handleSubmit = () => {
     if (email === "" || password === "") {
@@ -50,7 +52,7 @@ const LoginScreen = ({ navigation }) => {
         // else if (res.status == 400)
       })
       .catch((error) => {
-        setButtonWord(<Text>Sign in</Text>);
+        setButtonWord(<Text style={{ fontFamily: "Avenir" }}>Sign In</Text>);
         if (error.message == "Request failed with status code 400") {
           Alert.alert("Incorrect password!");
         } else if (error.message == "Request failed with status code 500") {
@@ -69,7 +71,7 @@ const LoginScreen = ({ navigation }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
@@ -102,7 +104,7 @@ const LoginScreen = ({ navigation }) => {
         </Form>
         <Button
           block
-          style={{ margin: 15, marginTop: 50 }}
+          style={{ margin: 15, marginTop: 50, backgroundColor: "#148972" }}
           onPress={handleSubmit}
         >
           {buttonWord}
@@ -112,7 +114,10 @@ const LoginScreen = ({ navigation }) => {
           style={{ alignSelf: "center", paddingBottom: 20 }}
           transparent
         >
-          <Text> Forgot Password? </Text>
+          <Text style={{ color: "#148972", fontFamily: "Avenir" }}>
+            {" "}
+            Forgot Password?{" "}
+          </Text>
         </Button>
       </Content>
     </Container>

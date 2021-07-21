@@ -262,7 +262,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
               })
             }
           >
-            <Icon name="git-branch" />
+            <Icon style={{ color: "#148972" }} name="git-branch" />
           </Button>
         </Right>
       </Header>
@@ -321,7 +321,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
             style={{
               alignSelf: "center",
               height: 35,
-              backgroundColor: "#17A488",
+              backgroundColor: "#148972",
             }}
           >
             <Text style={{ fontFamily: "Avenir" }}>Change Filters</Text>

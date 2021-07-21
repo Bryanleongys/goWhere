@@ -54,18 +54,18 @@ const UpdateCliqueScreen = ({ navigation, route }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title>Members</Title>
+          <Title style={{ fontFamily: "Avenir" }}>Members</Title>
         </Body>
         <Right>
           <Button
             transparent
             onPress={() => navigation.navigate("CliqueScreen2")}
           >
-            <Icon name="ios-add" />
+            <Icon style={{ color: "#148972" }} name="ios-add" />
           </Button>
         </Right>
       </Header>

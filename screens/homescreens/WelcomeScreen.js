@@ -32,21 +32,27 @@ const WelcomeScreen = ({ navigation }) => {
             style={styles.loginButton}
             onPress={() => navigation.push("Login")}
           >
-            <Text style={{ color: "#000000" }}>Log In</Text>
+            <Text style={{ color: "#000000", fontFamily: "Avenir" }}>
+              Log In
+            </Text>
           </Button>
           <Button
             full
             style={styles.accountButton}
             onPress={() => navigation.push("CreateAccount")}
           >
-            <Text style={{ color: "#000000" }}>Create Clique Account</Text>
+            <Text style={{ color: "#000000", fontFamily: "Avenir" }}>
+              Create Clique Account
+            </Text>
           </Button>
           <Button
             full
             style={styles.oneButton}
             onPress={() => navigation.push("OneTime")}
           >
-            <Text style={{ color: "#000000" }}>One-Time Use Account</Text>
+            <Text style={{ color: "#000000", fontFamily: "Avenir" }}>
+              One-Time Use Account
+            </Text>
           </Button>
         </Container>
       </Content>

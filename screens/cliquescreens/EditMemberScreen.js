@@ -36,7 +36,9 @@ const EditMemberScreen = ({ route, navigation }) => {
   GLOBAL = require("../global");
   const [currData, setCurrData] = React.useState([]);
   const [init, setInit] = React.useState(0);
-  const [buttonWord, setButtonWord] = useState(<Text>Add location</Text>);
+  const [buttonWord, setButtonWord] = useState(
+    <Text style={{ fontFamily: "Avenir" }}>Add location</Text>
+  );
   const [nameChange, setNameChange] = useState(name);
   console.log(nameChange);
 
@@ -65,7 +67,7 @@ const EditMemberScreen = ({ route, navigation }) => {
           console.log("GET request failed");
         });
     });
-      return unsubscribe;
+    return unsubscribe;
   }, [isFocused]);
 
   const handlePress = () => {
@@ -96,24 +98,25 @@ const EditMemberScreen = ({ route, navigation }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={backPress}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body>
-          <Item rounded style={{borderColor: "#54b1bc"}}>
-          <Input
-            textAlign={"center"}
-            value={nameChange}
-            onChangeText={setNameChange}
-          />
+          <Item
+            rounded
+            style={{ borderColor: "#148972", height: 30, width: 100 }}
+          >
+            <Input
+              style={{ fontFamily: "Avenir" }}
+              textAlign={"center"}
+              value={nameChange}
+              onChangeText={setNameChange}
+            />
           </Item>
         </Body>
         <Right>
-          <Button
-            transparent
-            onPress={handlePress}
-          >
-            <Icon name="ios-add" />
+          <Button transparent onPress={handlePress}>
+            <Icon style={{ color: "#148972" }} name="ios-add" />
           </Button>
         </Right>
       </Header>

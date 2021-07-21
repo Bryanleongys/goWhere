@@ -55,7 +55,7 @@ const NotificationScreen = ({ navigation, route }) => {
           transparent
           onPress={() => onShare()}
         >
-          <Text>Share</Text>
+          <Text style={{ color: "#148972" }}>Share</Text>
         </Button>
       </Content>
       <Footer style={styles.container}>

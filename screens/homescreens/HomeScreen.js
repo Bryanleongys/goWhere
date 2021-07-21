@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 20,
-    fontFamily: "Marker Felt",
+    fontFamily: "Avenir",
   },
   textHead: {
     marginBottom: 20,
@@ -85,20 +85,20 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Avenir",
-    color: "#000",
+    color: "#fff",
   },
   startButton: {
-    backgroundColor: "#8AEEDA",
+    backgroundColor: "#1BC09F",
     marginBottom: 20,
     alignSelf: "center",
   },
   cliqueButton: {
-    backgroundColor: "#53E6C9",
+    backgroundColor: "#148972",
     marginBottom: 20,
     alignSelf: "center",
   },
   preferencesButton: {
-    backgroundColor: "#1FDBB6",
+    backgroundColor: "#0C5244",
     marginBottom: 20,
     alignSelf: "center",
   },

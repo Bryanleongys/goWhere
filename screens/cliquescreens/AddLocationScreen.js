@@ -30,7 +30,9 @@ const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 console.log(GOOGLE_PLACES_API_KEY);
 
 const AddLocationScreen = ({ route, navigation }) => {
-  const [buttonWord, setButtonWord] = React.useState(<Text>Add Location</Text>);
+  const [buttonWord, setButtonWord] = React.useState(
+    <Text style={{ fontFamily: "Avenir" }}>Add Location</Text>
+  );
 
   // for Google Maps API
   const ref = useRef();
@@ -58,7 +60,7 @@ const AddLocationScreen = ({ route, navigation }) => {
       postalCode: postalCode,
       longitude: longitude,
       latitude: latitude,
-      placeId: placeId
+      placeId: placeId,
     };
 
     axios
@@ -70,12 +72,16 @@ const AddLocationScreen = ({ route, navigation }) => {
           setPostalCode("");
           setPlaceId("");
           ref.current?.setAddressText("");
-          setButtonWord(<Text>Add Location</Text>);
+          setButtonWord(
+            <Text style={{ fontFamily: "Avenir" }}>Add Location</Text>
+          );
           return Alert.alert("Location added!");
         }
       })
       .catch((error) => {
-        setButtonWord(<Text>Add Location</Text>);
+        setButtonWord(
+          <Text style={{ fontFamily: "Avenir" }}>Add Location</Text>
+        );
         Alert.alert("Failed to add");
         console.log(error);
       });
@@ -95,11 +101,13 @@ const AddLocationScreen = ({ route, navigation }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 17 }}>Add Location</Title>
+          <Title style={{ fontSize: 17, fontFamily: "Avenir" }}>
+            Add Location
+          </Title>
         </Body>
         <Right />
       </Header>
@@ -142,6 +150,7 @@ const AddLocationScreen = ({ route, navigation }) => {
             top: 150,
             alignSelf: "center",
             width: "90%",
+            backgroundColor: "#148972",
           }}
         >
           {buttonWord}
@@ -154,9 +163,10 @@ const AddLocationScreen = ({ route, navigation }) => {
             top: 225,
             alignSelf: "center",
             width: "90%",
+            backgroundColor: "#148972",
           }}
         >
-          <Text>Done</Text>
+          <Text style={{ fontFamily: "Avenir" }}>Done</Text>
         </Button>
       </Content>
     </Container>
