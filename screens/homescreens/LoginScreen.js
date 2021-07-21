@@ -35,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
       return Alert.alert("Please fill in missing fields.");
     }
 
-    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
+    setButtonWord(<ActivityIndicator size="small" color="#17A488" />);
 
     let user = {
       email: email,
@@ -75,7 +75,7 @@ const LoginScreen = ({ navigation }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 17 }}>Log In</Title>
+          <Title style={{ fontSize: 17, fontFamily: "Avenir" }}>Log In</Title>
         </Body>
         <Right />
       </Header>

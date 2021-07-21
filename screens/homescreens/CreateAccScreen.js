@@ -51,7 +51,7 @@ const CreateAccount = ({ navigation }) => {
       password: password1,
       isAdmin: true,
     };
-    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
+    setButtonWord(<ActivityIndicator size="small" color="#17A488" />);
 
     axios
       .post(`${baseURL}users/register`, user)
@@ -86,7 +86,9 @@ const CreateAccount = ({ navigation }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 17 }}>Create Account</Title>
+          <Title style={{ fontSize: 17, fontFamily: "Avenir" }}>
+            Create Account
+          </Title>
         </Body>
         <Right />
       </Header>

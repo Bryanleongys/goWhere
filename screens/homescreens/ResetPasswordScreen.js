@@ -28,7 +28,7 @@ const ResetPasswordScreen = ({ navigation }) => {
   const [password, setPassword] = React.useState("");
   const [password2, setPassword2] = React.useState("");
   const [buttonWord, setButtonWord] = React.useState(
-    <Text>Reset Password</Text>
+    <Text style={{ fontFamily: "Avenir" }}>Reset Password</Text>
   );
 
   const handlePress = () => {
@@ -38,7 +38,7 @@ const ResetPasswordScreen = ({ navigation }) => {
     if (password != password2) {
       return Alert.alert("Passwords mismatch. Please key in again.");
     }
-    setButtonWord(<ActivityIndicator size="small" color="#0000ff" />);
+    setButtonWord(<ActivityIndicator size="small" color="#17A488" />);
     const userData = {
       email: email,
       password: password,
@@ -63,7 +63,9 @@ const ResetPasswordScreen = ({ navigation }) => {
         }
       })
       .catch((error) => {
-        setButtonWord(<Text>Reset Password</Text>);
+        setButtonWord(
+          <Text style={{ fontFamily: "Avenir" }}>Reset Password</Text>
+        );
         if (error.message == "Request failed with status code 400") {
           Alert.alert("Email does not exist.");
         }
@@ -88,11 +90,13 @@ const ResetPasswordScreen = ({ navigation }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 17 }}>Reset Password</Title>
+          <Title style={{ fontSize: 17, fontFamily: "Avenir" }}>
+            Reset Password
+          </Title>
         </Body>
         <Right />
       </Header>
@@ -131,7 +135,7 @@ const ResetPasswordScreen = ({ navigation }) => {
         </Form>
         <Button
           block
-          style={{ margin: 15, marginTop: 50 }}
+          style={{ margin: 15, marginTop: 50, backgroundColor: "#148972" }}
           onPress={handlePress}
         >
           {buttonWord}
