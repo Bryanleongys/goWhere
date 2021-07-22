@@ -62,11 +62,13 @@ Our application is only available on iOS for Milestone #2.
 
 1. Download Expo Go on the App Store.
 
-2. Login into Expo Go with the following account:
-   Email: goWhere99@gmail.com
-   Password: @Pass!1234
+2. Launch Expo Go and login into Expo Go with the following account:  
+   Email: goWhere99@gmail.com  
+   Password: @Pass!1234  
 
-3. Go to https://exp.host/@bryanleongys/gowhere
+3. Close Expo Go. Use another device and go to https://exp.host/@bryanleongys/gowhere.
+
+4. Open QR Code Scanner/Camera on phone to scan QR code in website. Application should open.
 
 4. You're all set!
 
