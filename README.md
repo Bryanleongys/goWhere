@@ -116,7 +116,8 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ### Webflow of Features
 
-![Features of goWhere](https://user-images.githubusercontent.com/69454147/123666665-019bfe00-d86c-11eb-8936-7d1735cb9266.png)
+![Features of goWhere (1)](https://user-images.githubusercontent.com/69454147/126746535-3249a006-bab4-44f2-ba40-884a4e04f5c4.png)
+
 
 ### Create Account and Login Features
 
@@ -125,7 +126,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ### Choose Optimal Location
 
-<img src="https://user-images.githubusercontent.com/69454147/123538802-088e1800-d769-11eb-9568-8bf1001c69e6.png" width="500" height="1000">
+<img src="https://user-images.githubusercontent.com/69454147/126746588-149592e5-ee03-42b7-a729-60f02fefe757.png" width="500" height="1000">
 
 1. Select the members of your clique that you would like to go out with (minimum two members)
 2. Select their respective locations or input a specific location
@@ -146,7 +147,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ### Change Clique Settings\*
 
-<img src="https://user-images.githubusercontent.com/69454147/123540105-e2b84180-d76f-11eb-9cc2-630265629cb8.png" width = "450" height = "500">
+<img src="https://user-images.githubusercontent.com/69454147/126746633-43a863d5-14bb-47dc-a5d1-b62274c0dd11.png" width = "450" height = "500">
 
 - View existing members in the clique
 - Add members and their respective locations to the clique
@@ -155,7 +156,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ### Update Travel Log
 
-<img src="https://user-images.githubusercontent.com/69454147/123538822-307d7b80-d769-11eb-9b68-e0130436535e.png" width = "500" height = "500">
+<img src="https://user-images.githubusercontent.com/69454147/126746643-bc27f978-9a81-4fe1-99ce-b13d9f3fdd0a.png" width = "500" height = "500">
 
 - Maintain travel log based on travel history in the app
 - Add locations to travel log in order to be filtered out while finding optimal meetup location
@@ -169,7 +170,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ### Database Overview
 
-<img src="https://user-images.githubusercontent.com/69454147/123540166-3a56ad00-d770-11eb-84b6-0948e957b835.png" width = "700" height = "450">
+<img src="https://user-images.githubusercontent.com/69454147/126746713-096c66b8-bceb-4bc5-9e3b-5e116a628853.png" width = "700" height = "450">
 
 ## Further Documentations
 
