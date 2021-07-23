@@ -4,10 +4,15 @@ const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
 
 async function getNearbyLocations2(loc, locationType) {
   var objectArray = [];
+  const rater = false;
+  var callString;
+  if (rater) {
+    callString = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc}&type=${locationType}&minprice=0&maxprice=4&rankby=distance&key=${GOOGLE_PLACES_API_KEY}`;
+  } else {
+    callString = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc}&type=${locationType}&rankby=distance&key=${GOOGLE_PLACES_API_KEY}`;
+  }
   try {
-    const resp = await fetch(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc}&type=${locationType}&rankby=distance&key=${GOOGLE_PLACES_API_KEY}`
-    )
+    const resp = await fetch(callString)
       .then((response) => response.json())
       .then((responseJson) => {
         var i = 0;
