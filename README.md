@@ -126,7 +126,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ### Choose Optimal Location
 
-<img src="https://user-images.githubusercontent.com/69454147/126746588-149592e5-ee03-42b7-a729-60f02fefe757.png" width="500" height="1000">
+<img src="https://user-images.githubusercontent.com/69454147/126746588-149592e5-ee03-42b7-a729-60f02fefe757.png" width="450" height="1000">
 
 1. Select the members of your clique that you would like to go out with (minimum two members)
 2. Select their respective locations or input a specific location
@@ -156,7 +156,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ### Update Travel Log
 
-<img src="https://user-images.githubusercontent.com/69454147/126746643-bc27f978-9a81-4fe1-99ce-b13d9f3fdd0a.png" width = "500" height = "500">
+<img src="https://user-images.githubusercontent.com/69454147/126746643-bc27f978-9a81-4fe1-99ce-b13d9f3fdd0a.png" width = "450" height = "500">
 
 - Maintain travel log based on travel history in the app
 - Add locations to travel log in order to be filtered out while finding optimal meetup location
@@ -170,7 +170,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ### Database Overview
 
-<img src="https://user-images.githubusercontent.com/69454147/126746713-096c66b8-bceb-4bc5-9e3b-5e116a628853.png" width = "700" height = "450">
+<img src="https://user-images.githubusercontent.com/69454147/126746713-096c66b8-bceb-4bc5-9e3b-5e116a628853.png" width = "650" height = "450">
 
 ## Further Documentations
 
