@@ -1,6 +1,5 @@
 # goWhere Mobile Application
 
-- [goWhere Mobile Application](#gowhere-mobile-application)
   - [Level of Achievement](#level-of-achievement)
   - [Motivation](#motivation)
   - [User Stories](#user-stories)
@@ -9,10 +8,6 @@
     - [For Developers](#for-developers)
     - [For Users](#for-users)
   - [Tech Stack](#tech-stack)
-    - [React Native](#react-native)
-    - [NodeJS](#nodejs)
-    - [MongoDB](#mongodb)
-    - [ExpressJS](#expressjs)
   - [Features and Program Flow](#features-and-program-flow)
     - [Webflow of Features](#webflow-of-features)
     - [Create Account and Login Features](#create-account-and-login-features)
