@@ -1,4 +1,26 @@
-# goWhere Mobile Application
+- [Level of Achievement](#level-of-achievement)
+- [Motivation](#motivation)
+- [User Stories](#user-stories)
+- [Project Scope and Ideation](#project-scope-and-ideation)
+- [Installation and Startup](#installation-and-startup)
+  - [For Developers](#for-developers)
+  - [For Users](#for-users)
+- [Tech Stack](#tech-stack)
+  - [React Native](#react-native)
+  - [NodeJS](#nodejs)
+  - [MongoDB](#mongodb)
+  - [ExpressJS](#expressjs)
+- [Features and Program Flow](#features-and-program-flow)
+  - [Webflow of Features](#webflow-of-features)
+  - [Create Account and Login Features](#create-account-and-login-features)
+  - [Choose Optimal Location](#choose-optimal-location)
+  - [One Time Use Account](#one-time-use-account)
+  - [Change Clique Settings\*](#change-clique-settings)
+  - [Update Travel Log](#update-travel-log)
+  - [Account Settings Features](#account-settings-features)
+  - [Database Overview](#database-overview)
+- [Further Documentations](#further-documentations)
+- [Credits](#credits)
 
 ## Level of Achievement
 
