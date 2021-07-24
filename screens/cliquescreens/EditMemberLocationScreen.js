@@ -15,6 +15,8 @@ import {
   Icon,
   Form,
   Text,
+  List,
+  ListItem,
 } from "native-base";
 import { Alert, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -27,82 +29,30 @@ import baseURL from "../../assets/common/baseUrl";
 import config from "../../config";
 
 const GOOGLE_PLACES_API_KEY = config.GOOGLE_PLACES_API_KEY;
-console.log(GOOGLE_PLACES_API_KEY);
 
 const EditMemberLocationScreen = ({ route, navigation }) => {
   GLOBAL = require("../global");
-  const locationName = route.params.paramKey.locationName;
-  const [location, setLocation] = useState("");
-  const [postalCode, setPostalCode] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-  const [latitude, setLatitude] = useState(null);
-  const [placeId, setPlaceId] = useState(null);
+  var { locationName, name, postalCode, placeId } = route.params.paramKey;
+  const [locationPlace, setLocationPlace] = React.useState();
 
-  const [buttonWord, setButtonWord] = React.useState(
-    <Text>Edit Location</Text>
-  );
-
-  const ref = useRef();
-
-  console.log(route.params.paramKey);
-  const handleSubmit = () => {
-    // if (location == "" || postalCode == "") {
-    //     return Alert.alert("Please fill in missing fields");
-    // }
-
-    let inputDelete = {
-      name: route.params.paramKey.name,
-      locationName: route.params.paramKey.locationName,
-    };
-
-    console.log("Deleting");
-    axios
-      .patch(
-        `${baseURL}cliques/removelocation/${GLOBAL.USER.cliqueID}`,
-        inputDelete
+  async function getPlaceDetails() {
+    try {
+      const resp = await fetch(
+        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=formatted_address&key=${GOOGLE_PLACES_API_KEY}`
       )
-      .then((res) => {
-        if (res.status == 200) {
-          console.log("Successful login!");
-        }
-        // else if (res.status == 400)
-      })
-      .catch((error) => {
-        console.log("Failed");
-      });
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setLocationPlace(responseJson.result.formatted_address);
+        });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
+  getPlaceDetails();
 
-    let loc = {
-      name: route.params.paramKey.name,
-      locationName: route.params.paramKey.locationName,
-      postalCode: postalCode,
-      latitude: latitude,
-      longitude: longitude,
-      placeId: placeId
-    };
-
-    console.log("adding");
-    axios
-      .patch(`${baseURL}cliques/addlocation2/${GLOBAL.USER.cliqueID}`, loc)
-      .then((res) => {
-        if (res.status == 200) {
-          console.log("Location added!");
-          setLocation("");
-          setPostalCode("");
-          setLatitude(null);
-          setLongitude(null);
-          setPlaceId(null);
-          setButtonWord(<Text>Add Location</Text>);
-          return Alert.alert("Changes Successful!");
-        }
-      })
-      .catch((error) => {
-        setButtonWord(<Text>Add Location</Text>);
-        Alert.alert("Failed to add");
-        console.log(error);
-      });
-
-    navigation.goBack();
-  };
+  if (postalCode == undefined) {
+    postalCode = "Cannot be found";
+  }
 
   return (
     <Container style={styles.container}>
@@ -113,57 +63,37 @@ const EditMemberLocationScreen = ({ route, navigation }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 17 }}>Edit Member Details</Title>
+          <Title style={{ fontSize: 17 }}> {name}'s Location</Title>
         </Body>
         <Right />
       </Header>
-      <Content contentContainerStyle={{ paddingLeft: 10, paddingTop: 40 }}>
+      <Content style={{ backgroundColor: "#fff" }}>
         {/* <Item floatingLabel>
           <Label>Location Name</Label>
           <Input value={location} onChangeText={setLocation} />
         </Item> */}
-        <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+        <List>
+          <ListItem style={{ height: 45 }}>
+            <Text style={{ textAlign: "center", fontWeight: "bold" }}>
               {" "}
-              Selected Location: {locationName}
+              Location Name:
             </Text>
-        <Item style={styles.searchBarContainer}>
-          <GooglePlacesAutocomplete
-            enablePoweredByContainer={false}
-            fetchDetails={true}
-            ref={ref}
-            placeholder="Name/Postal"
-            onPress={(data, details = null) => {
-              // 'details' is provided when fetchDetails = true
-              setLongitude(details.geometry.location.lng);
-              setLatitude(details.geometry.location.lat);
-              const postalNum = details?.address_components.find(
-                (addressComponent) =>
-                  addressComponent.types.includes("postal_code")
-              )?.short_name;
-              setPostalCode(postalNum);
-              setPlaceId(details.place_id);
-            }}
-            query={{
-              key: GOOGLE_PLACES_API_KEY,
-              language: "en",
-              components: "country:sg",
-            }}
-            styles={autoCompleteStyles}
-          />
-          {/* <Input value={location} onChangeText={setLocation} /> */}
-        </Item>
-        <Button
-          block
-          onPress={handleSubmit}
-          style={{
-            position: "absolute",
-            top: 150,
-            alignSelf: "center",
-            width: "90%",
-          }}
-        >
-          {buttonWord}
-        </Button>
+          </ListItem>
+          <ListItem style={{ height: 45 }}>
+            <Text style={{ textAlign: "center" }}> {locationName}</Text>
+          </ListItem>
+          <ListItem style={{ height: 45 }}>
+            <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+              {" "}
+              Location Address:{" "}
+            </Text>
+          </ListItem>
+          <ListItem style={{ height: 45 }}>
+            <Text style={{ textAlign: "center" }}> {locationPlace}</Text>
+          </ListItem>
+        </List>
+
+        {/* <Input value={location} onChangeText={setLocation} /> */}
       </Content>
     </Container>
   );

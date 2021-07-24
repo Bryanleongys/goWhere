@@ -14,16 +14,17 @@ import { useNavigation } from "@react-navigation/native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
+import { atan } from "react-native-reanimated";
 
 const SwipeEditMemberElement = ({ inputArray, navi, name }) => {
   GLOBAL = require("../global");
-//   console.log(inputArray);
+  //   console.log(inputArray);
   var length = inputArray.length;
   const [listData, setListData] = useState(
     Array(length)
       .fill("")
       .map((_, i) => ({ key: `${i}`, text: inputArray[i].locationName }))
-  )
+  );
 
   console.log(listData.length);
   const closeRow = (rowMap, rowKey) => {
@@ -41,7 +42,7 @@ const SwipeEditMemberElement = ({ inputArray, navi, name }) => {
     //console.log(inputArray[0])
     let inputDelete = {
       name: name,
-      locationName: inputArray[rowKey].locationName
+      locationName: inputArray[rowKey].locationName,
     };
 
     axios
@@ -79,7 +80,16 @@ const SwipeEditMemberElement = ({ inputArray, navi, name }) => {
 
   const renderItem = (data) => (
     <TouchableHighlight
-      onPress={() => console.log("You touched me")}
+      onPress={() =>
+        navi.navigate("CliqueScreen5", {
+          paramKey: {
+            name: name,
+            locationName: inputArray[data.item.key].locationName,
+            postalCode: inputArray[data.item.key].postalCode,
+            placeId: inputArray[data.item.key].placeId,
+          },
+        })
+      }
       style={styles.rowFront}
       underlayColor={"#00c6bb"}
     >
