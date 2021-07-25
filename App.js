@@ -135,30 +135,6 @@ const HomeStackScreen = () => {
   );
 };
 
-// export default function App() {
-//   return (
-//     <NavigationContainer>
-//       <AuthStack.Navigator
-//         initialRouteName="Welcome"
-//         screenOptions={{ headerShown: false }}
-//       >
-//         <AuthStack.Screen name="Welcome" component={Welcome} />
-//         <AuthStack.Screen name="CreateAccount" component={CreateAccount} />
-//         <AuthStack.Screen name="OneTime" component={OneTimeStackScreen} />
-//         <AuthStack.Screen name="Login" component={Login} />
-//         <AuthStack.Screen name="Home" component={HomeStackScreen} />
-//         <AuthStack.Screen name="Location" component={LocationStackScreen} />
-//         <AuthStack.Screen name="Clique" component={CliqueStackScreen} />
-//         <AuthStack.Screen name="Travel" component={TravelStackScreen} />
-//         <AuthStack.Screen
-//           name="ResetPassword"
-//           component={ResetPasswordScreen}
-//         />
-//       </AuthStack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
 const styles = StyleSheet.create({
   title: {
     fontSize: 32,
@@ -227,6 +203,13 @@ const slides = [
     title: "Let our algorithm do the work.",
     image: require("./assets/map.png"),
     text: "Our algorithm filters out the top 3 locations for your outing!",
+    backgroundColor: "#22bcb5",
+  },
+  {
+    key: "seven",
+    title: "One-Time Use Account",
+    image: require("./assets/anonymous.png"),
+    text: "Use our application anonymously when meeting with individuals!",
     backgroundColor: "#22bcb5",
   },
 ];
@@ -334,3 +317,27 @@ export default class App extends React.Component {
     }
   }
 }
+
+// export default function App() {
+//   return (
+//     <NavigationContainer>
+//       <AuthStack.Navigator
+//         initialRouteName="Welcome"
+//         screenOptions={{ headerShown: false }}
+//       >
+//         <AuthStack.Screen name="Welcome" component={Welcome} />
+//         <AuthStack.Screen name="CreateAccount" component={CreateAccount} />
+//         <AuthStack.Screen name="OneTime" component={OneTimeStackScreen} />
+//         <AuthStack.Screen name="Login" component={Login} />
+//         <AuthStack.Screen name="Home" component={HomeStackScreen} />
+//         <AuthStack.Screen name="Location" component={LocationStackScreen} />
+//         <AuthStack.Screen name="Clique" component={CliqueStackScreen} />
+//         <AuthStack.Screen name="Travel" component={TravelStackScreen} />
+//         <AuthStack.Screen
+//           name="ResetPassword"
+//           component={ResetPasswordScreen}
+//         />
+//       </AuthStack.Navigator>
+//     </NavigationContainer>
+//   );
+// }
