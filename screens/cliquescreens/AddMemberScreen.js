@@ -61,7 +61,7 @@ const AddMemberScreen = ({ navigation }) => {
           console.log("Friend added!");
           navigation.navigate("CliqueScreen4", { friendName: friend.name });
         }
-        return Alert.alert("Member added!");
+        return Alert.alert("Member Added!");
       })
       .catch((error) => {
         setButtonWord(<Text style={{ fontFamily: "Avenir" }}>Add Member</Text>);

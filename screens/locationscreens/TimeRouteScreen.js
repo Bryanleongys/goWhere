@@ -51,7 +51,7 @@ const TimeRouteScreen = ({ navigation, route }) => {
       <Header style={{ backgroundColor: "#bff6eb" }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ alignSelf: "center", flex: 3 }}>

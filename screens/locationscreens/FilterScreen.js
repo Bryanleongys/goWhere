@@ -63,7 +63,7 @@ const FilterScreen = ({ navigation, route }) => {
               })
             }
           >
-            <Icon name="arrow-back" />
+            <Icon style={{ color: "#148972" }} name="arrow-back" />
           </Button>
         </Left>
         <Body style={{ alignSelf: "center", flex: 3 }}>
