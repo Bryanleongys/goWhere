@@ -79,7 +79,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
   //console.log("travelLog array: ", travelLogArray);
 
   const handlePress = () => {
-    if (postalCode == null || placeId == null || markerName == "N/A") {
+    if (placeId == null || markerName == "N/A") {
       return Alert.alert("No location selected! Please select a location.");
     }
     let locationDetails = {
