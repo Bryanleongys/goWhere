@@ -33,6 +33,7 @@ const AddLocationScreen = ({ route, navigation }) => {
   const [buttonWord, setButtonWord] = React.useState(
     <Text style={{ fontFamily: "Avenir" }}>Add Location</Text>
   );
+  const { friendName } = route.params;
 
   // for Google Maps API
   const ref = useRef();
@@ -55,13 +56,14 @@ const AddLocationScreen = ({ route, navigation }) => {
     setButtonWord(<ActivityIndicator size="small" color="#fff" />);
 
     let loc = {
-      name: route.params.paramKey,
+      name: friendName,
       locationName: location,
       postalCode: postalCode,
       longitude: longitude,
       latitude: latitude,
       placeId: placeId,
     };
+    console.log(loc);
 
     axios
       .patch(`${baseURL}cliques/addlocation/${GLOBAL.USER.cliqueID}`, loc)
@@ -108,7 +110,7 @@ const AddLocationScreen = ({ route, navigation }) => {
         </Left>
         <Body style={{ flex: 3 }}>
           <Title style={{ fontSize: 17, fontFamily: "Avenir" }}>
-            Add Location
+            Add {friendName}'s Location
           </Title>
         </Body>
         <Right />

@@ -86,7 +86,7 @@ const SwipeMemberElement = ({ inputArray }) => {
       renderItem={renderItem}
       renderHiddenItem={renderHiddenItem}
       leftOpenValue={75}
-      rightOpenValue={-150}
+      rightOpenValue={-75}
       previewRowKey={"0"}
       previewOpenValue={-40}
       previewOpenDelay={3000}
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     position: "absolute",
     top: 0,
-    width: 150,
+    width: 75,
   },
   backRightBtnLeft: {
     backgroundColor: "#c8c8c8",

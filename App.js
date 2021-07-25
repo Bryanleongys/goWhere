@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { DrawerRouter, NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -34,6 +34,7 @@ import ChangeEmail from "./screens/accountscreens/ChangeEmail";
 import DeleteClique from "./screens/accountscreens/DeleteClique";
 import TimeRoute from "./screens/locationscreens/TimeRouteScreen";
 import Filter from "./screens/locationscreens/FilterScreen";
+import AppIntroSlider from "react-native-app-intro-slider";
 
 const AuthStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -134,34 +135,202 @@ const HomeStackScreen = () => {
   );
 };
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <AuthStack.Navigator
-        initialRouteName="Welcome"
-        screenOptions={{ headerShown: false }}
-      >
-        <AuthStack.Screen name="Welcome" component={Welcome} />
-        <AuthStack.Screen name="CreateAccount" component={CreateAccount} />
-        <AuthStack.Screen name="OneTime" component={OneTimeStackScreen} />
-        <AuthStack.Screen name="Login" component={Login} />
-        <AuthStack.Screen name="Home" component={HomeStackScreen} />
-        <AuthStack.Screen name="Location" component={LocationStackScreen} />
-        <AuthStack.Screen name="Clique" component={CliqueStackScreen} />
-        <AuthStack.Screen name="Travel" component={TravelStackScreen} />
-        <AuthStack.Screen
-          name="ResetPassword"
-          component={ResetPasswordScreen}
-        />
-      </AuthStack.Navigator>
-    </NavigationContainer>
-  );
-}
+// export default function App() {
+//   return (
+//     <NavigationContainer>
+//       <AuthStack.Navigator
+//         initialRouteName="Welcome"
+//         screenOptions={{ headerShown: false }}
+//       >
+//         <AuthStack.Screen name="Welcome" component={Welcome} />
+//         <AuthStack.Screen name="CreateAccount" component={CreateAccount} />
+//         <AuthStack.Screen name="OneTime" component={OneTimeStackScreen} />
+//         <AuthStack.Screen name="Login" component={Login} />
+//         <AuthStack.Screen name="Home" component={HomeStackScreen} />
+//         <AuthStack.Screen name="Location" component={LocationStackScreen} />
+//         <AuthStack.Screen name="Clique" component={CliqueStackScreen} />
+//         <AuthStack.Screen name="Travel" component={TravelStackScreen} />
+//         <AuthStack.Screen
+//           name="ResetPassword"
+//           component={ResetPasswordScreen}
+//         />
+//       </AuthStack.Navigator>
+//     </NavigationContainer>
+//   );
+// }
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    fontFamily: "Avenir",
+    textAlign: "center",
+    width: "90%",
+    paddingTop: 30,
+  },
+  image: {
+    width: 300,
+    height: 300,
+  },
+  text: {
+    fontSize: 20,
+    paddingTop: 30,
+    fontFamily: "Avenir",
+    textAlign: "center",
+    width: "90%",
+  },
+  buttonCircle: {
     justifyContent: "center",
+    alignItems: "center",
   },
 });
+
+const slides = [
+  {
+    key: "one",
+    title: "goWhere",
+    text: "Select the optimal location for your outings!",
+    image: require("./assets/pacman.png"),
+    backgroundColor: "#59b2ab",
+  },
+  {
+    key: "two",
+    title: "Clique System",
+    text: "Create an account for you and your friends.",
+    // image: require("./assets/2.jpg"),
+    image: require("./assets/group.png"),
+    backgroundColor: "#febe29",
+  },
+  {
+    key: "three",
+    title: "Add friends to your clique.",
+    image: require("./assets/add-friend.png"),
+    text: "Add names of your members to the clique.",
+    backgroundColor: "#22bcb5",
+  },
+  {
+    key: "four",
+    title: "Add your friends' default locations.",
+    image: require("./assets/location.png"),
+    text: "Select these default locations (e.g. Home) while choosing meetup location.",
+    backgroundColor: "#22bcb5",
+  },
+  {
+    key: "five",
+    title: "Keep your travel log updated.",
+    image: require("./assets/add-location.png"),
+    text: "Add locations to places you have been to refine our algorithm.",
+    backgroundColor: "#22bcb5",
+  },
+  {
+    key: "six",
+    title: "Let our algorithm do the work.",
+    image: require("./assets/map.png"),
+    text: "Our algorithm filters out the top 3 locations for your outing!",
+    backgroundColor: "#22bcb5",
+  },
+];
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showRealApp: false,
+    };
+  }
+  _renderItem = ({ item }) => {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#bff6eb",
+        }}
+      >
+        <Image style={styles.image} source={item.image} />
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.text}>{item.text}</Text>
+      </View>
+    );
+  };
+  _onDone = () => {
+    // User finished the introduction. Show real app through
+    // navigation or simply by controlling state
+    this.setState({ showRealApp: true });
+  };
+
+  _renderNextButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Text
+          style={{
+            fontSize: 18,
+            color: "#148972",
+            fontFamily: "Avenir",
+            paddingRight: 20,
+            paddingTop: 10,
+          }}
+        >
+          Next
+        </Text>
+      </View>
+    );
+  };
+
+  _renderDoneButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Text
+          style={{
+            fontSize: 18,
+            color: "#148972",
+            fontFamily: "Avenir",
+            paddingRight: 20,
+            paddingTop: 10,
+          }}
+        >
+          Done
+        </Text>
+      </View>
+    );
+  };
+
+  render() {
+    if (this.state.showRealApp) {
+      return (
+        <NavigationContainer>
+          <AuthStack.Navigator
+            initialRouteName="Welcome"
+            screenOptions={{ headerShown: false }}
+          >
+            <AuthStack.Screen name="Welcome" component={Welcome} />
+            <AuthStack.Screen name="CreateAccount" component={CreateAccount} />
+            <AuthStack.Screen name="OneTime" component={OneTimeStackScreen} />
+            <AuthStack.Screen name="Login" component={Login} />
+            <AuthStack.Screen name="Home" component={HomeStackScreen} />
+            <AuthStack.Screen name="Location" component={LocationStackScreen} />
+            <AuthStack.Screen name="Clique" component={CliqueStackScreen} />
+            <AuthStack.Screen name="Travel" component={TravelStackScreen} />
+            <AuthStack.Screen
+              name="ResetPassword"
+              component={ResetPasswordScreen}
+            />
+          </AuthStack.Navigator>
+        </NavigationContainer>
+      );
+    } else {
+      return (
+        <AppIntroSlider
+          activeDotStyle={{ width: 20, backgroundColor: "#148972" }}
+          dotStyle={{ width: 20, backgroundColor: "#c8c8c8" }}
+          renderItem={this._renderItem}
+          data={slides}
+          onDone={this._onDone}
+          renderDoneButton={this._renderDoneButton}
+          renderNextButton={this._renderNextButton}
+        />
+      );
+    }
+  }
+}

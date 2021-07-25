@@ -71,7 +71,7 @@ const EditMemberScreen = ({ route, navigation }) => {
   }, [isFocused]);
 
   const handlePress = () => {
-    navigation.navigate("CliqueScreen4", { paramKey: friend.name });
+    navigation.navigate("CliqueScreen4", { friendName: friend.name });
   };
 
   const backPress = () => {

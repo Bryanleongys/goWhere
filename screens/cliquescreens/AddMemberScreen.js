@@ -59,7 +59,7 @@ const AddMemberScreen = ({ navigation }) => {
         if (res.status == 200) {
           setButtonWord(<Text>Add Member</Text>);
           console.log("Friend added!");
-          navigation.navigate("CliqueScreen4", { paramKey: friend.name });
+          navigation.navigate("CliqueScreen4", { friendName: friend.name });
         }
         return Alert.alert("Member added!");
       })

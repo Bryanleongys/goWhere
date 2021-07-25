@@ -41,7 +41,7 @@ const CreateAccount = ({ navigation }) => {
     } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       return Alert.alert("Please enter a valid email.");
     } else if (password1.length < 8) {
-      return Alert.alert("Password too short!");
+      return Alert.alert("Password too short! Minimum 8 characters.");
     } else if (password1 != password2) {
       return Alert.alert("Passwords mismatched. Please retype passwords.");
     }
