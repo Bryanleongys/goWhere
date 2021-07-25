@@ -66,11 +66,12 @@ const SelectPersonScreen2 = ({ navigation }) => {
       <Content padder contentContainerStyle={styles.contentContainer}>
         <Text style={styles.question}>Whose coming for this outing?</Text>
         {currData.map((people, index) => {
+          const colorIndex = index % colorArray.length;
           return (
             <CheckboxElement
               key={index}
               name={people}
-              color={colorArray[index]}
+              color={colorArray[colorIndex]}
               parentCallback={handleCallback}
               index={index}
             />

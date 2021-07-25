@@ -93,6 +93,17 @@ const EditMemberScreen = ({ route, navigation }) => {
     navigation.goBack();
   };
 
+  const displayNull = () => {
+    if (currData.length == 0) {
+      return (
+        <ListItem>
+          <Text style={{ fontFamily: "Avenir" }}>NIL</Text>
+        </ListItem>
+      );
+    }
+    return;
+  };
+
   return init ? (
     <Container style={styles.container}>
       <Header style={{ backgroundColor: "#bff6eb" }}>
@@ -122,6 +133,15 @@ const EditMemberScreen = ({ route, navigation }) => {
       </Header>
 
       <Content>
+        <List>
+          <ListItem>
+            <Text style={{ fontFamily: "Avenir", fontWeight: "bold" }}>
+              {" "}
+              Default Locations:
+            </Text>
+          </ListItem>
+          {displayNull()}
+        </List>
         <SwipeEditMemberElement
           inputArray={currData}
           navi={navigation}

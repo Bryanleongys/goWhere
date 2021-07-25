@@ -81,7 +81,9 @@ const ChangeEmailScreen = ({ navigation }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 17 }}>Change Email Address</Title>
+          <Title style={{ fontSize: 17, fontFamily: "Avenir" }}>
+            Change Email Address
+          </Title>
         </Body>
         <Right />
       </Header>

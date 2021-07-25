@@ -63,7 +63,9 @@ const DeleteCliqueScreen = ({ navigation }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 17 }}>Delete Clique</Title>
+          <Title style={{ fontSize: 17, fontFamily: "Avenir" }}>
+            Delete Clique
+          </Title>
         </Body>
         <Right />
       </Header>

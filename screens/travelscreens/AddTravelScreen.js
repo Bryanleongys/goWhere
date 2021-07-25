@@ -159,7 +159,7 @@ const AddTravelScreen = ({ navigation, route }) => {
             enablePoweredByContainer={false}
             fetchDetails={true}
             ref={ref}
-            placeholder="Name/Postal"
+            placeholder="Address / Postal Code"
             onPress={(data, details = null) => {
               // 'details' is provided when fetchDetails = true
               setLocation(data.structured_formatting.main_text);

@@ -248,7 +248,7 @@ export default class App extends React.Component {
       <View style={styles.buttonCircle}>
         <Text
           style={{
-            fontSize: 18,
+            fontSize: 16,
             color: "#148972",
             fontFamily: "Avenir",
             paddingRight: 20,
@@ -266,7 +266,7 @@ export default class App extends React.Component {
       <View style={styles.buttonCircle}>
         <Text
           style={{
-            fontSize: 18,
+            fontSize: 16,
             color: "#148972",
             fontFamily: "Avenir",
             paddingRight: 20,

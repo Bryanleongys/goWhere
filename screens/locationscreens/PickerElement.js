@@ -155,7 +155,7 @@ const PickerElement = ({
             <GooglePlacesAutocomplete
               enablePoweredByContainer={false}
               ref={ref}
-              placeholder="Name/Postal"
+              placeholder="Address / Postal Code"
               fetchDetails={true}
               onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true

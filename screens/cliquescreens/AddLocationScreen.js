@@ -117,7 +117,7 @@ const AddLocationScreen = ({ route, navigation }) => {
       </Header>
       <Content contentContainerStyle={{ paddingLeft: 10, paddingTop: 10 }}>
         <Item floatingLabel>
-          <Label>Location Name</Label>
+          <Label>Default Location (e.g. Home)</Label>
           <Input value={location} onChangeText={setLocation} />
         </Item>
         <Item style={styles.searchBarContainer}>
@@ -125,7 +125,7 @@ const AddLocationScreen = ({ route, navigation }) => {
             enablePoweredByContainer={false}
             fetchDetails={true}
             ref={ref}
-            placeholder="Name/Postal"
+            placeholder="Address / Postal Code"
             onPress={(data, details = null) => {
               // 'details' is provided when fetchDetails = true
               setLongitude(details.geometry.location.lng);

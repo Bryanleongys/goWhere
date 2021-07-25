@@ -346,7 +346,7 @@ const GoogleMapScreen = ({ navigation, route }) => {
             }}
             ref={ref}
             fetchDetails={true}
-            placeholder="Search Location"
+            placeholder="Select Other Locations"
             onPress={(data, details, types = null) => {
               // 'details' is provided when fetchDetails = true
               // const zipCode = details?.address_components.find(

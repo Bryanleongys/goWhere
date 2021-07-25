@@ -83,7 +83,9 @@ const ChangePasswordScreen = ({ navigation }) => {
           </Button>
         </Left>
         <Body style={{ flex: 3 }}>
-          <Title style={{ fontSize: 17 }}>Change Password</Title>
+          <Title style={{ fontSize: 17, fontFamily: "Avenir" }}>
+            Change Password
+          </Title>
         </Body>
         <Right />
       </Header>
