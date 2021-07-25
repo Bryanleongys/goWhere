@@ -16,16 +16,22 @@ import { CommonActions } from "@react-navigation/native";
 const NotificationScreen = ({ navigation, route }) => {
   const { markerName, dateString, timeString, postalCode } = route.params;
   const GLOBAL = require("../global");
-  const MESSAGE =
-    "Meet at " +
-    markerName +
-    " (S" +
-    postalCode +
-    "), " +
-    dateString +
-    ", " +
-    timeString +
-    ".";
+  var MESSAGE;
+  if (!postalCode || postalCode == null || postalCode == undefined) {
+    MESSAGE =
+      "Meet at " + markerName + ", " + dateString + ", " + timeString + ".";
+  } else {
+    MESSAGE =
+      "Meet at " +
+      markerName +
+      " (S" +
+      postalCode +
+      "), " +
+      dateString +
+      ", " +
+      timeString +
+      ".";
+  }
   const [messageInput, setText] = useState(MESSAGE);
 
   const onShare = async () => {
