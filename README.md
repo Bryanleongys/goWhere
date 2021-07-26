@@ -36,9 +36,7 @@ You’re about to have an outing with your usual group of friends, but even afte
 
 3. As a large group of friends who are each located at different parts of Singapore, and are unable to choose a location equidistant from everybody.
 
-4. As a group of friends who prefer to frequent less crowded areas in Singapore to skip the queues.
-
-5. As a group of friends who only frequent places with high ratings to meet their high standards.
+4. As a group of friends who only frequent places with high ratings to meet their high standards.
 
 ## Project Scope and Ideation
 
@@ -147,7 +145,7 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 
 ### Change Clique Settings\*
 
-<img src="https://user-images.githubusercontent.com/69454147/126746633-43a863d5-14bb-47dc-a5d1-b62274c0dd11.png" width = "450" height = "500">
+<img src="https://user-images.githubusercontent.com/69454147/126746633-43a863d5-14bb-47dc-a5d1-b62274c0dd11.png" width = "500" height = "500">
 
 - View existing members in the clique
 - Add members and their respective locations to the clique
@@ -165,8 +163,8 @@ We have chosen ExpressJS due to the fast and minimalist web framework used for N
 ### Account Settings Features
 
 - Change Password
-- Change email
-- Delete account
+- Change Email
+- Delete Account
 
 ### Database Overview
 
